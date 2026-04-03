@@ -1,0 +1,39 @@
+.home-container__wrapper{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+        
+    height: 80%;
+    width: 70%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #DBD2E0;
+}
+
+.navigation-bar-container__wrapper{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    border-radius: 10px;
+    height: 10%;
+    width: 95%;
+    padding: 10px;
+    background-color: #273B09;
+}
+
+.search-bar__input{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 70%;
+
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    outline: none;
+    font-size: 21px;
+}
