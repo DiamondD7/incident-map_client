@@ -1,4 +1,5 @@
-const API_BASE_URL = 'https://localhost:7207/api/incident';
+const API_BASE_URL = 'https://localhost:7207/api/promotion';
 
-export const GetIncidents = `${API_BASE_URL}/all-incidents`;
-export const AddIncidentReport = `${API_BASE_URL}/new-incident`;
+export const GetPromotions = `${API_BASE_URL}/all-promotions`;
+export const GetPromotionsByLocation = `${API_BASE_URL}/promotion-by-location`;
+//export const AddIncidentReport = `${API_BASE_URL}/new-incident`;s

@@ -8,15 +8,19 @@ import {
 } from "react-leaflet";
 import { Icon } from "leaflet";
 import {
-  GpsFixIcon,
-  WarningIcon,
-  PoliceCarIcon,
-  CarProfileIcon,
-  BarricadeIcon,
+  CoffeeIcon,
+  ForkKnifeIcon,
+  HourglassHighIcon,
+  HourglassIcon,
+  HourglassLowIcon,
+  HourglassMediumIcon,
   MapPinIcon,
-  XIcon,
+  StorefrontIcon,
 } from "@phosphor-icons/react";
-import { AddIncidentReport, GetIncidents } from "../../assets/js/api-auth";
+import {
+  GetPromotions,
+  GetPromotionsByLocation,
+} from "../../assets/js/api-auth";
 import currentLocIcon from "../../assets/gps-fix.png";
 import selectedLocIcon from "../../assets/map-pin-fill.png";
 import accidentIcon from "../../assets/incidenticons/warning-fill.png";
@@ -27,144 +31,261 @@ import hazardIcon from "../../assets/incidenticons/barricade-fill.png";
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
 const MapActionsContainer = ({
-  position,
-  setPosition,
-  currentPos,
-  setSubmitted,
+  filteredShopType,
+  setNoFilter,
+  setFilteredShopType,
+  setFilteredLocation,
+  latitude,
+  longitude,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
-  const toggleExpand = (e) => {
-    e.preventDefault();
-    setIsExpanded((prev) => !prev);
+  const LocationFilter = ({
+    setNoFilter,
+    setSelectedLocation,
+    setFilteredLocation,
+    latitude,
+    longitude,
+  }) => {
+    return (
+      <div className="filter-open__wrapper locationFilter">
+        <ul className="filter-open__ul">
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Auckland CBD" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.8485, lng: 174.7633 });
+                setSelectedLocation("Auckland CBD");
+                setNoFilter(false);
+              }}
+            >
+              Auckland CBD
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Mount Wellington" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.9167, lng: 174.8167 });
+                setSelectedLocation("Mount Wellington");
+                setNoFilter(false);
+              }}
+            >
+              Mount Wellington
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Panmure" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.915, lng: 174.8709 });
+                setSelectedLocation("Panmure");
+                setNoFilter(false);
+              }}
+            >
+              Pakuranga
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Howick" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.893, lng: 174.9243 });
+                setSelectedLocation("Howick");
+                setNoFilter(false);
+              }}
+            >
+              Howick
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Onehunga" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.923, lng: 174.7854 });
+                setSelectedLocation("Onehunga");
+                setNoFilter(false);
+              }}
+            >
+              Onehunga
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Current Location" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: latitude, lng: longitude });
+                setSelectedLocation("Current Location");
+                setNoFilter(false);
+              }}
+            >
+              Current Location
+            </button>
+          </li>
+          <br />
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === null ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation(null);
+                setSelectedLocation(null);
+              }}
+            >
+              All Locations
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
   };
 
-  const handleAddIncident = async (e, incidentType) => {
+  const ExpiryFilter = () => {
+    return (
+      <div className="filter-open__wrapper expiryFilter">
+        <ul className="filter-open__ul">
+          <li>
+            <button className="filter-open__btn">
+              <HourglassIcon size={17} color="#202020b6" weight="fill" />
+              Indefinitely
+            </button>
+          </li>
+          <li>
+            <button className="filter-open__btn">
+              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              Expiry soon
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
+  const ShopFilter = ({ setNoFilter, setFilteredShopType }) => {
+    return (
+      <div className="filter-open__wrapper shopFilter">
+        <ul className="filter-open__ul">
+          <li>
+            <button
+              className={`filter-open__btn ${filteredShopType === "Cafe" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredShopType("Cafe");
+                setNoFilter(false);
+              }}
+            >
+              <CoffeeIcon size={17} color="#202020b6" weight="fill" /> Cafe
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${filteredShopType === "Restaurant" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredShopType("Restaurant");
+                setNoFilter(false);
+              }}
+            >
+              <ForkKnifeIcon size={17} color="#202020b6" weight="fill" />{" "}
+              Restaurant
+            </button>
+          </li>
+          <br />
+          <li>
+            <button
+              className={`filter-open__btn ${filteredShopType === null ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredShopType(null);
+                setNoFilter(false);
+              }}
+            >
+              <ForkKnifeIcon size={17} color="#202020b6" weight="fill" /> All
+              Shops
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
+  // -------------------------------------------------------------------------------
+
+  const handleOpenFilter = (e, filterType) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(AddIncidentReport, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          IncidentType: incidentType,
-          Latitude: position ? position.lat : currentPos.latitude,
-          Longitude: position ? position.lng : currentPos.longitude,
-        }),
-      });
-
-      if (response.status === 400) {
-        console.log(response.status);
-      }
-
-      if (!response.ok) {
-        throw new Error("Failed to add incident report");
-      }
-
-      const data = await response.json();
-      console.log("Incident report added successfully:", data);
-      setSubmitted(true);
-      setPosition(null);
-      setIsExpanded(false);
-    } catch (err) {
-      console.error("Error adding incident report:", err);
-      throw err;
+    if (filterOpen === filterType) {
+      setFilterOpen(null);
+      return;
     }
-  };
 
+    setFilterOpen(filterType);
+  };
   return (
     <div className="map-actions-container__wrapper">
-      <div className="actions__wrapper">
-        <>
-          <button
-            className="incident-report__btn"
-            onClick={(e) => toggleExpand(e)}
-          >
-            {position === null ? (
-              <>
-                Report Incident - Use the current{" "}
-                <GpsFixIcon size={15} color="#fff" weight="fill" /> location
-              </>
-            ) : (
-              <>
-                Report Incident - Use the selected{" "}
-                <MapPinIcon size={15} color="#5842ff" weight="fill" /> location
-              </>
-            )}
-          </button>
-        </>
-
-        <>
-          <button
-            className={`traffic__btn ${isExpanded ? "expanded" : "not-expanded"}`}
-            disabled={!isExpanded}
-            onClick={(e) => handleAddIncident(e, "Traffic")}
-          >
-            <CarProfileIcon size={18} color="#fff" weight="fill" />
-          </button>
-          <button
-            className={`accident__btn ${isExpanded ? "expanded" : "not-expanded"}`}
-            disabled={!isExpanded}
-            onClick={(e) => handleAddIncident(e, "Accident")}
-          >
-            <WarningIcon size={18} color="#fff" weight="fill" />
-          </button>
-          <button
-            className={`hazard__btn ${isExpanded ? "expanded" : "not-expanded"}`}
-            disabled={!isExpanded}
-            onClick={(e) => handleAddIncident(e, "Hazard")}
-          >
-            {" "}
-            <BarricadeIcon size={18} color="#fff" weight="fill" />
-          </button>
-          <button
-            className={`police__btn ${isExpanded ? "expanded" : "not-expanded"}`}
-            disabled={!isExpanded}
-            onClick={(e) => handleAddIncident(e, "Police")}
-          >
-            {" "}
-            <PoliceCarIcon size={18} color="#fff" weight="fill" />
-          </button>
-
-          <button
-            className={`close__btn ${isExpanded ? "expanded" : "not-expanded"}`}
-            disabled={!isExpanded}
-            onClick={() => setIsExpanded(false)}
-          >
-            <XIcon size={18} color="#202020" />
-          </button>
-        </>
+      {filterOpen === "shop" ? (
+        <ShopFilter
+          setNoFilter={setNoFilter}
+          setFilteredShopType={setFilteredShopType}
+        />
+      ) : filterOpen === "expiry" ? (
+        <ExpiryFilter />
+      ) : filterOpen === "location" ? (
+        <LocationFilter
+          setNoFilter={setNoFilter}
+          setSelectedLocation={setSelectedLocation}
+          setFilteredLocation={setFilteredLocation}
+          latitude={latitude}
+          longitude={longitude}
+        />
+      ) : null}
+      <div className="filter__wrapper">
+        <button
+          className="filter__btn"
+          onClick={(e) => handleOpenFilter(e, "shop")}
+        >
+          <StorefrontIcon size={17} color="#007000" weight="fill" />{" "}
+          {filteredShopType === null ? "All Shops" : filteredShopType}
+        </button>
+        <button
+          className="filter__btn"
+          onClick={(e) => handleOpenFilter(e, "expiry")}
+        >
+          <HourglassMediumIcon size={17} color="#007000" weight="fill" /> Expiry
+        </button>
+        <button
+          className="filter__btn"
+          onClick={(e) => handleOpenFilter(e, "location")}
+        >
+          <MapPinIcon size={17} color="#007000" weight="fill" />{" "}
+          {selectedLocation === null ? "All Locations" : selectedLocation}
+        </button>
       </div>
     </div>
   );
 };
 
-const ClickHandler = ({ position, setPosition }) => {
-  useMapEvents({
-    click: (e) => {
-      if (e.latlng.lat === position?.lat && e.latlng.lng === position?.lng) {
-        setPosition(null);
-        return;
-      }
-      setPosition(e.latlng);
-    },
-  });
+// const ClickHandler = ({ position, setPosition }) => {
+//   useMapEvents({
+//     click: (e) => {
+//       if (e.latlng.lat === position?.lat && e.latlng.lng === position?.lng) {
+//         setPosition(null);
+//         return;
+//       }
+//       setPosition(e.latlng);
+//     },
+//   });
 
-  return null;
-};
+//   return null;
+// };
 
 const AppMapContainer = () => {
-  const [incidents, setIncidents] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
+  const [promotions, setPromotions] = useState([]);
 
-  const [position, setPosition] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [noFilter, setNoFilter] = useState(true);
+  const [filteredLocation, setFilteredLocation] = useState(null);
+  const [filteredShopType, setFilteredShopType] = useState(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -198,82 +319,114 @@ const AppMapContainer = () => {
   }, []);
 
   useEffect(() => {
-    //MAKE THIS BETTER
-    fetch(GetIncidents, {
+    if (noFilter === false) return;
+    fetch(GetPromotions, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("Fetched incidents:", response);
-        setIncidents(response.data);
-        setSubmitted(false);
+        console.log("Fetched promotions:", response);
+        setPromotions(response.data);
+        setNoFilter(true);
       });
-  }, [submitted]);
+  }, [noFilter]);
+
+  useEffect(() => {
+    if (noFilter === true) return;
+    fetch(GetPromotionsByLocation, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Latitude: filteredLocation ? filteredLocation.lat : 0,
+        Longitude: filteredLocation ? filteredLocation.lng : 0,
+        ShopType: filteredShopType,
+      }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("Fetched promotions by location:", response);
+        setPromotions(response.data);
+      });
+  }, [filteredLocation, filteredShopType]);
 
   const currentLocationIcon = new Icon({
     iconUrl: currentLocIcon,
     iconSize: [25, 25],
   });
 
-  const handleIncidentIcon = (type) => {
-    // This function determines the appropriate icon based on the incident type
-    return new Icon({
-      iconUrl:
-        type === "Accident"
-          ? accidentIcon
-          : type === "Police"
-            ? policeIcon
-            : type === "Traffic"
-              ? trafficIcon
-              : hazardIcon,
-      iconSize: [30, 30],
-    });
-  };
+  // const handleIncidentIcon = (type) => {
+  //   // This function determines the appropriate icon based on the incident type
+  //   return new Icon({
+  //     iconUrl:
+  //       type === "Accident"
+  //         ? accidentIcon
+  //         : type === "Police"
+  //           ? policeIcon
+  //           : type === "Traffic"
+  //             ? trafficIcon
+  //             : hazardIcon,
+  //     iconSize: [30, 30],
+  //   });
+  // };
 
   const selectedLocationIcon = new Icon({
     iconUrl: selectedLocIcon,
     iconSize: [25, 25],
   });
+
   return (
     <>
       <div className="map-container__wrapper">
         {error && <p className="map-error__message">{error}</p>}
         <>
           {isLoading === false ? (
-            <MapContainer center={[latitude, longitude]} zoom={13}>
+            <MapContainer
+              center={
+                filteredLocation === null
+                  ? [latitude, longitude]
+                  : [filteredLocation.lat, filteredLocation.lng]
+              }
+              zoom={13}
+            >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
 
               <Marker
-                position={[latitude, longitude]}
+                position={
+                  filteredLocation === null
+                    ? [latitude, longitude]
+                    : [filteredLocation?.lat, filteredLocation?.lng]
+                }
                 icon={currentLocationIcon}
               >
                 <Popup>You are here</Popup>
               </Marker>
 
-              <ClickHandler position={position} setPosition={setPosition} />
+              {/* <ClickHandler position={position} setPosition={setPosition} /> */}
 
-              {position && (
+              {promotions.map((promotion) => (
                 <Marker
-                  position={position}
-                  icon={selectedLocationIcon}
-                ></Marker>
-              )}
-
-              {incidents.map((incident) => (
-                <Marker
-                  key={incident.id}
-                  position={[incident.latitude, incident.longitude]}
-                  icon={handleIncidentIcon(incident.incidentType)}
+                  key={promotion.id}
+                  position={[promotion.latitude, promotion.longitude]}
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
-                      <h3>{incident.incidentType}</h3>
+                      <h2>{promotion.shopName}</h2>
+                      <h4>{promotion.title}</h4>
+                      <p>{promotion.description}</p>
                       <p>
-                        Reported at:{" "}
-                        {new Date(incident.createdAt).toLocaleString()}
+                        For more info.{" "}
+                        <a
+                          href={promotion.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Click here
+                        </a>
                       </p>
                     </div>
                   </Popup>
@@ -286,10 +439,12 @@ const AppMapContainer = () => {
         </>
       </div>
       <MapActionsContainer
-        position={position}
-        setPosition={setPosition}
-        currentPos={{ latitude: latitude, longitude: longitude }}
-        setSubmitted={setSubmitted}
+        filteredShopType={filteredShopType}
+        setNoFilter={setNoFilter}
+        setFilteredShopType={setFilteredShopType}
+        setFilteredLocation={setFilteredLocation}
+        latitude={latitude}
+        longitude={longitude}
       />
     </>
   );
