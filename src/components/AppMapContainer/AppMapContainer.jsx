@@ -67,7 +67,7 @@ const MapActionsContainer = ({
             <button
               className={`filter-open__btn ${selectedLocation === "Mount Wellington" ? "filter-open-chosen__btn" : ""}`}
               onClick={() => {
-                setFilteredLocation({ lat: -36.9167, lng: 174.8167 });
+                setFilteredLocation({ lat: -36.9085, lng: 174.8388 });
                 setSelectedLocation("Mount Wellington");
                 setNoFilter(false);
               }}
@@ -109,6 +109,90 @@ const MapActionsContainer = ({
               }}
             >
               Onehunga
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Takanini" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -37.0391, lng: 174.9308 });
+                setSelectedLocation("Takanini");
+                setNoFilter(false);
+              }}
+            >
+              Takanini
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Ōtāhuhu" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.951, lng: 174.8451 });
+                setSelectedLocation("Ōtāhuhu");
+                setNoFilter(false);
+              }}
+            >
+              Ōtāhuhu
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Mission Bay" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.8517, lng: 174.831 });
+                setSelectedLocation("Mission Bay");
+                setNoFilter(false);
+              }}
+            >
+              Mission Bay
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Mount Eden" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.8871, lng: 174.7474 });
+                setSelectedLocation("Mount Eden");
+                setNoFilter(false);
+              }}
+            >
+              Mount Eden
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Māngere" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.9722, lng: 174.7867 });
+                setSelectedLocation("Māngere");
+                setNoFilter(false);
+              }}
+            >
+              Māngere
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "Remuera" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.8807, lng: 174.7981 });
+                setSelectedLocation("Remuera");
+                setNoFilter(false);
+              }}
+            >
+              Remuera
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${selectedLocation === "New Lynn" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredLocation({ lat: -36.909, lng: 174.6775 });
+                setSelectedLocation("New Lynn");
+                setNoFilter(false);
+              }}
+            >
+              New Lynn
             </button>
           </li>
           <li>
@@ -418,16 +502,19 @@ const AppMapContainer = () => {
                       <h2>{promotion.shopName}</h2>
                       <h4>{promotion.title}</h4>
                       <p>{promotion.description}</p>
-                      <p>
-                        For more info.{" "}
-                        <a
-                          href={promotion.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Click here
-                        </a>
-                      </p>
+
+                      {promotion.link !== null && (
+                        <p>
+                          For more info.{" "}
+                          <a
+                            href={promotion.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Click here
+                          </a>
+                        </p>
+                      )}
                     </div>
                   </Popup>
                 </Marker>
