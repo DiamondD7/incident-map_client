@@ -35,6 +35,8 @@ const MapActionsContainer = ({
   setNoFilter,
   setFilteredShopType,
   setFilteredLocation,
+  filteredExpiry,
+  setFilteredExpiry,
   latitude,
   longitude,
 }) => {
@@ -224,20 +226,59 @@ const MapActionsContainer = ({
     );
   };
 
-  const ExpiryFilter = () => {
+  const ExpiryFilter = ({ filteredExpiry, setFilteredExpiry, setNoFilter }) => {
     return (
       <div className="filter-open__wrapper expiryFilter">
-        <ul className="filter-open__ul">
+        <ul
+          className={`filter-open__ul ${filteredExpiry === 12 ? "filter-open-chosen__btn" : ""}`}
+        >
           <li>
-            <button className="filter-open__btn">
-              <HourglassIcon size={17} color="#202020b6" weight="fill" />
-              Indefinitely
+            <button
+              className="filter-open__btn"
+              onClick={() => {
+                setFilteredExpiry(12);
+                setNoFilter(false);
+              }}
+            >
+              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              Exp in 12 days
             </button>
           </li>
           <li>
-            <button className="filter-open__btn">
+            <button
+              className={`filter-open__btn ${filteredExpiry === 7 ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredExpiry(7);
+                setNoFilter(false);
+              }}
+            >
               <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
-              Expiry soon
+              Exp in 7 days
+            </button>
+          </li>
+          <li>
+            <button
+              className={`filter-open__btn ${filteredExpiry === 3 ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredExpiry(3);
+                setNoFilter(false);
+              }}
+            >
+              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              Exp in 3 days
+            </button>
+          </li>
+          <br />
+          <li>
+            <button
+              className={`filter-open__btn ${filteredExpiry === 0 ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredExpiry(0);
+                setNoFilter(false);
+              }}
+            >
+              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              Show all
             </button>
           </li>
         </ul>
@@ -309,7 +350,11 @@ const MapActionsContainer = ({
           setFilteredShopType={setFilteredShopType}
         />
       ) : filterOpen === "expiry" ? (
-        <ExpiryFilter />
+        <ExpiryFilter
+          filteredExpiry={filteredExpiry}
+          setFilteredExpiry={setFilteredExpiry}
+          setNoFilter={setNoFilter}
+        />
       ) : filterOpen === "location" ? (
         <LocationFilter
           setNoFilter={setNoFilter}
@@ -331,7 +376,8 @@ const MapActionsContainer = ({
           className="filter__btn"
           onClick={(e) => handleOpenFilter(e, "expiry")}
         >
-          <HourglassMediumIcon size={17} color="#007000" weight="fill" /> Expiry
+          <HourglassMediumIcon size={17} color="#007000" weight="fill" />{" "}
+          {filteredExpiry === 0 ? "Show All" : `Exp in ${filteredExpiry} days`}
         </button>
         <button
           className="filter__btn"
@@ -370,6 +416,7 @@ const AppMapContainer = () => {
   const [noFilter, setNoFilter] = useState(true);
   const [filteredLocation, setFilteredLocation] = useState(null);
   const [filteredShopType, setFilteredShopType] = useState(null);
+  const [filteredExpiry, setFilteredExpiry] = useState(0);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -409,7 +456,7 @@ const AppMapContainer = () => {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("Fetched promotions:", response);
+        //console.log("Fetched promotions:", response);
         setPromotions(response.data);
         setNoFilter(true);
       });
@@ -426,14 +473,15 @@ const AppMapContainer = () => {
         Latitude: filteredLocation ? filteredLocation.lat : 0,
         Longitude: filteredLocation ? filteredLocation.lng : 0,
         ShopType: filteredShopType,
+        DaysUntilExpiry: filteredExpiry ? filteredExpiry : 0,
       }),
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("Fetched promotions by location:", response);
+        //console.log("Fetched promotions by location:", response);
         setPromotions(response.data);
       });
-  }, [filteredLocation, filteredShopType]);
+  }, [filteredLocation, filteredShopType, filteredExpiry]);
 
   const currentLocationIcon = new Icon({
     iconUrl: currentLocIcon,
@@ -502,6 +550,12 @@ const AppMapContainer = () => {
                       <h2>{promotion.shopName}</h2>
                       <h4>{promotion.title}</h4>
                       <p>{promotion.description}</p>
+                      {promotion.expiry !== null && (
+                        <p>
+                          Expiry:
+                          {new Date(promotion.expiry).toLocaleDateString()}
+                        </p>
+                      )}
 
                       {promotion.link !== null && (
                         <p>
@@ -530,6 +584,8 @@ const AppMapContainer = () => {
         setNoFilter={setNoFilter}
         setFilteredShopType={setFilteredShopType}
         setFilteredLocation={setFilteredLocation}
+        filteredExpiry={filteredExpiry}
+        setFilteredExpiry={setFilteredExpiry}
         latitude={latitude}
         longitude={longitude}
       />

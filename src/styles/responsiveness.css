@@ -1,0 +1,22 @@
+@media (max-width:550px){
+    .map-actions-container__wrapper{
+    width: 100%;
+}
+
+    .filter__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+}
+
+@media (max-width:385px){
+.filter__btn{
+    font-size: 9px;
+
+    background-color: #a2c5a291;
+    border: none;
+    border-radius: 5px;
+}
+}

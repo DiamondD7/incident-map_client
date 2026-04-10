@@ -8,8 +8,7 @@ function App() {
   return (
     <div className="app-container__wrapper">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/incident-report-map" element={<AppMapContainer />} />
+        <Route path="/" element={<AppMapContainer />} />
       </Routes>
     </div>
   );
