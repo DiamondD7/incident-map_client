@@ -544,6 +544,7 @@ const AppMapContainer = () => {
                 <Marker
                   key={promotion.id}
                   position={[promotion.latitude, promotion.longitude]}
+                  icon={selectedLocationIcon}
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
