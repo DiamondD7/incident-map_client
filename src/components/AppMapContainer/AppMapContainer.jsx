@@ -30,6 +30,7 @@ import hazardIcon from "../../assets/incidenticons/barricade-fill.png";
 
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
+import RecenterMap from "./RecenterMap/RecenterMap";
 const MapActionsContainer = ({
   filteredShopType,
   setNoFilter,
@@ -526,6 +527,9 @@ const AppMapContainer = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               />
+
+              {/* recenter map when position changes */}
+              <RecenterMap position={filteredLocation} />
 
               <Marker
                 position={
