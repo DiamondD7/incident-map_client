@@ -506,7 +506,7 @@ const AppMapContainer = () => {
 
   const selectedLocationIcon = new Icon({
     iconUrl: selectedLocIcon,
-    iconSize: [25, 25],
+    iconSize: [27, 27],
   });
 
   return (
