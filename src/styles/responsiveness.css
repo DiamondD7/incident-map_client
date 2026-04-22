@@ -9,6 +9,22 @@
     align-items: center;
     gap: 30px;
 }
+
+.map-container__wrapper{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+        
+    width: 100vw;
+    padding: 0px;
+    border-radius: 20px;
+    background-color: #DBD2E0;
+}
+
+.leaflet-container{
+    width: 100vw;
+}
 }
 
 @media (max-width:385px){
@@ -19,4 +35,5 @@
     border: none;
     border-radius: 5px;
 }
+
 }
