@@ -1,0 +1,16 @@
+.privacy-policy__wrapper{
+    color: #dddddd;
+
+    overflow: auto;
+    height: 100%;
+    padding: 10px;
+    line-height: 1.5;
+}
+
+.information__wrapper{
+    padding-left: 20px;
+}
+
+.information__wrapper ul{
+    padding-left: 50px;
+}

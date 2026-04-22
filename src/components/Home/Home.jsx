@@ -17,7 +17,6 @@ const Home = () => {
   return (
     <div className="home-container__wrapper">
       <NavigationContainer />
-      <h1>Home</h1>
     </div>
   );
 };

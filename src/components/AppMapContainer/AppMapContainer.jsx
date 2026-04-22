@@ -31,6 +31,7 @@ import hazardIcon from "../../assets/incidenticons/barricade-fill.png";
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
 import RecenterMap from "./RecenterMap/RecenterMap";
+import { Link } from "react-router-dom";
 const MapActionsContainer = ({
   filteredShopType,
   setNoFilter,
@@ -433,7 +434,12 @@ const AppMapContainer = () => {
     };
 
     const errorHandler = (err) => {
-      setError(`Unable to retrieve your location: ${err.message}`);
+      setLatitude(-36.8485); // Default to Auckland CBD
+      setLongitude(174.7633);
+
+      setError(
+        `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
+      );
       setIsLoading(false);
     };
 
@@ -594,6 +600,13 @@ const AppMapContainer = () => {
         latitude={latitude}
         longitude={longitude}
       />
+
+      <div className="home-footer__wrapper">
+        <p style={{ fontSize: "12px", letterSpacing: ".5px" }}>
+          © 2026 Hotspots. All rights reserved. • Privacy Policy{" "}
+          <Link to="/privacy-policy">click here</Link>
+        </p>
+      </div>
     </>
   );
 };

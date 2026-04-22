@@ -107,6 +107,16 @@
     background-color: #b1b1b16e;
 }
 
+.home-footer__wrapper{
+    position: absolute;
+    bottom: 0;
+}
+
+.home-footer__wrapper p{
+    padding: 0 5px;
+    color: #b6b6b6;
+}
+
 /* LEAFLET MAP CONTAINER */
 
 .leaflet-container{
