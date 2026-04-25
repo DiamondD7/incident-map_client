@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 api-auth.js
+posthog
+posthog.js
+.env
 
 # Editor directories and files
 .vscode/*

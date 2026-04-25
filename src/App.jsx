@@ -6,6 +6,7 @@ import PrivacyPolicyContainer from "./components/PrivacyPolicyContainer/PrivacyP
 
 import "./App.css";
 function App() {
+  posthog.capture("app_open");
   return (
     <div className="app-container__wrapper">
       <Routes>

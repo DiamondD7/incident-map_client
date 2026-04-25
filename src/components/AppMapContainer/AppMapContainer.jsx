@@ -432,13 +432,18 @@ const AppMapContainer = () => {
     const successHandler = (position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
+      posthog.capture("location_permission", {
+        status: "granted",
+      });
       setIsLoading(false);
     };
 
     const errorHandler = (err) => {
       setLatitude(-36.8485); // Default to Auckland CBD
       setLongitude(174.7633);
-
+      posthog.capture("location_permission", {
+        status: "denied",
+      });
       setError(
         `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
       );
@@ -557,6 +562,14 @@ const AppMapContainer = () => {
                   key={promotion.id}
                   position={[promotion.latitude, promotion.longitude]}
                   icon={selectedLocationIcon}
+                  eventHandlers={{
+                    click: () => {
+                      posthog.capture("view_cafe", {
+                        cafeId: promotion.id,
+                        cafeName: promotion.shopName,
+                      });
+                    },
+                  }}
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
