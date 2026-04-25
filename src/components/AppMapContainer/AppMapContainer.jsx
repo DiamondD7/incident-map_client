@@ -15,6 +15,7 @@ import {
   HourglassLowIcon,
   HourglassMediumIcon,
   MapPinIcon,
+  MapPinSimpleIcon,
   StorefrontIcon,
 } from "@phosphor-icons/react";
 import {
@@ -27,11 +28,12 @@ import accidentIcon from "../../assets/incidenticons/warning-fill.png";
 import policeIcon from "../../assets/incidenticons/police-car-fill.png";
 import trafficIcon from "../../assets/incidenticons/car-profile-fill.png";
 import hazardIcon from "../../assets/incidenticons/barricade-fill.png";
+import { TimeAgo } from "../../assets/js/timeAgo";
+import RecenterMap from "./RecenterMap/RecenterMap";
+import { Link } from "react-router-dom";
 
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
-import RecenterMap from "./RecenterMap/RecenterMap";
-import { Link } from "react-router-dom";
 const MapActionsContainer = ({
   filteredShopType,
   setNoFilter,
@@ -558,9 +560,19 @@ const AppMapContainer = () => {
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
+                      <p>{TimeAgo(promotion.createdAt)}</p>
+                      <p style={{ fontSize: "12px" }}>
+                        <MapPinSimpleIcon
+                          size={12}
+                          weight="fill"
+                          color="#ff5757"
+                        />{" "}
+                        {promotion.address}
+                      </p>
                       <h2>{promotion.shopName}</h2>
                       <h4>{promotion.title}</h4>
                       <p>{promotion.description}</p>
+
                       {promotion.expiry !== null && (
                         <p>
                           Expiry:
