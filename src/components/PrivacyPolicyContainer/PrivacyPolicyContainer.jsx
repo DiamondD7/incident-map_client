@@ -32,7 +32,25 @@ const PrivacyPolicyContainer = () => {
           </ul>
           <p>We do not track your location continuously.</p>
           <br />
-          <h4>b. Basic Technical Data</h4>
+          <h4>b. Analytics Data (via PostHog)</h4>
+          <p>
+            We use product analytics provided by PostHog to help us understand
+            how users interact with Hotspots. <br />
+            This may include:
+          </p>
+          <ul>
+            <li>Pages or screens viewed</li>
+            <li>Buttons clicked</li>
+            <li>Time spent on features</li>
+            <li>General usage patterns</li>
+          </ul>
+          <p>
+            We use this data to improve app performance, usability, and user
+            experience. This data is aggregated, pseudonymised and not used to
+            personally identify you
+          </p>
+          <br />
+          <h4>c. Basic Technical Data</h4>
           <p>
             When you use Hotspots, We may automatically collect limited
             technical information such as IP address, browser type, and device
@@ -54,11 +72,20 @@ const PrivacyPolicyContainer = () => {
         <br />
         <h2>3. Data Sharing</h2>
         <div className="information__wrapper">
+          <p>We do not sell your personal data.</p>
           <p>
-            We do not sell, rent, or share your personal information with third
-            parties.
+            We may share limited data with trusted third-party services only
+            when necessary to operate the app, such as:
           </p>
-          <p>Your data is only used internally to operate Hotspots.</p>
+          <ul>
+            <li>Analytics providers (PostHog)</li>
+            <li>Hosting providers</li>
+            <li>Mapping services</li>
+          </ul>
+          <p>
+            These providers are required to handle data securely and only for
+            the purpose of providing their service.
+          </p>
         </div>
         <br />
         <h2>4. Data Storage & Security</h2>
@@ -90,10 +117,11 @@ const PrivacyPolicyContainer = () => {
         <h2>6. Third-Party Services</h2>
         <div className="information__wrapper">
           <p>
-            Hotspots may use third-party services (such as maps or hosting
-            providers) to operate the app. <br /> <br /> These services may
-            process limited data as required to function, but we do not share
-            personal data beyond what is necessary.
+            Hotspots uses third-party services to operate the platform,
+            including analytics and infrastructure providers.
+            <br /> <br />
+            These services may process data as required for functionality, but
+            we do not allow them to use your data for their own purposes.
           </p>
         </div>
         <br />
@@ -121,7 +149,7 @@ const PrivacyPolicyContainer = () => {
             Zealand.
           </p>
           <br />
-          <p>By using Hotspots, you agree to this Privacy Policy.</p>
+          <strong>By using Hotspots, you agree to this Privacy Policy.</strong>
         </div>
       </div>
     </div>
