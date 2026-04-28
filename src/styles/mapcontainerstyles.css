@@ -1,11 +1,11 @@
 .map-container__wrapper{
     position: absolute;
-    top: 45%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
         
-    height: 80%;
-    width: 70%;
+    height: 74%;
+    width: 90%;
     padding: 10px;
     border-radius: 20px;
     background-color: #DBD2E0;
@@ -13,11 +13,11 @@
 
 .map-actions-container__wrapper{
     position: absolute;
-    bottom: 5%;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%, 0);
         
-    width: 70%;
+    width: 90%;
     padding: 10px;
     border-radius: 15px;
     background-color: #DBD2E0;
@@ -50,20 +50,20 @@
 
 .shopFilter{
     position: absolute;
-    top: -127px;
+    top: -131px;
     left: -20px;
 }
 
 .expiryFilter{
     position: absolute;
-    top: -156px;
+    top: -160px;
     left: 100px;
 }
 
 .locationFilter{
     position: absolute;
-    top: -418px;
-    left: 220px;
+    top: -450px;
+    left: 250px;
 }
 
 .filter-open__wrapper{

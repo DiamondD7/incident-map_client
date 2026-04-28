@@ -1,5 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "DM Sans", sans-serif;
+}
+
+.-display-flex{
+    display: flex;
+    gap: 5px;
+}
+
+.-display-flex-justify-content-space-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.-display-flex-justify-content-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.-display-flex-justify-content-center {
+    display: flex;
+    justify-content: center;
+}
+.-display-flex-align-items-center {
+    display: flex;
+    align-items: center;
 }

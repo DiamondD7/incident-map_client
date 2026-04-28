@@ -38,14 +38,17 @@ const MapActionsContainer = ({
   filteredShopType,
   setNoFilter,
   setFilteredShopType,
+  filteredLocation,
   setFilteredLocation,
   filteredExpiry,
   setFilteredExpiry,
   latitude,
   longitude,
+  selectedLocation,
+  setSelectedLocation,
+  setClearFilters,
 }) => {
   const [filterOpen, setFilterOpen] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const LocationFilter = ({
     setNoFilter,
@@ -64,6 +67,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.8485, lng: 174.7633 });
                 setSelectedLocation("Auckland CBD");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Auckland CBD
@@ -76,6 +80,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.9085, lng: 174.8388 });
                 setSelectedLocation("Mount Wellington");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Mount Wellington
@@ -88,6 +93,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.915, lng: 174.8709 });
                 setSelectedLocation("Panmure");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Pakuranga
@@ -100,6 +106,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.893, lng: 174.9243 });
                 setSelectedLocation("Howick");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Howick
@@ -112,6 +119,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.923, lng: 174.7854 });
                 setSelectedLocation("Onehunga");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Onehunga
@@ -124,6 +132,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -37.0391, lng: 174.9308 });
                 setSelectedLocation("Takanini");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Takanini
@@ -136,6 +145,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.951, lng: 174.8451 });
                 setSelectedLocation("Ōtāhuhu");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Ōtāhuhu
@@ -148,6 +158,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.8517, lng: 174.831 });
                 setSelectedLocation("Mission Bay");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Mission Bay
@@ -160,6 +171,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.8871, lng: 174.7474 });
                 setSelectedLocation("Mount Eden");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Mount Eden
@@ -172,6 +184,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.9722, lng: 174.7867 });
                 setSelectedLocation("Māngere");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Māngere
@@ -184,6 +197,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.8807, lng: 174.7981 });
                 setSelectedLocation("Remuera");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Remuera
@@ -196,6 +210,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: -36.909, lng: 174.6775 });
                 setSelectedLocation("New Lynn");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               New Lynn
@@ -208,6 +223,7 @@ const MapActionsContainer = ({
                 setFilteredLocation({ lat: latitude, lng: longitude });
                 setSelectedLocation("Current Location");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               Current Location
@@ -230,7 +246,12 @@ const MapActionsContainer = ({
     );
   };
 
-  const ExpiryFilter = ({ filteredExpiry, setFilteredExpiry, setNoFilter }) => {
+  const ExpiryFilter = ({
+    filteredExpiry,
+    setFilteredExpiry,
+    setNoFilter,
+    setClearFilters,
+  }) => {
     return (
       <div className="filter-open__wrapper expiryFilter">
         <ul
@@ -242,6 +263,7 @@ const MapActionsContainer = ({
               onClick={() => {
                 setFilteredExpiry(12);
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
@@ -254,6 +276,7 @@ const MapActionsContainer = ({
               onClick={() => {
                 setFilteredExpiry(7);
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
@@ -266,6 +289,7 @@ const MapActionsContainer = ({
               onClick={() => {
                 setFilteredExpiry(3);
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
@@ -290,7 +314,11 @@ const MapActionsContainer = ({
     );
   };
 
-  const ShopFilter = ({ setNoFilter, setFilteredShopType }) => {
+  const ShopFilter = ({
+    setNoFilter,
+    setFilteredShopType,
+    setClearFilters,
+  }) => {
     return (
       <div className="filter-open__wrapper shopFilter">
         <ul className="filter-open__ul">
@@ -300,6 +328,7 @@ const MapActionsContainer = ({
               onClick={() => {
                 setFilteredShopType("Cafe");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               <CoffeeIcon size={17} color="#202020b6" weight="fill" /> Cafe
@@ -311,6 +340,7 @@ const MapActionsContainer = ({
               onClick={() => {
                 setFilteredShopType("Restaurant");
                 setNoFilter(false);
+                setClearFilters(false);
               }}
             >
               <ForkKnifeIcon size={17} color="#202020b6" weight="fill" />{" "}
@@ -352,12 +382,14 @@ const MapActionsContainer = ({
         <ShopFilter
           setNoFilter={setNoFilter}
           setFilteredShopType={setFilteredShopType}
+          setClearFilters={setClearFilters}
         />
       ) : filterOpen === "expiry" ? (
         <ExpiryFilter
           filteredExpiry={filteredExpiry}
           setFilteredExpiry={setFilteredExpiry}
           setNoFilter={setNoFilter}
+          setClearFilters={setClearFilters}
         />
       ) : filterOpen === "location" ? (
         <LocationFilter
@@ -366,6 +398,7 @@ const MapActionsContainer = ({
           setFilteredLocation={setFilteredLocation}
           latitude={latitude}
           longitude={longitude}
+          setClearFilters={setClearFilters}
         />
       ) : null}
       <div className="filter__wrapper">
@@ -409,7 +442,15 @@ const MapActionsContainer = ({
 //   return null;
 // };
 
-const AppMapContainer = () => {
+const AppMapContainer = ({
+  setIsLocationEnabled,
+  setCurrentLocation,
+  shopClicked,
+  selectedLocation,
+  setSelectedLocation,
+  clearFilters,
+  setClearFilters,
+}) => {
   const [promotions, setPromotions] = useState([]);
 
   const [latitude, setLatitude] = useState(null);
@@ -418,9 +459,19 @@ const AppMapContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [noFilter, setNoFilter] = useState(true);
-  const [filteredLocation, setFilteredLocation] = useState(null);
   const [filteredShopType, setFilteredShopType] = useState(null);
+  const [filteredLocation, setFilteredLocation] = useState(null);
   const [filteredExpiry, setFilteredExpiry] = useState(0);
+
+  useEffect(() => {
+    //clearFIlters is for when user click on a shop in the lists. we want to clear the filters and just show that shop on the map.
+    if (clearFilters === false) return;
+    setNoFilter(true);
+    setFilteredShopType(null);
+    setFilteredExpiry(0);
+    setFilteredLocation(null);
+    setSelectedLocation("Current Location");
+  }, [clearFilters]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -436,6 +487,11 @@ const AppMapContainer = () => {
         status: "granted",
       });
       setIsLoading(false);
+      setIsLocationEnabled(true);
+      setCurrentLocation({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
     };
 
     const errorHandler = (err) => {
@@ -448,6 +504,7 @@ const AppMapContainer = () => {
         `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
       );
       setIsLoading(false);
+      setIsLocationEnabled(false);
     };
 
     const options = {
@@ -542,7 +599,15 @@ const AppMapContainer = () => {
               />
 
               {/* recenter map when position changes */}
-              <RecenterMap position={filteredLocation} />
+              <RecenterMap
+                position={
+                  filteredLocation !== null
+                    ? [filteredLocation.lat, filteredLocation.lng]
+                    : shopClicked !== null
+                      ? [shopClicked.lat, shopClicked.lng]
+                      : [latitude, longitude]
+                }
+              />
 
               <Marker
                 position={
@@ -573,7 +638,7 @@ const AppMapContainer = () => {
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
-                      <p>{TimeAgo(promotion.createdAt)}</p>
+                      {/* <p>{TimeAgo(promotion.createdAt)}</p> */}
                       <p style={{ fontSize: "12px" }}>
                         <MapPinSimpleIcon
                           size={12}
@@ -619,11 +684,15 @@ const AppMapContainer = () => {
         filteredShopType={filteredShopType}
         setNoFilter={setNoFilter}
         setFilteredShopType={setFilteredShopType}
+        filteredLocation={filteredLocation}
         setFilteredLocation={setFilteredLocation}
         filteredExpiry={filteredExpiry}
         setFilteredExpiry={setFilteredExpiry}
         latitude={latitude}
         longitude={longitude}
+        selectedLocation={selectedLocation}
+        setSelectedLocation={setSelectedLocation}
+        setClearFilters={setClearFilters}
       />
 
       <div className="home-footer__wrapper">

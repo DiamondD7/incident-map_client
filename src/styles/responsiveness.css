@@ -1,7 +1,21 @@
-@media (max-width:550px){
-    .map-actions-container__wrapper{
-    width: 100%;
+
+@media (max-width: 680px){
+    .small-sections-container__wrapper{
+    margin-left: 0;
+    display: flex;
+    justify-content: space-evenly;
 }
+}
+
+@media (max-width:550px){
+
+
+    .map-actions-container__wrapper{
+         position: absolute;
+    bottom: 4%;
+    
+        width: 100%;
+    }
 
     .filter__wrapper{
     display: flex;
@@ -12,7 +26,7 @@
 
 .map-container__wrapper{
     position: absolute;
-    top: 45%;
+    top: 53.5%;
     left: 50%;
     transform: translate(-50%, -50%);
         
@@ -24,6 +38,11 @@
 
 .leaflet-container{
     width: 100vw;
+}
+
+
+.small-section__header{
+    font-size: 13px;
 }
 }
 
