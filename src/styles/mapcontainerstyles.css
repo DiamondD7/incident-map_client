@@ -50,20 +50,20 @@
 
 .shopFilter{
     position: absolute;
-    top: -127px;
+    top: -131px;
     left: -20px;
 }
 
 .expiryFilter{
     position: absolute;
-    top: -156px;
+    top: -160px;
     left: 100px;
 }
 
 .locationFilter{
     position: absolute;
-    top: -418px;
-    left: 220px;
+    top: -450px;
+    left: 250px;
 }
 
 .filter-open__wrapper{
