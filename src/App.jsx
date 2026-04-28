@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="app-container__wrapper">
       <Routes>
-        <Route path="/" element={<AppMapContainer />} />
+        <Route path="/" element={<Home />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyContainer />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
