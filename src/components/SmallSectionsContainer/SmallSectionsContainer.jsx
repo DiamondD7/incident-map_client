@@ -1,6 +1,7 @@
 import DealsNearYouContainer from "./DealsNearYouContainer/DealsNearYouContainer";
 import NewDealsContainer from "./NewDealsContainer/NewDealsContainer";
 
+import "../../styles/smallsectionstyles.css";
 const SmallSectionsContainer = ({
   isLocationEnabled,
   currentLocation,
@@ -10,7 +11,7 @@ const SmallSectionsContainer = ({
   setClearFilters,
 }) => {
   return (
-    <div>
+    <div className="small-sections-container__wrapper">
       <DealsNearYouContainer
         isLocationEnabled={isLocationEnabled}
         currentLocation={currentLocation}

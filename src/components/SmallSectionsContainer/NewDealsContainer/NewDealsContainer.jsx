@@ -2,7 +2,7 @@ import "../../../styles/newdealsstyles.css";
 const NewDealsContainer = ({ setClearFilters, setShopClicked }) => {
   return (
     <div className="new-deals-container__wrapper">
-      <h3>🔥New Deals today</h3>
+      <h3 className="small-section__header">🔥New Deals today</h3>
       <ul className="new-deals__ul">
         <li>
           <button

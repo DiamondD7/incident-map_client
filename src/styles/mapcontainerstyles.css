@@ -1,11 +1,11 @@
 .map-container__wrapper{
     position: absolute;
-    top: 45%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
         
-    height: 80%;
-    width: 70%;
+    height: 74%;
+    width: 90%;
     padding: 10px;
     border-radius: 20px;
     background-color: #DBD2E0;
@@ -13,11 +13,11 @@
 
 .map-actions-container__wrapper{
     position: absolute;
-    bottom: 5%;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%, 0);
         
-    width: 70%;
+    width: 90%;
     padding: 10px;
     border-radius: 15px;
     background-color: #DBD2E0;

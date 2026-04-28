@@ -16,7 +16,7 @@ const Home = () => {
   const [shopClicked, setShopClicked] = useState(null); //when user clicks one of the shops in the list. to center the map on that shop.
   return (
     <div>
-      <div className="-display-flex">
+      <div className="home__wrapper">
         <SmallSectionsContainer
           isLocationEnabled={isLocationEnabled}
           currentLocation={currentLocation}
