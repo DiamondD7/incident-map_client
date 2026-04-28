@@ -10,9 +10,25 @@
 @media (max-width:550px){
 
 
+    .deals-near-you-container__wrapper{
+    height: 120px;
+}
+
+.deals-near-you__ul{
+    height: 90px;
+}
+
+.new-deals-container__wrapper{
+    height: 120px;
+}
+
+.new-deals__ul{
+    height: 85px;
+}
+
     .map-actions-container__wrapper{
          position: absolute;
-    bottom: 4%;
+        bottom: 6%;
     
         width: 100%;
     }
@@ -29,7 +45,7 @@
     top: 53.5%;
     left: 50%;
     transform: translate(-50%, -50%);
-        
+    height: 65%;
     width: 100vw;
     padding: 0px;
     border-radius: 20px;
