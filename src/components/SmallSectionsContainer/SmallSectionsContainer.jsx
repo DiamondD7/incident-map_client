@@ -1,5 +1,5 @@
 import DealsNearYouContainer from "./DealsNearYouContainer/DealsNearYouContainer";
-import NewDealsContainer from "./NewDealsContainer/NewDealsContainer";
+import HotDealsContainer from "./NewDealsContainer/HotDealsContainer";
 
 import "../../styles/smallsectionstyles.css";
 const SmallSectionsContainer = ({
@@ -20,7 +20,7 @@ const SmallSectionsContainer = ({
         setSelectedLocation={setSelectedLocation}
         setClearFilters={setClearFilters}
       />
-      <NewDealsContainer
+      <HotDealsContainer
         setClearFilters={setClearFilters}
         setShopClicked={setShopClicked}
       />

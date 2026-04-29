@@ -35,8 +35,10 @@ const DealsNearYouContainer = ({
   return (
     <div className="deals-near-you-container__wrapper">
       <h3 className="small-section__header">
-        <strong style={{ color: "#ff3131" }}>{promotions.length}</strong> Deals
-        near you
+        {isLocationEnabled === true && (
+          <strong style={{ color: "#ff3131" }}>{promotions.length}</strong>
+        )}{" "}
+        Deals near you
       </h3>
 
       {isLocationEnabled === false && (

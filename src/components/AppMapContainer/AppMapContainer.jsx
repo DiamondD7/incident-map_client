@@ -24,6 +24,7 @@ import {
 } from "../../assets/js/api-auth";
 import currentLocIcon from "../../assets/gps-fix.png";
 import selectedLocIcon from "../../assets/map-pin-fill.png";
+import newPinLocIcon from "../../assets/new-pin.png";
 import accidentIcon from "../../assets/incidenticons/warning-fill.png";
 import policeIcon from "../../assets/incidenticons/police-car-fill.png";
 import trafficIcon from "../../assets/incidenticons/car-profile-fill.png";
@@ -579,6 +580,11 @@ const AppMapContainer = ({
     iconSize: [27, 27],
   });
 
+  const newPinLocationIcon = new Icon({
+    iconUrl: newPinLocIcon,
+    iconSize: [40, 40],
+  });
+
   return (
     <>
       <div className="map-container__wrapper">
@@ -626,7 +632,11 @@ const AppMapContainer = ({
                 <Marker
                   key={promotion.id}
                   position={[promotion.latitude, promotion.longitude]}
-                  icon={selectedLocationIcon}
+                  icon={
+                    TimeAgo(promotion.createdAt) === true
+                      ? newPinLocationIcon
+                      : selectedLocationIcon
+                  }
                   eventHandlers={{
                     click: () => {
                       posthog.capture("view_cafe", {
@@ -638,7 +648,9 @@ const AppMapContainer = ({
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
-                      {/* <p>{TimeAgo(promotion.createdAt)}</p> */}
+                      <p>
+                        {TimeAgo(promotion.createdAt) === true ? "🔥New" : ""}
+                      </p>
                       <p style={{ fontSize: "12px" }}>
                         <MapPinSimpleIcon
                           size={12}
