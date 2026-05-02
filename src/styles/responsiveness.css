@@ -55,6 +55,16 @@
 }
 
 @media (max-width:385px){
+
+
+    .map-container__wrapper{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 55%;
+}
+
 .filter__btn{
     font-size: 9px;
 
