@@ -56,6 +56,32 @@
 
 @media (max-width:385px){
 
+    .deals-near-you__ul li button{
+    height: 70%;
+    width: 150px;
+    font-size: 9px;
+}
+
+.new-deals__ul li button{
+    height: 70%;
+    width: 150px;
+    font-size: 9px;
+}
+
+.new-deals__ul{
+        height: 88%;
+    }
+
+.deals-near-you__ul{
+    height: 88%;
+}
+
+
+.deals-near-you__ul li {
+    height: 100%;
+}
+
+
 
     .map-container__wrapper{
     position: absolute;

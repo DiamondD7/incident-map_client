@@ -2,9 +2,10 @@ import "../../../styles/hotdealscontainerstyles.css";
 const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
   return (
     <div className="new-deals-container__wrapper">
-      <h3 className="small-section__header">🔥Auckland's hot deals</h3>
+      <h3 className="small-section__header">🔥Hot deals</h3>
       <ul className="new-deals__ul">
         <li>
+          <h4 className="hotdeals-shopName__h4">Mission Bay Cafe</h4>
           <button
             onClick={() => {
               setClearFilters(true);
@@ -18,6 +19,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           </button>
         </li>
         <li>
+          <h4 className="hotdeals-shopName__h4"> Howick Village Cafe</h4>
           <button
             onClick={() => {
               setClearFilters(true);
@@ -31,6 +33,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           </button>
         </li>
         <li>
+          <h4 className="hotdeals-shopName__h4">Cocomo</h4>
           <button
             onClick={() => {
               setClearFilters(true);
@@ -44,6 +47,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           </button>
         </li>
         <li>
+          <h4 className="hotdeals-shopName__h4">Mr Hao</h4>
           <button
             onClick={() => {
               setClearFilters(true);
