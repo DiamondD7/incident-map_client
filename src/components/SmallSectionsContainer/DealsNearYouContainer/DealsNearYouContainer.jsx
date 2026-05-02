@@ -36,7 +36,7 @@ const DealsNearYouContainer = ({
     <div className="deals-near-you-container__wrapper">
       <h3 className="small-section__header">
         {isLocationEnabled === true && (
-          <strong style={{ color: "#ff3131" }}>{promotions.length}</strong>
+          <strong style={{ color: "#FA6737" }}>{promotions.length}</strong>
         )}{" "}
         Deals near you
       </h3>
@@ -63,14 +63,20 @@ const DealsNearYouContainer = ({
         <ul className="deals-near-you__ul">
           {promotions.map((promo) => (
             <li key={promo.id}>
+              <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
               <button
                 onClick={() => {
                   setClearFilters(true);
                   setShopClicked({ lat: promo.latitude, lng: promo.longitude });
                 }}
               >
-                <h4>{promo.shopName}</h4>
                 <p>{promo.title}</p>
+                <br />
+                <p>
+                  {promo.description.length > 50
+                    ? `${promo.description.substring(0, 50)}...`
+                    : promo.description}
+                </p>
               </button>
             </li>
           ))}

@@ -1,4 +1,6 @@
 .small-sections-container__wrapper{
     display: flex;
     margin-left: 83px;
+
+    width: 90.8%;
 }

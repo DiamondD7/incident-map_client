@@ -1,8 +1,8 @@
-import "../../../styles/newdealsstyles.css";
+import "../../../styles/hotdealscontainerstyles.css";
 const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
   return (
     <div className="new-deals-container__wrapper">
-      <h3 className="small-section__header">🔥Hot deals today</h3>
+      <h3 className="small-section__header">🔥Auckland's hot deals</h3>
       <ul className="new-deals__ul">
         <li>
           <button

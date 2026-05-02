@@ -5,26 +5,15 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.map-actions-container__wrapper{
+    bottom: 3%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 }
 
 @media (max-width:550px){
-
-
-    .deals-near-you-container__wrapper{
-    height: 120px;
-}
-
-.deals-near-you__ul{
-    height: 90px;
-}
-
-.new-deals-container__wrapper{
-    height: 120px;
-}
-
-.new-deals__ul{
-    height: 85px;
-}
 
     .map-actions-container__wrapper{
          position: absolute;
@@ -56,6 +45,9 @@
     width: 100%;
 }
 
+.deals-near-you__ul li button{
+    padding: 8px;
+}
 
 .small-section__header{
     font-size: 13px;
@@ -66,7 +58,6 @@
 .filter__btn{
     font-size: 9px;
 
-    background-color: #a2c5a291;
     border: none;
     border-radius: 5px;
 }

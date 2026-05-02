@@ -1,5 +1,5 @@
 import DealsNearYouContainer from "./DealsNearYouContainer/DealsNearYouContainer";
-import HotDealsContainer from "./NewDealsContainer/HotDealsContainer";
+import HotDealsContainer from "./HotDealsContainer/HotDealsContainer";
 
 import "../../styles/smallsectionstyles.css";
 const SmallSectionsContainer = ({

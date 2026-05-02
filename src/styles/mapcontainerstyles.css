@@ -8,7 +8,8 @@
     width: 90%;
     padding: 10px;
     border-radius: 20px;
-    background-color: #DBD2E0;
+    background-color: #f1e3de63;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .map-actions-container__wrapper{
@@ -20,7 +21,8 @@
     width: 90%;
     padding: 10px;
     border-radius: 15px;
-    background-color: #DBD2E0;
+    background-color: #FA6737;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .filter__wrapper{
@@ -28,6 +30,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
+    
 }
 
 .filter__btn{
@@ -39,11 +42,11 @@
 
     cursor: pointer;
 
-    color: #007000;
+    color: #FA6737;
     font-weight: bold;
     font-size: 12px;
 
-    background-color: #a2c5a291;
+    background-color: #ffffff;
     border: none;
     border-radius: 5px;
 }
@@ -75,7 +78,7 @@
     padding: 10px;
     
     border-radius: 5px;
-    background-color: #DBD2E0;
+    background-color: #fa642ee5;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
@@ -89,6 +92,7 @@
 
 .filter-open__btn{
     width: 100%;
+    color: #fff;
 
     cursor: pointer;
 
@@ -103,8 +107,9 @@
 }
 
 .filter-open-chosen__btn{
+    color: #FA6737;
     font-weight: bold;
-    background-color: #b1b1b16e;
+    background-color: #fff;
 }
 
 .home-footer__wrapper{
@@ -122,4 +127,5 @@
 .leaflet-container{
     height: 100%;
     width: 100%;
+    border-radius: 10px;
 }
