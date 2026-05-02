@@ -498,7 +498,7 @@ const AppMapContainer = ({
     setFilteredShopType(null);
     setFilteredExpiry(0);
     setFilteredLocation(null);
-    setSelectedLocation("Current Location");
+    setSelectedLocation(null);
   }, [clearFilters]);
 
   useEffect(() => {
