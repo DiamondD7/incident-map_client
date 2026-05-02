@@ -255,19 +255,21 @@ const MapActionsContainer = ({
   }) => {
     return (
       <div className="filter-open__wrapper expiryFilter">
-        <ul
-          className={`filter-open__ul ${filteredExpiry === 12 ? "filter-open-chosen__btn" : ""}`}
-        >
+        <ul className="filter-open__ul">
           <li>
             <button
-              className="filter-open__btn"
+              className={`filter-open__btn ${filteredExpiry === 12 ? "filter-open-chosen__btn" : ""}`}
               onClick={() => {
                 setFilteredExpiry(12);
                 setNoFilter(false);
                 setClearFilters(false);
               }}
             >
-              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              <HourglassLowIcon
+                size={17}
+                color={`${filteredExpiry === 12 ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />
               Exp in 12 days
             </button>
           </li>
@@ -280,7 +282,11 @@ const MapActionsContainer = ({
                 setClearFilters(false);
               }}
             >
-              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              <HourglassLowIcon
+                size={17}
+                color={`${filteredExpiry === 7 ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />
               Exp in 7 days
             </button>
           </li>
@@ -293,7 +299,11 @@ const MapActionsContainer = ({
                 setClearFilters(false);
               }}
             >
-              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              <HourglassLowIcon
+                size={17}
+                color={`${filteredExpiry === 3 ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />
               Exp in 3 days
             </button>
           </li>
@@ -306,7 +316,11 @@ const MapActionsContainer = ({
                 setNoFilter(false);
               }}
             >
-              <HourglassLowIcon size={17} color="#202020b6" weight="fill" />
+              <HourglassLowIcon
+                size={17}
+                color={`${filteredExpiry === 0 ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />
               Show all
             </button>
           </li>
@@ -332,7 +346,12 @@ const MapActionsContainer = ({
                 setClearFilters(false);
               }}
             >
-              <CoffeeIcon size={17} color="#202020b6" weight="fill" /> Cafe
+              <CoffeeIcon
+                size={17}
+                color={`${filteredShopType === "Cafe" ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />{" "}
+              Cafe
             </button>
           </li>
           <li>
@@ -344,7 +363,11 @@ const MapActionsContainer = ({
                 setClearFilters(false);
               }}
             >
-              <ForkKnifeIcon size={17} color="#202020b6" weight="fill" />{" "}
+              <ForkKnifeIcon
+                size={17}
+                color={`${filteredShopType === "Restaurant" ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />{" "}
               Restaurant
             </button>
           </li>
@@ -357,8 +380,12 @@ const MapActionsContainer = ({
                 setNoFilter(false);
               }}
             >
-              <ForkKnifeIcon size={17} color="#202020b6" weight="fill" /> All
-              Shops
+              <ForkKnifeIcon
+                size={17}
+                color={`${filteredShopType === null ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />{" "}
+              All Shops
             </button>
           </li>
         </ul>
@@ -407,21 +434,21 @@ const MapActionsContainer = ({
           className="filter__btn"
           onClick={(e) => handleOpenFilter(e, "shop")}
         >
-          <StorefrontIcon size={17} color="#007000" weight="fill" />{" "}
+          <StorefrontIcon size={17} color="#FA6737" weight="fill" />{" "}
           {filteredShopType === null ? "All Shops" : filteredShopType}
         </button>
         <button
           className="filter__btn"
           onClick={(e) => handleOpenFilter(e, "expiry")}
         >
-          <HourglassMediumIcon size={17} color="#007000" weight="fill" />{" "}
+          <HourglassMediumIcon size={17} color="#FA6737" weight="fill" />{" "}
           {filteredExpiry === 0 ? "Show All" : `Exp in ${filteredExpiry} days`}
         </button>
         <button
           className="filter__btn"
           onClick={(e) => handleOpenFilter(e, "location")}
         >
-          <MapPinIcon size={17} color="#007000" weight="fill" />{" "}
+          <MapPinIcon size={17} color="#FA6737" weight="fill" />{" "}
           {selectedLocation === null ? "All Locations" : selectedLocation}
         </button>
       </div>
@@ -708,7 +735,9 @@ const AppMapContainer = ({
       />
 
       <div className="home-footer__wrapper">
-        <p style={{ fontSize: "12px", letterSpacing: ".5px" }}>
+        <p
+          style={{ fontSize: "12px", letterSpacing: ".5px", color: "#202020" }}
+        >
           © 2026 Hotspots. All rights reserved. • Privacy Policy{" "}
           <Link to="/privacy-policy">click here</Link> • Terms and Conditions{" "}
           <Link to="/terms-and-conditions">click here</Link>
