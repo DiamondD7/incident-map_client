@@ -35,19 +35,18 @@
 
 @media(max-width:943px){
     .feed-view-container__wrapper{
-    grid-template-columns: repeat(3, 200px);
-    gap: 20px;
+    grid-template-columns: repeat(5, 150px);
+    gap: 10px;
 }
 
 .feed-card__wrapper{
-
-    
-    width: 200px;
+    width: 150px;
     height: 200px;
+    overflow: auto;
 }
 
 .hero-container-title__wrapper h1{
-    font-size: 20px;
+    font-size: 40px;
 }
 
 .hero-c2a__wrapper{
@@ -69,6 +68,13 @@
     font-size: 12px;
 }
 
+}
+
+@media(max-width:823px){
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(4, 150px);
+    gap: 10px;
+}
 }
 
 @media (max-width: 680px){
@@ -155,29 +161,29 @@
 }
 
 .hero-container-title__wrapper h1{
-    font-size: 15px;
+    font-size: 30px;
 }
 
 .hero-c2a__wrapper{
-    background-color: #FA6737;
+    display: block;
     width: 60%;
-    height: 70px;
-    
+    height: 100%;
 }
 
 .hero-c2a-map__btn{
-    font-size: 8px;
-    height: 30px;
-}
-
-.hero-icon{
-    size: 15;
+   text-align: center;
+   font-size: 12px;
 }
 
 .hero-c2a-feed__btn{
-    font-size: 8px;
-    height: 30px;
+    text-align: center;
+   font-size: 12px;
 }
+
+.stepbystep-graphics__wrapper{
+    margin-top: 60px;
+}
+
 }
 
 @media(max-width:450px){
@@ -191,6 +197,22 @@
     
     width: 300px;
     height: 200px;
+}
+
+.hero-c2a__wrapper{
+    display: block;
+    width: 60%;
+    
+}
+
+.hero-c2a-map__btn{
+   text-align: center;
+   font-size: 10px;
+}
+
+.hero-c2a-feed__btn{
+    text-align: center;
+   font-size: 10px;
 }
 
 .stepbystep-cards__wrapper{
@@ -252,6 +274,42 @@
 
     border: none;
     border-radius: 5px;
+}
+
+
+.hero-c2a__wrapper{
+    display: block;
+    width: 60%;
+    
+}
+
+.hero-c2a-map__btn{
+   text-align: center;
+   font-size: 10px;
+}
+
+.hero-c2a-feed__btn{
+    text-align: center;
+   font-size: 10px;
+}
+
+.stepbystep-graphics__wrapper{
+    margin-top: 60px;
+}
+
+.stepbystep-cards__wrapper{
+    width: 150px;
+}
+
+.stepbystep-cards__wrapper h3{
+    font-size: 11px;
+}
+.stepbystep-cards__wrapper p{
+    font-size: 8px;
+}
+
+.graphics__img{
+    width: 100px;
 }
 
 }
