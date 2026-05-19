@@ -6,7 +6,7 @@ function RecenterMap({ position }) {
 
   useEffect(() => {
     if (position) {
-      map.flyTo(position, Math.max(map.getZoom(), 16.5));
+      map.flyTo(position, Math.max(map.getZoom(), 12));
     }
   }, [position]);
 

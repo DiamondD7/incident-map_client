@@ -1,0 +1,98 @@
+.hero-container__wrapper{
+    width: 100vw;
+}
+
+.hotspots-logo__img{
+    width: 70px;
+    padding: 10px;
+}
+
+.hero-message__wrapper{
+    padding: 10px;
+    width: 100vw;
+}
+
+.hero-container-title__wrapper{
+    width: 100%;
+    text-align: center;
+}
+.hero-container-title__wrapper h1{
+    font-size: 60px;
+    color: #202020;
+}
+
+.hero-c2a__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    background-color: #FA6737;
+    width: 80%;
+    height: 150px;
+    
+    border-radius: 10px;
+    padding: 5px;
+    margin: 30px auto 30px auto;
+}
+
+.hero-c2a-map__btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+    background-color: #f3f3f3;
+    color: #696363;
+    padding: 10px 30px;
+    border-radius: 50px;
+    border: none;
+
+    height: 50px;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.hero-icon{
+    size: 30;
+}
+.hero-c2a-map__btn:hover{
+    color: #FA6737;
+    transition: all 0.3s ease-in-out;
+}
+
+.hero-c2a-feed__btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background-color: transparent;
+    color: #f3f3f3;
+    padding: 10px 30px;
+    border: none;
+
+    height: 50px;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.stepbystep-graphics__wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 270px;
+}
+
+.stepbystep-cards__wrapper{
+    width: 150px;
+    text-align: center;
+}
+.stepbystep-cards__wrapper p{
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.graphics__img{
+    width: 150px;
+}

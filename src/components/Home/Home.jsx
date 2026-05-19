@@ -1,38 +1,23 @@
-import { useEffect, useState } from "react";
-import AppMapContainer from "../AppMapContainer/AppMapContainer";
-
-import SmallSectionsContainer from "../SmallSectionsContainer/SmallSectionsContainer";
+import { useEffect, useState, useRef } from "react";
+import HeroContainer from "./HeroContainer/HeroContainer";
+import FeedViewContainer from "./FeedViewContainer/FeedViewContainer";
 
 import "../../styles/homestyles.css";
 const Home = () => {
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: 0,
-    lng: 0,
-  });
-  const [isLocationEnabled, setIsLocationEnabled] = useState(null);
+  const myRef = useRef(null);
 
-  const [clearFilters, setClearFilters] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [shopClicked, setShopClicked] = useState(null); //when user clicks one of the shops in the list. to center the map on that shop.
+  const scrollToComponent = (e) => {
+    e.preventDefault();
+    myRef.current.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
   return (
     <div>
       <div className="home__wrapper">
-        <SmallSectionsContainer
-          isLocationEnabled={isLocationEnabled}
-          currentLocation={currentLocation}
-          setShopClicked={setShopClicked}
-          setSelectedLocation={setSelectedLocation}
-          setClearFilters={setClearFilters}
-        />
-        <AppMapContainer
-          setIsLocationEnabled={setIsLocationEnabled}
-          setCurrentLocation={setCurrentLocation}
-          shopClicked={shopClicked}
-          selectedLocation={selectedLocation}
-          setSelectedLocation={setSelectedLocation}
-          clearFilters={clearFilters}
-          setClearFilters={setClearFilters}
-        />
+        <HeroContainer scrollToComponent={scrollToComponent} />
+
+        <FeedViewContainer myRef={myRef} />
       </div>
     </div>
   );
