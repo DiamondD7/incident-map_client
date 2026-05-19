@@ -1,0 +1,31 @@
+.feed-view-container__wrapper{
+    padding: 20px;
+    margin-top: 100px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 400px);
+    gap: 85px;
+}
+
+.feed-card__wrapper{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    padding: 10px;
+    border-radius: 10px;
+
+    
+    width: 400px;
+    height: 200px;
+}
+
+.feed-card__wrapper:hover{
+    box-shadow: #FA6737 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.feed-card__wrapper label{
+    font-size: 10px;
+}
+
+.feed-card__wrapper p{
+    margin-top: 5px;
+    font-size: 12px;
+}

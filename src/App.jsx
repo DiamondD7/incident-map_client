@@ -4,6 +4,7 @@ import AppMapContainer from "./components/AppMapContainer/AppMapContainer";
 import Home from "./components/Home/Home";
 import PrivacyPolicyContainer from "./components/PrivacyPolicyContainer/PrivacyPolicyContainer";
 import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions";
+import HomeMapStart from "./components/Home/HomeMapStart/HomeMapStart";
 
 import "./App.css";
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <div className="app-container__wrapper">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/map" element={<HomeMapStart />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyContainer />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>

@@ -1,3 +1,75 @@
+@media(max-width:1879px){
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(4, 400px);
+    gap: 35px;
+}
+}
+
+@media(max-width:1727px){
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(4, 300px);
+    gap: 35px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 300px;
+    height: 200px;
+}
+}
+
+@media(max-width:1335px){
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(4, 200px);
+    gap: 35px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 200px;
+    height: 200px;
+}
+}
+
+@media(max-width:943px){
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(3, 200px);
+    gap: 20px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 200px;
+    height: 200px;
+}
+
+.hero-container-title__wrapper h1{
+    font-size: 20px;
+}
+
+.hero-c2a__wrapper{
+    background-color: #FA6737;
+    width: 60%;
+    height: 100px;
+    
+}
+
+.hero-c2a-map__btn{
+    font-size: 12px;
+}
+
+.hero-icon{
+    size: 15;
+}
+
+.hero-c2a-feed__btn{
+    font-size: 12px;
+}
+
+}
 
 @media (max-width: 680px){
     .small-sections-container__wrapper{
@@ -10,6 +82,35 @@
     bottom: 3%;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+
+    .feed-view-container__wrapper{
+    grid-template-columns: repeat(2, 200px);
+    gap: 20px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 200px;
+    height: 200px;
+}
+
+
+
+.hero-c2a-map__btn{
+    font-size: 10px;
+    height: 30px;
+}
+
+.hero-icon{
+    size: 15;
+}
+
+.hero-c2a-feed__btn{
+    font-size: 10px;
+    height: 30px;
 }
 }
 
@@ -51,6 +152,61 @@
 
 .small-section__header{
     font-size: 13px;
+}
+
+.hero-container-title__wrapper h1{
+    font-size: 15px;
+}
+
+.hero-c2a__wrapper{
+    background-color: #FA6737;
+    width: 60%;
+    height: 70px;
+    
+}
+
+.hero-c2a-map__btn{
+    font-size: 8px;
+    height: 30px;
+}
+
+.hero-icon{
+    size: 15;
+}
+
+.hero-c2a-feed__btn{
+    font-size: 8px;
+    height: 30px;
+}
+}
+
+@media(max-width:450px){
+        .feed-view-container__wrapper{
+    grid-template-columns: repeat(1, 300px);
+    gap: 20px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 300px;
+    height: 200px;
+}
+
+.stepbystep-cards__wrapper{
+    width: 150px;
+    text-align: center;
+}
+.stepbystep-cards__wrapper p{
+    font-size: 9px;
+    margin-top: 10px;
+}
+
+.stepbystep-cards__wrapper h3{
+    font-size: 12px;
+}
+.graphics__img{
+    width: 100px;
 }
 }
 

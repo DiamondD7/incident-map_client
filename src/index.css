@@ -7,6 +7,10 @@
     font-family: "DM Sans", sans-serif;
 }
 
+.-gap-10{
+    gap: 10px;
+}
+
 .-display-flex{
     display: flex;
     gap: 5px;
