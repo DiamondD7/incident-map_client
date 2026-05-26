@@ -63,7 +63,14 @@ const DealsNearYouContainer = ({
         <ul className="deals-near-you__ul">
           {promotions.map((promo) => (
             <li key={promo.id}>
-              <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
+              <div className="-display-flex-align-items-center -gap-5">
+                {promo.discountPercent !== null && (
+                  <p className="promo-discountpercent__text">
+                    {promo.discountPercent}% OFF
+                  </p>
+                )}
+                <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
+              </div>
               <button
                 onClick={() => {
                   setClearFilters(true);
