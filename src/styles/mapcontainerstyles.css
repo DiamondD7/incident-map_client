@@ -25,6 +25,19 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
+.popup-promotion-percent__text{
+    position: absolute;
+    top: -14px;
+    left: -10px;
+
+    font-size: 12px;
+    transform: rotate(-30deg);
+    color: #fff;
+    font-weight: bold;
+    background-color: red;
+    padding: 0px 6px;
+}
+
 .filter__wrapper{
     display: flex;
     justify-content: flex-start;

@@ -675,6 +675,11 @@ const AppMapContainer = ({
                 >
                   <Popup>
                     <div className="popup-content__wrapper">
+                      {promotion.discountPercent !== null && (
+                        <p className="popup-promotion-percent__text">
+                          {promotion.discountPercent}%
+                        </p>
+                      )}
                       <p>
                         {TimeAgo(promotion.createdAt) === true ? "🔥New" : ""}
                       </p>
