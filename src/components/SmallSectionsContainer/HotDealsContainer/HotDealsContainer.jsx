@@ -5,10 +5,8 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
       <h3 className="small-section__header">🔥Hot deals</h3>
       <ul className="new-deals__ul">
         <li>
-          <div className="-display-flex-align-items-center -gap-5">
-            <p className="promo-discountpercent__text">30% OFF</p>
-            <h4 className="hotdeals-shopName__h4">Mission Bay Cafe</h4>
-          </div>
+          <h4 className="hotdeals-shopName__h4">Mission Bay Cafe</h4>
+
           <button
             onClick={() => {
               setClearFilters(true);
@@ -22,10 +20,8 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           </button>
         </li>
         <li>
-          <div className="-display-flex-align-items-center -gap-5">
-            <p className="promo-discountpercent__text">50% OFF</p>
-            <h4 className="hotdeals-shopName__h4"> Howick Village Cafe</h4>
-          </div>
+          <h4 className="hotdeals-shopName__h4"> Howick Village Cafe</h4>
+
           <button
             onClick={() => {
               setClearFilters(true);
@@ -39,10 +35,8 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           </button>
         </li>
         <li>
-          <div className="-display-flex-align-items-center -gap-5">
-            <p className="promo-discountpercent__text">30% OFF</p>
-            <h4 className="hotdeals-shopName__h4">Cocomo</h4>
-          </div>
+          <h4 className="hotdeals-shopName__h4">Cocomo</h4>
+
           <button
             onClick={() => {
               setClearFilters(true);

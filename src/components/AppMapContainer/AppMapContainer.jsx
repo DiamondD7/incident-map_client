@@ -741,11 +741,26 @@ const AppMapContainer = ({
 
       <div className="home-footer__wrapper">
         <p
-          style={{ fontSize: "12px", letterSpacing: ".5px", color: "#202020" }}
+          style={{
+            fontSize: "12px",
+            letterSpacing: ".5px",
+            color: "#20202075",
+          }}
         >
           © 2026 Hotspots. All rights reserved. • Privacy Policy{" "}
-          <Link to="/privacy-policy">click here</Link> • Terms and Conditions{" "}
-          <Link to="/terms-and-conditions">click here</Link>
+          <Link
+            to="/privacy-policy"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            click here
+          </Link>{" "}
+          • Terms and Conditions{" "}
+          <Link
+            to="/terms-and-conditions"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            click here
+          </Link>
         </p>
       </div>
     </>
