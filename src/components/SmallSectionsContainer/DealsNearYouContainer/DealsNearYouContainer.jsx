@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GpsSlashIcon, SmileySadIcon } from "@phosphor-icons/react";
 import { GetPromotionsByLocation } from "../../../assets/js/api-auth";
+
 import "../../../styles/dealsnearyoustyles.css";
 const DealsNearYouContainer = ({
   isLocationEnabled,
@@ -11,6 +12,17 @@ const DealsNearYouContainer = ({
   setClearFilters,
 }) => {
   const [promotions, setPromotions] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 550);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     fetch(GetPromotionsByLocation, {
@@ -33,56 +45,61 @@ const DealsNearYouContainer = ({
   }, [isLocationEnabled, currentLocation]);
 
   return (
-    <div className="deals-near-you-container__wrapper">
-      <h3 className="small-section__header">
-        {isLocationEnabled === true && (
-          <strong style={{ color: "#FA6737" }}>{promotions.length}</strong>
-        )}{" "}
-        Deals near you
-      </h3>
+    <>
+      <div className="deals-near-you-container__wrapper">
+        <h3 className="small-section__header">
+          {isLocationEnabled === true && (
+            <strong style={{ color: "#FA6737" }}>{promotions.length}</strong>
+          )}{" "}
+          Deals near you
+        </h3>
 
-      {isLocationEnabled === false && (
-        <div style={{ marginTop: "10px", textAlign: "center" }}>
-          <GpsSlashIcon size={25} color="#4e4e4e65" />
-          <p style={{ fontSize: "12px", color: "#353434fa" }}>
-            You must enable location to see deals near you.
-          </p>
-        </div>
-      )}
+        {isLocationEnabled === false && (
+          <div style={{ marginTop: "10px", textAlign: "center" }}>
+            <GpsSlashIcon size={25} color="#4e4e4e65" />
+            <p style={{ fontSize: "12px", color: "#353434fa" }}>
+              You must enable location to see deals near you.
+            </p>
+          </div>
+        )}
 
-      {isLocationEnabled === true && promotions.length === 0 && (
-        <div style={{ marginTop: "10px", textAlign: "center" }}>
-          <SmileySadIcon size={25} color="#4e4e4e65" />
-          <p style={{ fontSize: "12px", color: "#353434fa" }}>
-            No deals found near you. Please check back later.
-          </p>
-        </div>
-      )}
+        {isLocationEnabled === true && promotions.length === 0 && (
+          <div style={{ marginTop: "10px", textAlign: "center" }}>
+            <SmileySadIcon size={25} color="#4e4e4e65" />
+            <p style={{ fontSize: "12px", color: "#353434fa" }}>
+              No deals found near you. Please check back later.
+            </p>
+          </div>
+        )}
 
-      {isLocationEnabled === true && promotions.length > 0 && (
-        <ul className="deals-near-you__ul">
-          {promotions.map((promo) => (
-            <li key={promo.id}>
-              <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
-              <button
-                onClick={() => {
-                  setClearFilters(true);
-                  setShopClicked({ lat: promo.latitude, lng: promo.longitude });
-                }}
-              >
-                <p>{promo.title}</p>
-                <br />
-                <p>
-                  {promo.description.length > 50
-                    ? `${promo.description.substring(0, 50)}...`
-                    : promo.description}
-                </p>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        {isLocationEnabled === true && promotions.length > 0 && (
+          <ul className="deals-near-you__ul">
+            {promotions.map((promo) => (
+              <li key={promo.id}>
+                <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
+                <button
+                  onClick={() => {
+                    setClearFilters(true);
+                    setShopClicked({
+                      lat: promo.latitude,
+                      lng: promo.longitude,
+                    });
+                  }}
+                >
+                  <p>{promo.title}</p>
+                  <br />
+                  <p>
+                    {promo.description.length > 50
+                      ? `${promo.description.substring(0, 50)}...`
+                      : promo.description}
+                  </p>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 };
 

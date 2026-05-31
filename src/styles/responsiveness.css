@@ -152,8 +152,24 @@
     width: 100%;
 }
 
+.new-deals__ul{
+    height: 125px;
+}
+
+.deals-near-you__ul{
+    height: 125px;
+}
+
 .deals-near-you__ul li button{
+    font-size: 9px;
     padding: 8px;
+    width:140px;
+}
+
+.new-deals__ul li button{
+    height:65px;
+    font-size: 9px;
+    width:140px;
 }
 
 .small-section__header{
@@ -236,14 +252,14 @@
 
     .deals-near-you__ul li button{
     height: 70%;
-    width: 150px;
-    font-size: 9px;
+    width: 120px;
+    font-size: 7px;
 }
 
 .new-deals__ul li button{
     height: 70%;
-    width: 150px;
-    font-size: 9px;
+    width: 120px;
+    font-size: 7px;
 }
 
 .new-deals__ul{
