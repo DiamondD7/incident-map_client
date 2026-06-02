@@ -17,6 +17,7 @@ import {
   MapPinIcon,
   MapPinSimpleIcon,
   StorefrontIcon,
+  BreadIcon,
 } from "@phosphor-icons/react";
 import {
   GetPromotions,
@@ -339,6 +340,23 @@ const MapActionsContainer = ({
         <ul className="filter-open__ul">
           <li>
             <button
+              className={`filter-open__btn ${filteredShopType === "Bakery" ? "filter-open-chosen__btn" : ""}`}
+              onClick={() => {
+                setFilteredShopType("Bakery");
+                setNoFilter(false);
+                setClearFilters(false);
+              }}
+            >
+              <BreadIcon
+                size={17}
+                color={`${filteredShopType === "Bakery" ? "#FA6737" : "#fff"}`}
+                weight="fill"
+              />{" "}
+              Bakery
+            </button>
+          </li>
+          <li>
+            <button
               className={`filter-open__btn ${filteredShopType === "Cafe" ? "filter-open-chosen__btn" : ""}`}
               onClick={() => {
                 setFilteredShopType("Cafe");
@@ -602,12 +620,12 @@ const AppMapContainer = ({
   //   });
   // };
 
-  const selectedLocationIcon = new Icon({
+  const aestheticShopIcon = new Icon({
     iconUrl: selectedLocIcon,
     iconSize: [27, 27],
   });
 
-  const newPinLocationIcon = new Icon({
+  const shopWithPromotionIcon = new Icon({
     iconUrl: newPinLocIcon,
     iconSize: [40, 40],
   });
@@ -660,9 +678,9 @@ const AppMapContainer = ({
                   key={promotion.id}
                   position={[promotion.latitude, promotion.longitude]}
                   icon={
-                    TimeAgo(promotion.createdAt) === true
-                      ? newPinLocationIcon
-                      : selectedLocationIcon
+                    promotion.hasPromotion === true
+                      ? shopWithPromotionIcon
+                      : aestheticShopIcon
                   }
                   eventHandlers={{
                     click: () => {
@@ -691,9 +709,28 @@ const AppMapContainer = ({
                         />{" "}
                         {promotion.address}
                       </p>
-                      <h2>{promotion.shopName}</h2>
+                      <div className="-display-flex-align-items-center -gap-5">
+                        <h2>{promotion.shopName}</h2>
+                        {promotion.isAnAestheticShop === true && (
+                          <p
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: "bold",
+                              textTransform: "uppercase",
+                              color: "#fff",
+                              backgroundColor: "#ff5757",
+                              padding: "0px 4px",
+                            }}
+                          >
+                            Aesthetic {promotion.shopType}
+                          </p>
+                        )}
+                      </div>
                       <h4>{promotion.title}</h4>
                       <p>{promotion.description}</p>
+                      {promotion.hasPromotion === false && (
+                        <p>No deals right now - please check back later!</p>
+                      )}
 
                       {promotion.expiry !== null && (
                         <p>
