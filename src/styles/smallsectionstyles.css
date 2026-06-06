@@ -1,6 +1,14 @@
 .small-sections-container__wrapper{
     display: flex;
-    margin-left: 83px;
+    /* margin-left: 83px; */
 
     width: 90.8%;
+}
+
+.map-back-icon{
+    position: absolute;
+    top: 5px;
+    left:5px;
+
+    color: #FA6737;
 }

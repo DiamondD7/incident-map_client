@@ -776,7 +776,7 @@ const AppMapContainer = ({
         setClearFilters={setClearFilters}
       />
 
-      <div className="home-footer__wrapper">
+      {/* <div className="home-footer__wrapper">
         <p
           style={{
             fontSize: "12px",
@@ -799,7 +799,7 @@ const AppMapContainer = ({
             click here
           </Link>
         </p>
-      </div>
+      </div> */}
     </>
   );
 };
