@@ -43,7 +43,6 @@ const HeroContainer = ({ scrollToComponent }) => {
           >
             {isMapClicked ? (
               <CircleNotchIcon
-                size={20}
                 weight="bold"
                 color="#FA6737"
                 className="btn-loading__icon"

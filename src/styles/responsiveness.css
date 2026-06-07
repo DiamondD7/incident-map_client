@@ -201,12 +201,12 @@
 }
 
 .hero-c2a-map__btn{
-   text-align: center;
+   margin:0 auto;
    font-size: 12px;
 }
 
 .hero-c2a-feed__btn{
-    text-align: center;
+    margin:0 auto;
    font-size: 12px;
 }
 
