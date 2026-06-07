@@ -25,6 +25,8 @@ const DealsNearYouContainer = ({
   }, []);
 
   useEffect(() => {
+    if (currentLocation.lat === 0 && currentLocation.lng === 0) return; //don't fetch if location is not set yet.
+
     fetch(GetPromotionsByLocation, {
       method: "POST",
       headers: {

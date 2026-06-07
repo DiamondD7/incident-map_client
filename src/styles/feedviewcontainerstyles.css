@@ -1,10 +1,13 @@
 .feed-view-container__wrapper{
     padding: 20px;
-    margin-top: 100px;
+    margin: 100px auto;
 
     display: grid;
     grid-template-columns: repeat(4, 400px);
-    gap: 85px;
+    width:90%;
+    height:750px;
+    gap: 15px;
+    overflow: auto;
 }
 
 .feed-card__wrapper{

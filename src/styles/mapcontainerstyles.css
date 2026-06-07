@@ -125,14 +125,11 @@
     background-color: #fff;
 }
 
-.home-footer__wrapper{
-    position: absolute;
-    bottom: 0;
-}
+
 
 .home-footer__wrapper p{
-    padding: 0 5px;
-    color: #b6b6b6;
+    padding: 5px;
+    color:#202020;
 }
 
 /* LEAFLET MAP CONTAINER */

@@ -1,12 +1,28 @@
-import { BinocularsIcon, MapTrifoldIcon } from "@phosphor-icons/react";
+import { useState } from "react";
+import {
+  BinocularsIcon,
+  CircleNotchIcon,
+  MapTrifoldIcon,
+} from "@phosphor-icons/react";
 import HotspotsLogo from "../../../assets/hotspots-logo-transparent.png";
 import StepOneImage from "../../../assets/step1-graphic.png";
 import StepTwoImage from "../../../assets/step2-graphic.png";
 import StepThreeImage from "../../../assets/step3-graphic.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "../../../styles/herocontainerstyles.css";
 const HeroContainer = ({ scrollToComponent }) => {
+  const navigate = useNavigate();
+  const [isMapClicked, setIsMapClicked] = useState(false);
+
+  const handleOpenMapClick = (e) => {
+    e.preventDefault();
+    setIsMapClicked(true);
+
+    setTimeout(() => {
+      navigate("/map");
+    }, 2000);
+  };
   return (
     <div className="hero-container__wrapper">
       <div className="hotspots-img__wrapper">
@@ -21,10 +37,22 @@ const HeroContainer = ({ scrollToComponent }) => {
           <h1>Find cafe or restaurant deals near you and save instantly.</h1>
         </div>
         <div className="hero-c2a__wrapper">
-          <Link to="/map" className="hero-c2a-map__btn">
-            <MapTrifoldIcon className={"hero-icon"} weight="fill" />
+          <button
+            className="hero-c2a-map__btn"
+            onClick={(e) => handleOpenMapClick(e)}
+          >
+            {isMapClicked ? (
+              <CircleNotchIcon
+                size={20}
+                weight="bold"
+                color="#FA6737"
+                className="btn-loading__icon"
+              />
+            ) : (
+              <MapTrifoldIcon className={"hero-icon"} weight="fill" />
+            )}
             Check out the map
-          </Link>
+          </button>
           <button
             className="hero-c2a-feed__btn"
             onClick={(e) => scrollToComponent(e)}
