@@ -38,6 +38,11 @@
     align-items: center;
 }
 
+.-btn-transparent{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
 
 .btn-loading__icon {
   animation: loadingAnimation 1s infinite;

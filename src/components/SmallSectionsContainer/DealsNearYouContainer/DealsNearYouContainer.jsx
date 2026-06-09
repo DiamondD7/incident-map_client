@@ -10,6 +10,7 @@ const DealsNearYouContainer = ({
   setFilteredLocation,
   setSelectedLocation,
   setClearFilters,
+  setIsSearchClicked,
 }) => {
   const [promotions, setPromotions] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 550);
@@ -36,6 +37,7 @@ const DealsNearYouContainer = ({
         Latitude: currentLocation ? currentLocation.lat : 0,
         Longitude: currentLocation ? currentLocation.lng : 0,
         ShopType: "",
+        IsAnAestheticShop: null,
         DaysUntilExpiry: 0,
       }),
     })
@@ -81,6 +83,7 @@ const DealsNearYouContainer = ({
                 <h4 className="card-shopName-title__h4">{promo.shopName}</h4>
                 <button
                   onClick={() => {
+                    setIsSearchClicked(false);
                     setClearFilters(true);
                     setShopClicked({
                       lat: promo.latitude,
