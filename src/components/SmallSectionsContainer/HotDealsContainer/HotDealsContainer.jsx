@@ -1,5 +1,9 @@
 import "../../../styles/hotdealscontainerstyles.css";
-const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
+const HotDealsContainer = ({
+  setClearFilters,
+  setShopClicked,
+  setIsSearchClicked,
+}) => {
   return (
     <div className="new-deals-container__wrapper">
       <h3 className="small-section__header">🔥Hot deals</h3>
@@ -9,6 +13,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
 
           <button
             onClick={() => {
+              setIsSearchClicked(false);
               setClearFilters(true);
               setShopClicked({
                 lat: -36.848389897518366,
@@ -24,6 +29,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
 
           <button
             onClick={() => {
+              setIsSearchClicked(false);
               setClearFilters(true);
               setShopClicked({
                 lat: -36.894333906667605,
@@ -39,6 +45,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
 
           <button
             onClick={() => {
+              setIsSearchClicked(false);
               setClearFilters(true);
               setShopClicked({
                 lat: -36.850011443929311,
@@ -53,6 +60,7 @@ const HotDealsContainer = ({ setClearFilters, setShopClicked }) => {
           <h4 className="hotdeals-shopName__h4">Mr Hao</h4>
           <button
             onClick={() => {
+              setIsSearchClicked(false);
               setClearFilters(true);
               setShopClicked({
                 lat: -36.879961681773082,

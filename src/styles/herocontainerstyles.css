@@ -5,6 +5,7 @@
 .hotspots-logo__img{
     width: 70px;
     padding: 10px;
+    /* z-index: 5; */
 }
 
 .hero-message__wrapper{

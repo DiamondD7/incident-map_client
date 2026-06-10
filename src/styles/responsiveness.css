@@ -154,7 +154,7 @@
     background-color: #DBD2E0;
 }
 
-.small-sections__wrapper{
+.small-sections-container__wrapper{
 
     position: absolute;
     top: 40px;
@@ -184,6 +184,12 @@
     height:65px;
     font-size: 9px;
     width:140px;
+}
+
+.aesthetic__ul li button{
+     height: 65px;
+     font-size: 9px;
+    width: 140px;
 }
 
 .small-section__header{
@@ -260,9 +266,280 @@
 .graphics__img{
     width: 100px;
 }
+
+/* -------------------------------map container---------------------- */
+.map-container__wrapper{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+        
+    height: 100%;
+    width: 100%;
+    z-index:1;
+}
+
+.leaflet-container{
+    height: 100%;
+    z-index:1;
+}
+
+.map-search__wrapper{
+    width:60%;
+    background-color:#fff;
+    border-radius: 8px;
+    padding: 5px 10px;
+    
+    border: .5px solid #2020206e;
+}
+
+.map-search__text{
+    border: none;
+    background-color: transparent;
+    width: 240px;
+   
+    outline: none;
+}
+
+.hotspots-map-logo__img{
+    width: 70px;
+    padding: 10px;
+}
+
+.hotspots-map-mobile-header__wrapper{
+    position:absolute;
+
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    width: 100%;
+
+    z-index:5;
+}
+
+
+.small-sections-container__wrapper{
+    display: block;
+}
+
+
+/* -------------------------------map actions container---------------------- */
+.map-actions-container__wrapper{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    z-index: 6;
+}
+
+
+.shopFilter{
+    position: absolute;
+    top:65px;
+    left: 0px;
+
+}
+
+.expiryFilter{
+    position: absolute;
+    top:65px;
+    left: 130px;
+}
+
+.locationFilter{
+    position: absolute;
+    top:65px;
+    left: 200px;
+}
+
+.filter__btn{
+    font-size: 11px;
+
+}
+/* -------------------------------map actions container---------------------- */
+
+
+.deals-near-you-container__wrapper{
+    position: absolute;
+    top: 280px;
+    left: 0%;
+
+    width:100%;
+    border-radius:0;
+    background-color: #f1e3de;
+
+    z-index: 3;
+}
+
+.aesthetic-container__wrapper{
+    position: absolute;
+    top: 450px;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    
+    background-color: #f1e3de;
+
+    z-index: 3;
+}
+
+.new-deals-container__wrapper{
+    position: absolute;
+    top: 620px;
+    left: 0%;
+    width:100%;
+    border-radius:0;
+    background-color: #f1e3de;
+    z-index: 3;
+}
+
 }
 
 @media (max-width:385px){
+
+    .deals-near-you__ul li button{
+    height: 70%;
+    width: 120px;
+    font-size: 7px;
+}
+
+.new-deals__ul li button{
+    height: 70%;
+    width: 120px;
+    font-size: 7px;
+}
+
+.new-deals__ul{
+        height: 88%;
+    }
+
+.deals-near-you__ul{
+    height: 88%;
+}
+
+
+.deals-near-you__ul li {
+    height: 100%;
+}
+
+
+
+
+
+.filter__btn{
+    font-size: 9px;
+
+    border: none;
+    border-radius: 5px;
+}
+
+.hotspots-map-mobile-header__wrapper{
+    gap: 20px;
+}
+
+
+.hero-c2a__wrapper{
+    display: block;
+    width: 60%;
+    
+}
+
+.hero-c2a-map__btn{
+   text-align: center;
+   font-size: 10px;
+}
+
+.hero-c2a-feed__btn{
+    text-align: center;
+   font-size: 10px;
+}
+
+.stepbystep-graphics__wrapper{
+    margin-top: 60px;
+}
+
+.stepbystep-cards__wrapper{
+    width: 150px;
+}
+
+.stepbystep-cards__wrapper h3{
+    font-size: 11px;
+}
+.stepbystep-cards__wrapper p{
+    font-size: 8px;
+}
+
+.graphics__img{
+    width: 100px;
+}
+
+.locationFilter{
+    position: absolute;
+    top:65px;
+    left: 150px;
+}
+
+}
+
+
+/* @media(max-width:450px){
+        .feed-view-container__wrapper{
+    grid-template-columns: repeat(1, 100%);
+    gap: 20px;
+}
+
+.feed-card__wrapper{
+
+    
+    width: 100%;
+    height: 200px;
+}
+
+.hero-c2a__wrapper{
+    display: block;
+    width: 60%;
+    
+}
+
+.hero-c2a-map__btn{
+   text-align: center;
+   font-size: 10px;
+}
+
+.hero-c2a-feed__btn{
+    text-align: center;
+   font-size: 10px;
+}
+
+.stepbystep-cards__wrapper{
+    width: 150px;
+    text-align: center;
+}
+.stepbystep-cards__wrapper p{
+    font-size: 9px;
+    margin-top: 10px;
+}
+
+.stepbystep-cards__wrapper h3{
+    font-size: 12px;
+}
+.graphics__img{
+    width: 100px;
+}
+} */
+
+/* @media (max-width:385px){
 
     .deals-near-you__ul li button{
     height: 70%;
@@ -342,4 +619,4 @@
     width: 100px;
 }
 
-}
+} */
