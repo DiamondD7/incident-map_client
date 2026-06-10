@@ -59,8 +59,8 @@ const HomeMapStart = () => {
           <div className="map-search__wrapper -display-flex-justify-content-space-between">
             <input
               className="map-search__text"
-              type="text"
-              value=""
+              readOnly
+              onFocus={(e) => e.target.blur()}
               placeholder="Need help?"
               onClick={handleSearchClick}
             />
