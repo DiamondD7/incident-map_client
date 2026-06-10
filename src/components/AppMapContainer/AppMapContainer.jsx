@@ -34,7 +34,7 @@ import { TimeAgo } from "../../assets/js/timeAgo";
 import RecenterMap from "./RecenterMap/RecenterMap";
 import { Link } from "react-router-dom";
 import MapActionsContainer from "./MapActionsContainer/MapActionsContainer";
-import MobileSearchContainer from "../Home/MobileSearchContainer/MobileSearchContainer";
+import MobileSearchContainer from "../MobileSearchContainer/MobileSearchContainer";
 
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
@@ -802,8 +802,9 @@ const AppMapContainer = ({
         />
       )}
 
-      {isMobile && isSearchClicked && (
+      {isMobile && (
         <MobileSearchContainer
+          isSearchClicked={isSearchClicked}
           setIsSearchClicked={setIsSearchClicked}
           isLocationEnabled={isLocationEnabled}
           currentLocation={currentLocation}
@@ -820,6 +821,7 @@ const AppMapContainer = ({
           latitude={latitude}
           longitude={longitude}
           selectedLocation={selectedLocation}
+          promotions={promotions}
         />
       )}
     </>

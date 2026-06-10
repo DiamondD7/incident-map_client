@@ -186,6 +186,12 @@
     width:140px;
 }
 
+.aesthetic__ul li button{
+     height: 65px;
+     font-size: 9px;
+    width: 140px;
+}
+
 .small-section__header{
     font-size: 13px;
 }
@@ -330,8 +336,9 @@
     align-items: center;
         
     width: 90%;
-    height: 60px;
+    height: 50px;
     border-radius: 10px;
+    margin-top: 10px;
 
     z-index: 6;
 }
@@ -353,7 +360,7 @@
 .locationFilter{
     position: absolute;
     top:65px;
-    left: 250px;
+    left: 200px;
 }
 
 .filter__btn{
@@ -475,6 +482,12 @@
 
 .graphics__img{
     width: 100px;
+}
+
+.locationFilter{
+    position: absolute;
+    top:65px;
+    left: 150px;
 }
 
 }

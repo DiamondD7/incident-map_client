@@ -6,8 +6,8 @@ import {
   ArrowCircleLeftIcon,
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
-import MobileSearchContainer from "../MobileSearchContainer/MobileSearchContainer";
 import { Link } from "react-router-dom";
+import MobileSearchContainer from "../../MobileSearchContainer/MobileSearchContainer";
 
 const HomeMapStart = () => {
   const [currentLocation, setCurrentLocation] = useState({
@@ -60,6 +60,7 @@ const HomeMapStart = () => {
             <input
               className="map-search__text"
               type="text"
+              value=""
               placeholder="Need help?"
               onClick={handleSearchClick}
             />
