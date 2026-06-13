@@ -291,18 +291,18 @@
 }
 
 .map-search__wrapper{
-    width:60%;
+    width:78%;
     background-color:#fff;
     border-radius: 8px;
     padding: 5px 10px;
-    
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
     border: .5px solid #2020206e;
 }
 
 .map-search__text{
     border: none;
     background-color: transparent;
-    width: 240px;
+    width: 300px;
    
     outline: none;
 }
@@ -317,7 +317,7 @@
 
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 0px;
 
     width: 100%;
 
@@ -450,9 +450,6 @@
     border-radius: 5px;
 }
 
-.hotspots-map-mobile-header__wrapper{
-    gap: 20px;
-}
 
 
 .hero-c2a__wrapper{
