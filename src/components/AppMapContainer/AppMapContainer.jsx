@@ -18,6 +18,8 @@ import {
   MapPinSimpleIcon,
   StorefrontIcon,
   BreadIcon,
+  CompassIcon,
+  CompassRose,
 } from "@phosphor-icons/react";
 import {
   GetPromotions,
@@ -529,7 +531,9 @@ const AppMapContainer = ({
   useEffect(() => {
     if (!navigator.geolocation) {
       setError("Geolocation is not supported by your browser");
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
       return;
     }
 
@@ -539,7 +543,9 @@ const AppMapContainer = ({
       posthog.capture("location_permission", {
         status: "granted",
       });
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
       setIsLocationEnabled(true);
       setCurrentLocation({
         lat: position.coords.latitude,
@@ -556,7 +562,9 @@ const AppMapContainer = ({
       setError(
         `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
       );
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
       setIsLocationEnabled(false);
     };
 
@@ -781,7 +789,22 @@ const AppMapContainer = ({
               ))}
             </MapContainer>
           ) : (
-            <p className="map-loading__message">Loading map...</p>
+            <div className="-position-abs-center-center -display-flex-align-items-center -gap-5">
+              <CompassRose
+                size={32}
+                className={"btn-loading__icon"}
+                color="#FA6737"
+              />
+              <p
+                style={{
+                  color: "#FA6737",
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
+              >
+                Loading the map
+              </p>
+            </div>
           )}
         </>
       </div>

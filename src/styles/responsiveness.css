@@ -378,7 +378,7 @@
 
 .deals-near-you-container__wrapper{
     position: absolute;
-    top: 220px;
+    top: 130px;
     left: 0%;
 
     width:100%;
@@ -390,7 +390,7 @@
 
 .aesthetic-container__wrapper{
     position: absolute;
-    top: 390px;
+    top: 300px;
     left: 0;
     width: 100%;
     border-radius: 0;
@@ -402,7 +402,7 @@
 
 .new-deals-container__wrapper{
     position: absolute;
-    top: 560px;
+    top: 470px;
     left: 0%;
     width:100%;
     border-radius:0;
