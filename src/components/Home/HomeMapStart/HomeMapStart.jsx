@@ -37,52 +37,54 @@ const HomeMapStart = () => {
   };
 
   return (
-    <div>
-      {isMobile === false ? (
-        <SmallSectionsContainer
+    <>
+      <div>
+        {isMobile === false ? (
+          <SmallSectionsContainer
+            isLocationEnabled={isLocationEnabled}
+            currentLocation={currentLocation}
+            setShopClicked={setShopClicked}
+            setSelectedLocation={setSelectedLocation}
+            setClearFilters={setClearFilters}
+          />
+        ) : (
+          <div className="hotspots-map-mobile-header__wrapper">
+            <Link to="/">
+              <img
+                className="hotspots-map-logo__img"
+                src={HotspotsLogo}
+                alt="Hotspots Logo"
+              />
+            </Link>
+
+            <div className="map-search__wrapper -display-flex-justify-content-space-between">
+              <input
+                className="map-search__text"
+                readOnly
+                onFocus={(e) => e.target.blur()}
+                placeholder="Need help?"
+                onClick={handleSearchClick}
+              />
+              <MagnifyingGlassIcon size={16} color="#202020" />
+            </div>
+          </div>
+        )}
+        <AppMapContainer
+          setIsLocationEnabled={setIsLocationEnabled}
+          setCurrentLocation={setCurrentLocation}
+          shopClicked={shopClicked}
+          selectedLocation={selectedLocation}
+          setSelectedLocation={setSelectedLocation}
+          clearFilters={clearFilters}
+          setClearFilters={setClearFilters}
           isLocationEnabled={isLocationEnabled}
           currentLocation={currentLocation}
           setShopClicked={setShopClicked}
-          setSelectedLocation={setSelectedLocation}
-          setClearFilters={setClearFilters}
+          isSearchClicked={isSearchClicked}
+          setIsSearchClicked={setIsSearchClicked}
         />
-      ) : (
-        <div className="hotspots-map-mobile-header__wrapper">
-          <Link to="/">
-            <img
-              className="hotspots-map-logo__img"
-              src={HotspotsLogo}
-              alt="Hotspots Logo"
-            />
-          </Link>
-
-          <div className="map-search__wrapper -display-flex-justify-content-space-between">
-            <input
-              className="map-search__text"
-              readOnly
-              onFocus={(e) => e.target.blur()}
-              placeholder="Need help?"
-              onClick={handleSearchClick}
-            />
-            <MagnifyingGlassIcon size={16} color="#202020" />
-          </div>
-        </div>
-      )}
-      <AppMapContainer
-        setIsLocationEnabled={setIsLocationEnabled}
-        setCurrentLocation={setCurrentLocation}
-        shopClicked={shopClicked}
-        selectedLocation={selectedLocation}
-        setSelectedLocation={setSelectedLocation}
-        clearFilters={clearFilters}
-        setClearFilters={setClearFilters}
-        isLocationEnabled={isLocationEnabled}
-        currentLocation={currentLocation}
-        setShopClicked={setShopClicked}
-        isSearchClicked={isSearchClicked}
-        setIsSearchClicked={setIsSearchClicked}
-      />
-    </div>
+      </div>
+    </>
   );
 };
 
