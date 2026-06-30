@@ -2,9 +2,9 @@ import DealsNearYouContainer from "./DealsNearYouContainer/DealsNearYouContainer
 import HotDealsContainer from "./HotDealsContainer/HotDealsContainer";
 import { ArrowCircleLeftIcon } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
+import AestheticContainer from "./AestheticContainer/AestheticContainer";
 
 import "../../styles/smallsectionstyles.css";
-import AestheticContainer from "./AestheticContainer/AestheticContainer";
 const SmallSectionsContainer = ({
   isLocationEnabled,
   currentLocation,
