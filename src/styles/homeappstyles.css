@@ -1,0 +1,27 @@
+.bottom-navigation-menu__wrapper{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #FA6737;
+    width: 100vw;
+    height: 50px;
+
+    z-index: 10;
+}
+
+
+.bottom-navigation-menu__wrapper ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 100%;
+
+    list-style: none;
+}
+
+.bottom-navigation-menu__wrapper ul li button{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}

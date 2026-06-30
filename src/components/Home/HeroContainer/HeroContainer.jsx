@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BinocularsIcon,
   CircleNotchIcon,
@@ -14,13 +14,24 @@ import "../../../styles/herocontainerstyles.css";
 const HeroContainer = ({ scrollToComponent }) => {
   const navigate = useNavigate();
   const [isMapClicked, setIsMapClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 450);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 450);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleOpenMapClick = (e) => {
     e.preventDefault();
     setIsMapClicked(true);
 
     setTimeout(() => {
-      navigate("/map");
+      isMobile ? navigate("/app") : navigate("/map");
     }, 2000);
   };
   return (
