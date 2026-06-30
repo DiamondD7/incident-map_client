@@ -36,10 +36,18 @@
     list-style: none;
 }
 
-.homepage-filter__ul li button{
+
+.unactiveFilter{
     font-size: 12px;
     color: #929292;
 }
+
+.activeFilter{
+    font-weight: bold;
+    font-size: 12px;
+    color: #202020;
+}
+
 
 .display-page__wrapper{
     padding: 20px;
@@ -57,14 +65,51 @@
 }
 
 .display-page-card__wrapper{
-    background-color: #FA6737;
-    color: #fff;
-    padding: 5px;
+    /* background-color: #FA6737;
+    color: #fff; */
     width: 120px;
-
-    border-radius: 10px;
+    padding: 0 5px;
+    
 }
 
 .display-page-card__wrapper p{
+    background-color: #FA6737;
+    color: #fff;
+    padding: 5px;
     font-size: 10px;
+    border-radius: 10px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    height: 60px;
+}
+
+
+.cafes-content__wrapper{
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    width: 70%;
+}
+.restaurant-content__wrapper{
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    width: 70%;
+}
+.bakery-content__wrapper{
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    width: 70%;
+}
+
+.unactiveCafeFilter{
+    font-size: 12px;
+    color: #929292;
+}
+
+.activeCafeFilter{
+    font-weight: bold;
+    font-size: 12px;
+    color: #FA6737;
 }

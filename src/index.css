@@ -63,3 +63,12 @@
     transform: rotate(360deg);
   }
 }
+
+.-aesthetic-label{
+    padding: 1px 5px;
+    background-color: #FA6737;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}

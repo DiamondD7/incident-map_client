@@ -27,22 +27,22 @@ const BottomNav = () => {
               <HouseIcon size={27} weight="fill" color="#fff" />
             </button>
           </li>
-          <li>
+          {/* <li>
             <button onClick={(e) => handleMenuClicked(e, "discoverFeed")}>
               <CompassIcon size={27} weight="fill" color="#fff" />
             </button>
-          </li>
+          </li> */}
 
           <li>
             <button onClick={(e) => handleMenuClicked(e, "map")}>
               <MapTrifoldIcon size={27} weight="fill" color="#fff" />
             </button>
           </li>
-          <li>
+          {/* <li>
             <button onClick={(e) => handleMenuClicked(e, "savedItems")}>
               <BookmarkSimpleIcon size={27} weight="fill" color="#fff" />
             </button>
-          </li>
+          </li> */}
         </ul>
       </div>
     </>
