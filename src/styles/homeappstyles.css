@@ -13,15 +13,31 @@
 .bottom-navigation-menu__wrapper ul{
     display: flex;
     justify-content: space-around;
-    align-items: center;
 
     height: 100%;
 
     list-style: none;
 }
 
-.bottom-navigation-menu__wrapper ul li button{
+.bottom-navigation-menu__button{
     cursor: pointer;
     background-color: transparent;
     border: none;
+    padding:5px 10px;
+}
+
+
+.activeBtnMenu{
+    background-color: #fff;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding:5px 10px;
+}
+
+.navigation-menu__icon{
+    color:#fff;
+}
+
+.activeIconMenu{
+    color:#FA6737
 }
