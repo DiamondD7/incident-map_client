@@ -49,13 +49,13 @@ const HomeMapStart = () => {
           />
         ) : (
           <div className="hotspots-map-mobile-header__wrapper">
-            <Link to="/">
+            <>
               <img
                 className="hotspots-map-logo__img"
                 src={HotspotsLogo}
                 alt="Hotspots Logo"
               />
-            </Link>
+            </>
 
             <div className="map-search__wrapper -display-flex-justify-content-space-between">
               <input
