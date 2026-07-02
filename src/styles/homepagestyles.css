@@ -55,24 +55,45 @@
 
 .display-page-cards-container__wrapper{
     display: grid;
-    grid-template-rows: repeat(2,70px);
+    grid-template-rows: repeat(2,100px);
     grid-auto-flow: column;
-    grid-auto-columns: 120px;
-    gap: 5px;
+    grid-auto-columns: 150px;
+    gap: 10px;
 
     overflow-x: auto;
     overflow-y: hidden;
+}
+.display-newAdded-page-cards-container__wrapper{
+    display: grid;
+    grid-template-rows: repeat(1,100%);
+    grid-auto-flow: column;
+    grid-auto-columns: 150px;
+    gap: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    height:95px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #FA6737;
 }
 
 .display-page-card__wrapper{
     /* background-color: #FA6737;
     color: #fff; */
-    width: 120px;
-    padding: 0 5px;
+    width: 150px;
     
 }
 
-.display-page-card__wrapper p{
+.newAdded-card-shopName__text{
+    color: #fff;
+}
+.card-shopName__text{
+    color: #FA6737;
+}
+
+/* .display-page-card__wrapper p{
     background-color: #FA6737;
     color: #fff;
     padding: 5px;
@@ -81,6 +102,30 @@
 
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     height: 60px;
+} */
+
+.newAdded-card-title__text{
+    font-size: 10px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.newAdded-card-description__text{
+    margin-top: 5px;
+    font-size: 10px;
+    color: #eee9e9;
+
+}
+
+.card-title__text{
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.card-description__text{
+    margin-top: 5px;
+    font-size: 10px;
+    color: #838383;
 }
 
 
