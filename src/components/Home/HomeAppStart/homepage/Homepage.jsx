@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import {
   BreadIcon,
+  CircleNotchIcon,
   CoffeeIcon,
+  FireIcon,
   ForkKnifeIcon,
   MagnifyingGlassIcon,
+  SparkleIcon,
 } from "@phosphor-icons/react";
 import HotspotsLogo from "../../../../assets/hotspots-logo-transparent.png";
+import { GetPromotions } from "../../../../assets/js/api-auth";
+import { TimeAgo } from "../../../../assets/js/timeAgo";
 
 import "../../../../styles/homepagestyles.css";
-import { GetPromotions } from "../../../../assets/js/api-auth";
 const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   const handleFilterClicked = (e, type) => {
     e.preventDefault();
@@ -80,13 +84,23 @@ const DisplayPage = ({ filterShopType, searchText }) => {
   }, []);
 
   const AllDisplay = ({ promotions, searchText }) => {
+    const [loading, setLoading] = useState(true);
     const [searchedItem, setSearchedItem] = useState(null);
 
+    const newAddedPromotions = promotions.filter((item) =>
+      TimeAgo(item.createdAt),
+    );
     const cafes = promotions.filter((item) => item.shopType === "Cafe");
     const restaurants = promotions.filter(
       (item) => item.shopType === "Restaurant",
     );
     const bakery = promotions.filter((item) => item.shopType === "Bakery");
+
+    useEffect(() => {
+      if (promotions.length > 0) {
+        setLoading(false);
+      }
+    }, [promotions]);
 
     useEffect(() => {
       if (searchText) {
@@ -150,11 +164,153 @@ const DisplayPage = ({ filterShopType, searchText }) => {
           <div>
             <div>
               <h3 className="-display-flex-align-items-center -gap-5">
+                <SparkleIcon color="#FA6737" weight="fill" />
+                Newly Added
+              </h3>
+
+              <div className="display-newAdded-page-cards-container__wrapper">
+                {loading ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "250px",
+                    }}
+                  >
+                    <CircleNotchIcon
+                      weight="bold"
+                      className={"btn-loading__icon"}
+                      color="#fff"
+                    />
+                  </div>
+                ) : (
+                  <>
+                    {newAddedPromotions.map((item) => (
+                      <div className="display-page-card__wrapper" key={item.id}>
+                        <h6 className="newAdded-card-shopName__text">
+                          {item.shopName.length > 10
+                            ? item.shopName.substring(0, 16)
+                            : item.shopName}
+                        </h6>
+
+                        <p className="newAdded-card-title__text">
+                          {item.title}
+                        </p>
+                        <p className="newAdded-card-description__text">
+                          {item.description}
+                        </p>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+            <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+              <h3 className="-display-flex-align-items-center -gap-5">
+                <FireIcon color="#FA6737" weight="fill" />
+                Hot Deals
+              </h3>
+
+              <div className="display-page-cards-container__wrapper">
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Mission Bay Cafe</h6>
+                  <p className="card-title__text">30% OFF all food</p>
+                  <p className="card-description__text">
+                    This promotion is on until December 20th when you dine after
+                    3:00pm you will get a 30% OFF excluded drinks
+                  </p>
+                </div>
+
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Howick Village Cafe</h6>
+
+                  <p className="card-title__text">$4.90 coffees. Mon-Fri</p>
+                  <p className="card-description__text">
+                    This promotion is only available on weekdays.
+                  </p>
+                </div>
+
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Ronnies Cafe</h6>
+
+                  <p className="card-title__text">
+                    Free 250ml Can Drink For Meal Over $20
+                  </p>
+                  <p className="card-description__text">
+                    This promotion is available Monday to Friday, you will get a
+                    free can drink for every meal $20 above.
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Uglyz Cafe & Bar</h6>
+
+                  <p className="card-title__text">Happy Hour, 50% drinks</p>
+                  <p className="card-description__text">
+                    Every weekday from 3pm to 5pm
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: "30px", borderBottom: "1px solid #ccc" }}>
+              <h3 className="-display-flex-align-items-center -gap-5">
                 <CoffeeIcon color="#FA6737" weight="fill" />
-                All Cafes
+                Aesthetic Food Spots
               </h3>
               <div className="display-page-cards-container__wrapper">
-                {cafes.map((item) => (
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">&Black</h6>
+
+                  <p className="card-title__text">
+                    Aesthetic modern cafe in Newmarket
+                  </p>
+                  <p className="card-description__text">
+                    A modern cafe look but very cosy.
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Maru's House</h6>
+
+                  <p className="card-title__text">Cute Aesthetic Cafe</p>
+                  <p className="card-description__text">
+                    This cafe is good for people that loves matcha and loves
+                    aesthetic environment
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Mixed 1981</h6>
+
+                  <p className="card-title__text">Cute & Spacious Cafe</p>
+                  <p className="card-description__text">
+                    This cute cafe is popular for its coffee, matcha and its
+                    aesthetic look.
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Ronnies Cafe</h6>
+
+                  <p className="card-title__text">
+                    Free 250ml Can Drink For Meal Over $20
+                  </p>
+                  <p className="card-description__text">
+                    This promotion is available Monday to Friday, you will get a
+                    free can drink for every meal $20 above.
+                  </p>
+                </div>
+
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Atelier Shu</h6>
+
+                  <p className="card-title__text">
+                    Aesthetic Looking Bakery Shop
+                  </p>
+                  <p className="card-description__text">
+                    They serve mini gateau cakes and handcrafted pastries.
+                  </p>
+                </div>
+
+                {/* {cafes.map((item) => (
                   <div className="display-page-card__wrapper" key={item.id}>
                     <h6>
                       {item.shopName.length > 10
@@ -164,16 +320,50 @@ const DisplayPage = ({ filterShopType, searchText }) => {
 
                     <p>{item.address}</p>
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
-            <div style={{ marginTop: "50px" }}>
+            <div style={{ marginTop: "30px" }}>
               <h3 className="-display-flex-align-items-center -gap-5">
                 <ForkKnifeIcon color="#FA6737" weight="fill" />
-                All Restaurants
+                Trending Food Spots
               </h3>
               <div className="display-page-cards-container__wrapper">
-                {restaurants.map((item) => (
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Seoul Night</h6>
+
+                  <p className="card-title__text">
+                    Exclusive Insider Reward 10% Discount
+                  </p>
+                  <p className="card-description__text">
+                    Book through the website below to get 10% OFF your next
+                    visit at Seoul Night.
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Mr. Hao</h6>
+
+                  <p className="card-title__text">
+                    Bottomless Dumplings - $28pp
+                  </p>
+                  <p className="card-description__text">
+                    $28 per person all you can eat dumplings. You can choose
+                    from 11 types of their own dumplings. Check their menu on
+                    their instagram or website.
+                  </p>
+                </div>
+                <div className="display-page-card__wrapper">
+                  <h6 className="card-shopName__text">Botany Commons</h6>
+
+                  <p className="card-title__text">Happy Hour</p>
+                  <p className="card-description__text">
+                    They are offering $10 on specific beers, wine and other
+                    spirits. Free pool all day Thursday. Happy Hour 3-6pm
+                    Weekdays and 2-5pm weekends
+                  </p>
+                </div>
+
+                {/* {restaurants.map((item) => (
                   <div className="display-page-card__wrapper" key={item.id}>
                     <h6>
                       {item.shopName.length > 10
@@ -183,11 +373,11 @@ const DisplayPage = ({ filterShopType, searchText }) => {
 
                     <p>{item.address}</p>
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
             <div style={{ marginTop: "50px" }}>
-              <h3 className="-display-flex-align-items-center -gap-5">
+              {/* <h3 className="-display-flex-align-items-center -gap-5">
                 <BreadIcon color="#FA6737" weight="fill" />
                 All Bakery
               </h3>
@@ -203,7 +393,7 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                     <p>{item.address}</p>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         )}
