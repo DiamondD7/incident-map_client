@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   BreadIcon,
+  CameraIcon,
   CircleNotchIcon,
   CoffeeIcon,
   FireIcon,
@@ -170,24 +171,56 @@ const DisplayPage = ({ filterShopType, searchText }) => {
 
               <div className="display-newAdded-page-cards-container__wrapper">
                 {loading ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "250px",
-                    }}
-                  >
-                    <CircleNotchIcon
-                      weight="bold"
-                      className={"btn-loading__icon"}
-                      color="#fff"
-                    />
-                  </div>
+                  <>
+                    <div className="display-page-card-loading__wrapper">
+                      <>
+                        <div className="page-card-picture-loading__wrapper"></div>
+                        <div className="page-card-description-loading__wrapper"></div>
+                      </>
+                    </div>
+                    <div className="display-page-card-loading__wrapper">
+                      <>
+                        <div className="page-card-picture-loading__wrapper"></div>
+                        <div className="page-card-description-loading__wrapper"></div>
+                      </>
+                    </div>
+                  </>
                 ) : (
                   <>
                     {newAddedPromotions.map((item) => (
                       <div className="display-page-card__wrapper" key={item.id}>
+                        {/* {item.images.length > 0 ? (
+                          <img
+                            src={`https://localhost:7207/pictures/dailybread-one.jpg`}
+                            alt="pic-one"
+                            style={{
+                              width: "100px",
+                              height: "50px",
+                              objectFit: "cover",
+                              borderRadius: "5px",
+                            }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: "100px",
+                              height: "50px",
+                              backgroundColor: "#e2e1e1",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            <div style={{ textAlign: "center" }}>
+                              <CameraIcon size={20} />
+
+                              <p style={{ fontSize: "9px" }}>
+                                No Images Available
+                              </p>
+                            </div>
+                          </div>
+                        )} */}
                         <h6 className="newAdded-card-shopName__text">
                           {item.shopName.length > 10
                             ? item.shopName.substring(0, 16)
@@ -198,7 +231,9 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                           {item.title}
                         </p>
                         <p className="newAdded-card-description__text">
-                          {item.description}
+                          {item.description.length > 30
+                            ? item.description.substring(0, 80) + "..."
+                            : item.description}
                         </p>
                       </div>
                     ))}

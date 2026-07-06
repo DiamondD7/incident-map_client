@@ -73,7 +73,7 @@
     overflow-x: auto;
     overflow-y: hidden;
 
-    height:95px;
+    height:100%;
     padding: 10px;
     border-radius: 10px;
     background-color: #FA6737;
@@ -85,6 +85,25 @@
     width: 150px;
     
 }
+
+.page-card-picture-loading__wrapper{
+    background-color:#ccccccb4;
+    width: 100px;
+    height: 50px;
+
+    animation: loadingSkeletonAnimation 1s infinite;
+}
+
+.page-card-description-loading__wrapper{
+    margin-top: 5px;
+    background-color:#ccccccb4;
+    width: 100px;
+    height: 20px;
+
+    animation: loadingSkeletonAnimation 1s infinite;
+}
+
+
 
 .newAdded-card-shopName__text{
     color: #fff;
