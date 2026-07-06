@@ -55,6 +55,16 @@
   animation: loadingAnimation 1s infinite;
 }
 
+
+.-aesthetic-label{
+    padding: 1px 5px;
+    background-color: #FA6737;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
 @keyframes loadingAnimation {
   0% {
     transform: rotate(0deg);
@@ -64,11 +74,12 @@
   }
 }
 
-.-aesthetic-label{
-    padding: 1px 5px;
-    background-color: #FA6737;
-    color: #fff;
-    font-size: 10px;
-    letter-spacing: .5px;
-    text-transform: uppercase;
+@keyframes loadingSkeletonAnimation {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    
+  }
 }

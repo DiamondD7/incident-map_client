@@ -171,20 +171,20 @@ const DisplayPage = ({ filterShopType, searchText }) => {
 
               <div className="display-newAdded-page-cards-container__wrapper">
                 {loading ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "250px",
-                    }}
-                  >
-                    <CircleNotchIcon
-                      weight="bold"
-                      className={"btn-loading__icon"}
-                      color="#fff"
-                    />
-                  </div>
+                  <>
+                    <div className="display-page-card-loading__wrapper">
+                      <>
+                        <div className="page-card-picture-loading__wrapper"></div>
+                        <div className="page-card-description-loading__wrapper"></div>
+                      </>
+                    </div>
+                    <div className="display-page-card-loading__wrapper">
+                      <>
+                        <div className="page-card-picture-loading__wrapper"></div>
+                        <div className="page-card-description-loading__wrapper"></div>
+                      </>
+                    </div>
+                  </>
                 ) : (
                   <>
                     {newAddedPromotions.map((item) => (
