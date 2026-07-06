@@ -189,7 +189,7 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                   <>
                     {newAddedPromotions.map((item) => (
                       <div className="display-page-card__wrapper" key={item.id}>
-                        {/* {item.images.length > 0 ? (
+                        {item.images.length > 0 ? (
                           <img
                             src={`https://localhost:7207/pictures/dailybread-one.jpg`}
                             alt="pic-one"
@@ -220,7 +220,7 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                               </p>
                             </div>
                           </div>
-                        )} */}
+                        )}
                         <h6 className="newAdded-card-shopName__text">
                           {item.shopName.length > 10
                             ? item.shopName.substring(0, 16)
