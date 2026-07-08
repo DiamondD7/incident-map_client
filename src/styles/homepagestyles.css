@@ -106,6 +106,7 @@
 
 
 .newAdded-card-shopName__text{
+    text-decoration: underline;
     color: #fff;
 }
 .card-shopName__text{

@@ -60,7 +60,7 @@ const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   );
 };
 
-const DisplayPage = ({ filterShopType, searchText }) => {
+const DisplayPage = ({ filterShopType, searchText, setActiveMenu }) => {
   const [clickedModal, setClickedModal] = useState(false);
   const [modalData, setModalData] = useState({});
 
@@ -155,16 +155,26 @@ const DisplayPage = ({ filterShopType, searchText }) => {
               <>
                 {searchedItem.map((item) => (
                   <div className="bakery-content__wrapper" key={item.id}>
-                    <h4 className="-display-flex-align-items-center">
-                      {item.shopType === "Restaurant" ? (
-                        <ForkKnifeIcon color="#FA6737" weight="fill" />
-                      ) : item.shopType === "Cafe" ? (
-                        <CoffeeIcon color="#FA6737" weight="fill" />
-                      ) : (
-                        <BreadIcon color="#FA6737" weight="fill" />
-                      )}
-                      {item.shopName}
-                    </h4>
+                    <div className="-display-flex">
+                      <h4 className="-display-flex-align-items-center">
+                        {item.shopType === "Restaurant" ? (
+                          <ForkKnifeIcon color="#FA6737" weight="fill" />
+                        ) : item.shopType === "Cafe" ? (
+                          <CoffeeIcon color="#FA6737" weight="fill" />
+                        ) : (
+                          <BreadIcon color="#FA6737" weight="fill" />
+                        )}
+                        {item.shopName}
+                      </h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
+
                     <p style={{ fontSize: "10px", color: "#bebebe" }}>
                       {item.address}
                     </p>
@@ -462,7 +472,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
     );
   };
 
-  const CafeDisplay = ({ promotions, searchText }) => {
+  const CafeDisplay = ({
+    promotions,
+    searchText,
+    setClickedModal,
+    setModalData,
+  }) => {
     const [searchedItem, setSearchedItem] = useState(null);
     const [cafes, setCafes] = useState([]);
     const [filterCafe, setFilterCafe] = useState("all");
@@ -492,6 +507,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
         );
       }
     }, [filterCafe]);
+
+    const handleClickModal = (e, data) => {
+      e.preventDefault();
+      setClickedModal(true);
+      setModalData(data);
+    };
     return (
       <div style={{ height: "335px", overflow: "auto" }}>
         <h1 style={{ textAlign: "center" }}>Cafes</h1>
@@ -534,7 +555,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                     ) : (
                       ""
                     )}
-                    <h4>{item.shopName}</h4>
+                    <div className="-display-flex">
+                      <h4>{item.shopName}</h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
                     <p style={{ fontSize: "10px", color: "#bebebe" }}>
                       {item.address}
                     </p>
@@ -555,7 +585,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                 ) : (
                   ""
                 )}
-                <h4>{item.shopName}</h4>
+                <div className="-display-flex">
+                  <h4>{item.shopName}</h4>
+                  <button
+                    onClick={(e) => handleClickModal(e, item)}
+                    style={{ color: "#FA6737" }}
+                    className="-btn-transparent"
+                  >
+                    view
+                  </button>
+                </div>
                 <p style={{ fontSize: "10px", color: "#bebebe" }}>
                   {item.address}
                 </p>
@@ -570,7 +609,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
     );
   };
 
-  const RestaurantDisplay = ({ promotions, searchText }) => {
+  const RestaurantDisplay = ({
+    promotions,
+    searchText,
+    setClickedModal,
+    setModalData,
+  }) => {
     const [searchedItem, setSearchedItem] = useState(null);
     const restaurants = promotions.filter(
       (item) => item.shopType === "Restaurant",
@@ -587,6 +631,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
         );
       }
     }, [searchText]);
+
+    const handleClickModal = (e, data) => {
+      e.preventDefault();
+      setClickedModal(true);
+      setModalData(data);
+    };
 
     return (
       <div style={{ height: "335px", overflow: "auto" }}>
@@ -611,7 +661,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
               <>
                 {searchedItem.map((item) => (
                   <div className="restaurant-content__wrapper" key={item.id}>
-                    <h4>{item.shopName}</h4>
+                    <div className="-display-flex">
+                      <h4>{item.shopName}</h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
                     <p style={{ fontSize: "10px", color: "#bebebe" }}>
                       {item.address}
                     </p>
@@ -627,7 +686,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
           <>
             {restaurants.map((item) => (
               <div className="restaurant-content__wrapper" key={item.id}>
-                <h4>{item.shopName}</h4>
+                <div className="-display-flex">
+                  <h4>{item.shopName}</h4>
+                  <button
+                    onClick={(e) => handleClickModal(e, item)}
+                    style={{ color: "#FA6737" }}
+                    className="-btn-transparent"
+                  >
+                    view
+                  </button>
+                </div>
                 <p style={{ fontSize: "10px", color: "#bebebe" }}>
                   {item.address}
                 </p>
@@ -642,7 +710,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
     );
   };
 
-  const BakeryDisplay = ({ promotions, searchText }) => {
+  const BakeryDisplay = ({
+    promotions,
+    searchText,
+    setClickedModal,
+    setModalData,
+  }) => {
     const [searchedItem, setSearchedItem] = useState(null);
     const bakery = promotions.filter((item) => item.shopType === "Bakery");
 
@@ -657,6 +730,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
         );
       }
     }, [searchText]);
+
+    const handleClickModal = (e, data) => {
+      e.preventDefault();
+      setClickedModal(true);
+      setModalData(data);
+    };
 
     return (
       <div style={{ height: "335px", overflow: "auto" }}>
@@ -682,7 +761,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
               <>
                 {searchedItem.map((item) => (
                   <div className="bakery-content__wrapper" key={item.id}>
-                    <h4>{item.shopName}</h4>
+                    <div className="-display-flex">
+                      <h4>{item.shopName}</h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
                     <p style={{ fontSize: "10px", color: "#bebebe" }}>
                       {item.address}
                     </p>
@@ -698,7 +786,16 @@ const DisplayPage = ({ filterShopType, searchText }) => {
           <>
             {bakery.map((item) => (
               <div className="bakery-content__wrapper" key={item.id}>
-                <h4>{item.shopName}</h4>
+                <div className="-display-flex">
+                  <h4>{item.shopName}</h4>
+                  <button
+                    onClick={(e) => handleClickModal(e, item)}
+                    style={{ color: "#FA6737" }}
+                    className="-btn-transparent"
+                  >
+                    view
+                  </button>
+                </div>
                 <p style={{ fontSize: "10px", color: "#bebebe" }}>
                   {item.address}
                 </p>
@@ -720,6 +817,7 @@ const DisplayPage = ({ filterShopType, searchText }) => {
           modalData={modalData}
           clickedModal={clickedModal}
           setClickedModal={setClickedModal}
+          setActiveMenu={setActiveMenu}
         />
       )}
 
@@ -733,19 +831,34 @@ const DisplayPage = ({ filterShopType, searchText }) => {
       )}
 
       {filterShopType === "cafe" && (
-        <CafeDisplay promotions={promotions} searchText={searchText} />
+        <CafeDisplay
+          promotions={promotions}
+          searchText={searchText}
+          setClickedModal={setClickedModal}
+          setModalData={setModalData}
+        />
       )}
       {filterShopType === "restaurant" && (
-        <RestaurantDisplay promotions={promotions} searchText={searchText} />
+        <RestaurantDisplay
+          promotions={promotions}
+          searchText={searchText}
+          setClickedModal={setClickedModal}
+          setModalData={setModalData}
+        />
       )}
       {filterShopType === "bakery" && (
-        <BakeryDisplay promotions={promotions} searchText={searchText} />
+        <BakeryDisplay
+          promotions={promotions}
+          searchText={searchText}
+          setClickedModal={setClickedModal}
+          setModalData={setModalData}
+        />
       )}
     </div>
   );
 };
 
-const HomePage = () => {
+const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [filterShopType, setFilterShopType] = useState("all");
   const [searchText, setSearchText] = useState("");
   return (
@@ -780,7 +893,11 @@ const HomePage = () => {
         filterShopType={filterShopType}
         setFilterShopType={setFilterShopType}
       />
-      <DisplayPage filterShopType={filterShopType} searchText={searchText} />
+      <DisplayPage
+        filterShopType={filterShopType}
+        searchText={searchText}
+        setActiveMenu={setActiveMenu}
+      />
     </div>
   );
 };
