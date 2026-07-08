@@ -14,6 +14,7 @@ import { GetPromotions } from "../../../../assets/js/api-auth";
 import { TimeAgo } from "../../../../assets/js/timeAgo";
 
 import "../../../../styles/homepagestyles.css";
+import ModalContainer from "../../../ModalContainer/ModalContainer";
 const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   const handleFilterClicked = (e, type) => {
     e.preventDefault();
@@ -60,6 +61,9 @@ const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
 };
 
 const DisplayPage = ({ filterShopType, searchText }) => {
+  const [clickedModal, setClickedModal] = useState(false);
+  const [modalData, setModalData] = useState({});
+
   const [promotions, setPromotions] = useState([]);
   useEffect(() => {
     const GetAllPromotions = async () => {
@@ -84,7 +88,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
     GetAllPromotions();
   }, []);
 
-  const AllDisplay = ({ promotions, searchText }) => {
+  const AllDisplay = ({
+    promotions,
+    searchText,
+    setClickedModal,
+    setModalData,
+  }) => {
     const [loading, setLoading] = useState(true);
     const [searchedItem, setSearchedItem] = useState(null);
 
@@ -117,6 +126,12 @@ const DisplayPage = ({ filterShopType, searchText }) => {
         );
       }
     }, [searchText]);
+
+    const handleClickModal = (e, data) => {
+      e.preventDefault();
+      setClickedModal(true);
+      setModalData(data);
+    };
 
     return (
       <>
@@ -190,16 +205,24 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                     {newAddedPromotions.map((item) => (
                       <div className="display-page-card__wrapper" key={item.id}>
                         {item.images.length > 0 ? (
-                          <img
-                            src={`https://localhost:7207/pictures/dailybread-one.jpg`}
-                            alt="pic-one"
-                            style={{
-                              width: "100px",
-                              height: "50px",
-                              objectFit: "cover",
-                              borderRadius: "5px",
-                            }}
-                          />
+                          <>
+                            {item.images.map(
+                              (image) =>
+                                image.imageTitle === "thumbnail" && (
+                                  <img
+                                    key={image.id}
+                                    src={`https://localhost:7207${image.imageUrl}`}
+                                    alt="pic-one"
+                                    style={{
+                                      width: "100px",
+                                      height: "50px",
+                                      objectFit: "cover",
+                                      borderRadius: "5px",
+                                    }}
+                                  />
+                                ),
+                            )}
+                          </>
                         ) : (
                           <div
                             style={{
@@ -221,7 +244,10 @@ const DisplayPage = ({ filterShopType, searchText }) => {
                             </div>
                           </div>
                         )}
-                        <h6 className="newAdded-card-shopName__text">
+                        <h6
+                          className="newAdded-card-shopName__text"
+                          onClick={(e) => handleClickModal(e, item)}
+                        >
                           {item.shopName.length > 10
                             ? item.shopName.substring(0, 16)
                             : item.shopName}
@@ -689,8 +715,21 @@ const DisplayPage = ({ filterShopType, searchText }) => {
 
   return (
     <div className="display-page__wrapper">
+      {clickedModal === true && (
+        <ModalContainer
+          modalData={modalData}
+          clickedModal={clickedModal}
+          setClickedModal={setClickedModal}
+        />
+      )}
+
       {filterShopType === "all" && (
-        <AllDisplay promotions={promotions} searchText={searchText} />
+        <AllDisplay
+          promotions={promotions}
+          searchText={searchText}
+          setClickedModal={setClickedModal}
+          setModalData={setModalData}
+        />
       )}
 
       {filterShopType === "cafe" && (
