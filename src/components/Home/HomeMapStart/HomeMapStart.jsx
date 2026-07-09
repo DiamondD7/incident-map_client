@@ -6,10 +6,14 @@ import {
   ArrowCircleLeftIcon,
   MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import MobileSearchContainer from "../../MobileSearchContainer/MobileSearchContainer";
 
 const HomeMapStart = () => {
+  const [searchParams] = useSearchParams();
+  const latParams = searchParams.get("latParams");
+  const lonParams = searchParams.get("lonParams");
+
   const [currentLocation, setCurrentLocation] = useState({
     lat: 0,
     lng: 0,
@@ -18,7 +22,9 @@ const HomeMapStart = () => {
 
   const [clearFilters, setClearFilters] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [shopClicked, setShopClicked] = useState(null); //when user clicks one of the shops in the list. to center the map on that shop.
+  const [shopClicked, setShopClicked] = useState(
+    latParams && lonParams ? { lat: latParams, lng: lonParams } : null,
+  ); //when user clicks one of the shops in the list or on the modal. to center the map on that shop.
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 450);
 

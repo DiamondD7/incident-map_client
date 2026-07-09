@@ -1,0 +1,177 @@
+.modal-container__wrapper{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #F4F4F9;
+
+    border-radius: 15px;
+    width:75%;
+    height:70%;
+
+    padding: 10px;
+
+    z-index: 15;
+}
+
+.modal-cta__btns{
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+
+    display: flex;
+    justify-content: center;
+    gap:10px;
+    width: 100%;
+
+    z-index: 15;
+}
+
+.modal-close__btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+
+    color: #fff;
+    padding:5px 10px;
+    cursor: pointer;
+}
+
+.modal-showonMap__btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border-radius: 10px;
+    background-color: #FA6737;
+    border: none;
+
+    color: #fff;
+    padding:5px 10px;
+    cursor: pointer;
+    
+}
+
+.modal-image-carets__wrapper{
+    position: absolute;
+    top:0;
+    left:0;
+
+    display:flex;
+    justify-content: space-between;
+
+    padding: 10px;
+    height: 170px;
+    width: 100%;
+}
+
+.modal-images-empty__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width:100%;
+    height:130px;
+    background-color: #ccc;
+     border-radius: 15px;
+}
+
+.modal__img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    border-radius: 15px;
+}
+
+.modal-image-caretleft__btn{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+.modal-image-caretRight__btn{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.modal-address__p{
+    font-size: 11px;
+    color:#858585;
+}
+
+.modal-description__p{
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 10px;
+
+    height:65px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.modal-deals-container__wrapper{
+    margin-top: 10px;
+}
+
+.modal-deals__wrapper{
+    display: grid;
+    grid-template-rows: repeat(1,115px);
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: 20px;
+
+    height:135px;
+    width:100%;
+    background-color:#FA6737;
+    border-radius:15px;
+    padding:10px;
+
+    overflow-x:auto;
+    overflow-y: hidden;
+}
+
+.modal-deal-title__h6{
+    color:#FA6737;
+}
+
+.modal-eachdeal__wrapper{
+    width:100%;
+    border-radius:5px;
+    padding:5px;
+    background-color:#F4F4F9;
+}
+
+.modal-deal-description__p{
+    font-size: 10px;
+    line-height: 1.5;
+    margin-top: 5px;
+
+    height:53px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.modal-deal-dates__wrapper p{
+    font-size: 10px;
+    font-weight:bold;
+}
+
+.deals-nothing__wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.deals-nothing__text{
+    font-size: 12px;
+    
+    color: #fff;
+}

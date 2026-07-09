@@ -9,9 +9,8 @@ import HomeMapStart from "../HomeMapStart/HomeMapStart";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import "../../../styles/homeappstyles.css";
-const BottomNav = () => {
+const BottomNav = ({ activeMenu, setActiveMenu }) => {
   const navigate = useNavigate();
-  const [activeMenu, setActiveMenu] = useState("/");
 
   const handleMenuClicked = (e, name) => {
     e.preventDefault();
@@ -78,11 +77,11 @@ const BottomNav = () => {
   );
 };
 
-const HomeAppStart = () => {
+const HomeAppStart = ({ activeMenu, setActiveMenu }) => {
   return (
     <div>
       <Outlet />
-      <BottomNav />
+      <BottomNav activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
     </div>
   );
 };

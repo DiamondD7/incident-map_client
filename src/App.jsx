@@ -15,6 +15,9 @@ import "./App.css";
 function App() {
   posthog.capture("app_open");
 
+  // this is only for mobile screens
+  const [activeMenu, setActiveMenu] = useState("/");
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 450);
 
   useEffect(() => {
@@ -33,8 +36,24 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
 
         {isMobile ? (
-          <Route path="/" element={<HomeAppStart />}>
-            <Route index element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <HomeAppStart
+                activeMenu={activeMenu}
+                setActiveMenu={setActiveMenu}
+              />
+            }
+          >
+            <Route
+              index
+              element={
+                <HomePage
+                  activeMenu={activeMenu}
+                  setActiveMenu={setActiveMenu}
+                />
+              }
+            />
             <Route path="discoverFeed" element={<DiscoverFeed />} />
             <Route path="map" element={<HomeMapStart />} />
             <Route path="savedItems" element={<SavedItems />} />
