@@ -10,7 +10,7 @@ import {
   SparkleIcon,
 } from "@phosphor-icons/react";
 import HotspotsLogo from "../../../../assets/hotspots-logo-transparent.png";
-import { GetPromotions } from "../../../../assets/js/api-auth";
+import { GetPromotions, API_URI } from "../../../../assets/js/api-auth";
 import { TimeAgo } from "../../../../assets/js/timeAgo";
 
 import "../../../../styles/homepagestyles.css";
@@ -221,7 +221,7 @@ const DisplayPage = ({ filterShopType, searchText, setActiveMenu }) => {
                                 image.imageTitle === "thumbnail" && (
                                   <img
                                     key={image.id}
-                                    src={`https://localhost:7207${image.imageUrl}`}
+                                    src={`${API_URI}${image.imageUrl}`}
                                     alt="pic-one"
                                     style={{
                                       width: "100px",

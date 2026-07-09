@@ -12,9 +12,10 @@ import {
   XIcon,
 } from "@phosphor-icons/react";
 import { MapTrifoldIcon } from "@phosphor-icons/react/dist/ssr";
+import { useNavigate } from "react-router-dom";
+import { API_URI } from "../../assets/js/api-auth";
 
 import "../../styles/modalcontainerstyles.css";
-import { useNavigate } from "react-router-dom";
 const ModalContainer = ({
   modalData,
   clickedModal,
@@ -80,7 +81,7 @@ const ModalContainer = ({
         {modalData.images.length > 0 ? (
           <img
             className="modal__img"
-            src={`https://localhost:7207${modalData.images[currentImage].imageUrl}`}
+            src={`${API_URI}${modalData.images[currentImage].imageUrl}`}
             alt="Thumbnail"
           />
         ) : (
