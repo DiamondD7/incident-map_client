@@ -1,13 +1,13 @@
 .modal-container__wrapper{
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #F4F4F9;
 
     border-radius: 15px;
     width:75%;
-    height:70%;
+    height:61%;
 
     padding: 10px;
 
@@ -16,7 +16,7 @@
 
 .modal-cta__btns{
     position: absolute;
-    bottom: 12%;
+    bottom: 16%;
     left: 50%;
     transform: translate(-50%, 50%);
 
@@ -117,7 +117,7 @@
 }
 
 .modal-deals-container__wrapper{
-    margin-top: 10px;
+    
 }
 
 .modal-deals__wrapper{
