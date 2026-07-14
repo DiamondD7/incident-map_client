@@ -168,15 +168,15 @@
     background-color: transparent;
     cursor: pointer;
 
-    animation: colorBreathing 4s ease-in-out infinite;
+    /* animation: colorBreathing 4s ease-in-out infinite; */
 }
 
 .quick-filter__icon{
     color: #FA6737;
-    animation: colorBreathing 4s ease-in-out infinite;
+    /* animation: colorBreathing 4s ease-in-out infinite; */
 }
 
-@keyframes colorBreathing {
+/* @keyframes colorBreathing {
     0% {
         color: #FA6737;
     }
@@ -188,7 +188,7 @@
     100% {
         color: #FA6737;
     }
-}
+} */
 
 /* --------------------------Quick Filter Page---------------------- */
 .card-title__text{

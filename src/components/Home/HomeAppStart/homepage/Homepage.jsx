@@ -66,6 +66,7 @@ const DisplayPage = ({
   filterShopType,
   searchText,
   setActiveMenu,
+  quickFilterData,
 }) => {
   const [clickedModal, setClickedModal] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -792,6 +793,106 @@ const DisplayPage = ({
     );
   };
 
+  const QuickFilterDisplay = ({
+    filterShopType,
+    quickFilterData,
+    searchText,
+    setClickedModal,
+    setModalData,
+  }) => {
+    const [searchedItem, setSearchedItem] = useState(null);
+
+    useEffect(() => {
+      if (searchText) {
+        setSearchedItem(
+          quickFilterData.filter((item) => {
+            const text = searchText.toLowerCase();
+
+            return item.shopName.toLowerCase().includes(text);
+          }),
+        );
+      }
+    }, [searchText]);
+
+    const handleClickModal = (e, data) => {
+      e.preventDefault();
+      setClickedModal(true);
+      setModalData(data);
+    };
+
+    return (
+      <div style={{ height: "335px", overflow: "auto" }}>
+        <h1 style={{ textAlign: "center" }}>{filterShopType}</h1>
+
+        {searchedItem !== null ? (
+          <>
+            {searchedItem.length <= 0 ? (
+              <>
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontSize: "12px",
+                    marginTop: "10px",
+                    color: "#bebebe",
+                  }}
+                >
+                  Cannot find anything that matches the keyword "{searchText}
+                  "{" "}
+                </p>
+              </>
+            ) : (
+              <>
+                {searchedItem.map((item) => (
+                  <div className="bakery-content__wrapper" key={item.id}>
+                    <div className="-display-flex">
+                      <h4>{item.shopName}</h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
+                    <p style={{ fontSize: "10px", color: "#bebebe" }}>
+                      {item.address}
+                    </p>
+                    <p style={{ fontSize: "12px", marginTop: "10px" }}>
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {quickFilterData.map((item) => (
+              <div className="bakery-content__wrapper" key={item.id}>
+                <div className="-display-flex">
+                  <h4>{item.shopName}</h4>
+                  <button
+                    onClick={(e) => handleClickModal(e, item)}
+                    style={{ color: "#FA6737" }}
+                    className="-btn-transparent"
+                  >
+                    view
+                  </button>
+                </div>
+                <p style={{ fontSize: "10px", color: "#bebebe" }}>
+                  {item.address}
+                </p>
+                <p style={{ fontSize: "12px", marginTop: "10px" }}>
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="display-page__wrapper">
       {clickedModal === true && (
@@ -811,6 +912,17 @@ const DisplayPage = ({
           setModalData={setModalData}
         />
       )}
+
+      {filterShopType === "Added Today" ||
+      filterShopType === "Deals Expiring Soon" ? (
+        <QuickFilterDisplay
+          filterShopType={filterShopType}
+          quickFilterData={quickFilterData}
+          searchText={searchText}
+          setClickedModal={setClickedModal}
+          setModalData={setModalData}
+        />
+      ) : null}
 
       {filterShopType === "cafe" && (
         <CafeDisplay
@@ -840,7 +952,7 @@ const DisplayPage = ({
   );
 };
 
-const QuickFilter = ({ promotions }) => {
+const QuickFilter = ({ promotions, setQuickFilterData, setFilterShopType }) => {
   const newToday = promotions.filter((item) => {
     const createdDate = new Date(item.createdAt);
     const today = new Date();
@@ -869,6 +981,12 @@ const QuickFilter = ({ promotions }) => {
     });
   });
 
+  const handleQuickFilterClicked = (e, data, type) => {
+    e.preventDefault();
+    setQuickFilterData(data);
+    setFilterShopType(type);
+  };
+
   return (
     <>
       {newToday.length > 0 || dealExpiringSoon.length > 0 ? (
@@ -879,15 +997,17 @@ const QuickFilter = ({ promotions }) => {
           }}
         >
           <div className="quick-filter__wrapper">
-            {newToday.length > 0 && (
-              <button className="quick-filter__btns">
-                <SparkleIcon className={"quick-filter__icon"} weight="fill" />{" "}
-                {newToday.length} new added today
-              </button>
-            )}
-
             {dealExpiringSoon.length > 0 && (
-              <button className="quick-filter__btns">
+              <button
+                className="quick-filter__btns"
+                onClick={(e) =>
+                  handleQuickFilterClicked(
+                    e,
+                    dealExpiringSoon,
+                    "Deals Expiring Soon",
+                  )
+                }
+              >
                 <HourglassHighIcon
                   className={"quick-filter__icon"}
                   weight="fill"
@@ -897,10 +1017,23 @@ const QuickFilter = ({ promotions }) => {
                   : `${dealExpiringSoon.length} deal ending soon`}
               </button>
             )}
-            <button className="quick-filter__btns">
+
+            {newToday.length > 0 && (
+              <button
+                className="quick-filter__btns"
+                onClick={(e) =>
+                  handleQuickFilterClicked(e, newToday, "Added Today")
+                }
+              >
+                <SparkleIcon className={"quick-filter__icon"} weight="fill" />{" "}
+                {newToday.length} new added today
+              </button>
+            )}
+
+            {/* <button className="quick-filter__btns">
               <FireIcon className={"quick-filter__icon"} weight="fill" /> 3
               popular spots this week
-            </button>
+            </button> */}
           </div>
         </div>
       ) : null}
@@ -912,6 +1045,7 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [filterShopType, setFilterShopType] = useState("all");
   const [searchText, setSearchText] = useState("");
 
+  const [quickFilterData, setQuickFilterData] = useState([]);
   const [promotions, setPromotions] = useState([]);
   useEffect(() => {
     const GetAllPromotions = async () => {
@@ -969,12 +1103,17 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setFilterShopType={setFilterShopType}
       />
 
-      <QuickFilter promotions={promotions} />
+      <QuickFilter
+        promotions={promotions}
+        setQuickFilterData={setQuickFilterData}
+        setFilterShopType={setFilterShopType}
+      />
       <DisplayPage
         promotions={promotions}
         filterShopType={filterShopType}
         searchText={searchText}
         setActiveMenu={setActiveMenu}
+        quickFilterData={quickFilterData}
       />
     </div>
   );
