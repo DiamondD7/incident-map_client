@@ -137,6 +137,60 @@
 
 }
 
+/* --------------------------Quick Filter Page---------------------- */
+
+.quick-filter__wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    gap: 5px;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    background-color: #fde5dd;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.quick-filter__btns {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    color: #FA6737;
+
+    font-weight: bold;
+    font-size: 10px;
+    width: 150px;
+    text-align: start;
+
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    animation: colorBreathing 4s ease-in-out infinite;
+}
+
+.quick-filter__icon{
+    color: #FA6737;
+    animation: colorBreathing 4s ease-in-out infinite;
+}
+
+@keyframes colorBreathing {
+    0% {
+        color: #FA6737;
+    }
+
+    50% {
+        color: #f7c1b0;
+    }
+
+    100% {
+        color: #FA6737;
+    }
+}
+
+/* --------------------------Quick Filter Page---------------------- */
 .card-title__text{
     font-size: 10px;
     font-weight: bold;

@@ -6,15 +6,16 @@ import {
   CoffeeIcon,
   FireIcon,
   ForkKnifeIcon,
+  HourglassHighIcon,
   MagnifyingGlassIcon,
   SparkleIcon,
 } from "@phosphor-icons/react";
 import HotspotsLogo from "../../../../assets/hotspots-logo-transparent.png";
 import { GetPromotions, API_URI } from "../../../../assets/js/api-auth";
 import { TimeAgo } from "../../../../assets/js/timeAgo";
+import ModalContainer from "../../../ModalContainer/ModalContainer";
 
 import "../../../../styles/homepagestyles.css";
-import ModalContainer from "../../../ModalContainer/ModalContainer";
 const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   const handleFilterClicked = (e, type) => {
     e.preventDefault();
@@ -60,33 +61,14 @@ const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   );
 };
 
-const DisplayPage = ({ filterShopType, searchText, setActiveMenu }) => {
+const DisplayPage = ({
+  promotions,
+  filterShopType,
+  searchText,
+  setActiveMenu,
+}) => {
   const [clickedModal, setClickedModal] = useState(false);
   const [modalData, setModalData] = useState({});
-
-  const [promotions, setPromotions] = useState([]);
-  useEffect(() => {
-    const GetAllPromotions = async () => {
-      try {
-        const response = await fetch(GetPromotions, {
-          method: "GET",
-        });
-
-        if (!response.ok) {
-          throw new Error("response was not successful");
-        }
-
-        const data = await response.json();
-
-        setPromotions(data.data);
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
-    };
-
-    GetAllPromotions();
-  }, []);
 
   const AllDisplay = ({
     promotions,
@@ -858,15 +840,108 @@ const DisplayPage = ({ filterShopType, searchText, setActiveMenu }) => {
   );
 };
 
+const QuickFilter = ({ promotions }) => {
+  const newToday = promotions.filter((item) => {
+    const createdDate = new Date(item.createdAt);
+    const today = new Date();
+
+    return (
+      createdDate.getFullYear() === today.getFullYear() &&
+      createdDate.getMonth() === today.getMonth() &&
+      createdDate.getDate() === today.getDate()
+    );
+  });
+
+  const dealExpiringSoon = promotions.filter((item) => {
+    return item.deals.some((deal) => {
+      const expiryDate = new Date(deal.dealEnd);
+      const today = new Date();
+
+      // Remove time so only dates are compared
+      expiryDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      const difference = expiryDate - today;
+
+      const daysLeft = difference / (1000 * 60 * 60 * 24);
+
+      return daysLeft >= 0 && daysLeft <= 5;
+    });
+  });
+
+  return (
+    <>
+      {newToday.length > 0 || dealExpiringSoon.length > 0 ? (
+        <div
+          style={{
+            padding: "10px",
+            width: "97dvw",
+          }}
+        >
+          <div className="quick-filter__wrapper">
+            {newToday.length > 0 && (
+              <button className="quick-filter__btns">
+                <SparkleIcon className={"quick-filter__icon"} weight="fill" />{" "}
+                {newToday.length} new added today
+              </button>
+            )}
+
+            {dealExpiringSoon.length > 0 && (
+              <button className="quick-filter__btns">
+                <HourglassHighIcon
+                  className={"quick-filter__icon"}
+                  weight="fill"
+                />{" "}
+                {dealExpiringSoon.length > 1
+                  ? `${dealExpiringSoon.length} deals ending soon`
+                  : `${dealExpiringSoon.length} deal ending soon`}
+              </button>
+            )}
+            <button className="quick-filter__btns">
+              <FireIcon className={"quick-filter__icon"} weight="fill" /> 3
+              popular spots this week
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+};
+
 const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [filterShopType, setFilterShopType] = useState("all");
   const [searchText, setSearchText] = useState("");
+
+  const [promotions, setPromotions] = useState([]);
+  useEffect(() => {
+    const GetAllPromotions = async () => {
+      try {
+        const response = await fetch(GetPromotions, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("response was not successful");
+        }
+
+        const data = await response.json();
+
+        setPromotions(data.data);
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    };
+
+    GetAllPromotions();
+  }, []);
+
   return (
     <div
       style={{
         backgroundColor: "#fff",
-        width: "100vw",
-        height: "100vh",
+        width: "100dvw",
+        height: "100dvh",
         overflow: "auto",
       }}
     >
@@ -893,7 +968,10 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         filterShopType={filterShopType}
         setFilterShopType={setFilterShopType}
       />
+
+      <QuickFilter promotions={promotions} />
       <DisplayPage
+        promotions={promotions}
         filterShopType={filterShopType}
         searchText={searchText}
         setActiveMenu={setActiveMenu}
