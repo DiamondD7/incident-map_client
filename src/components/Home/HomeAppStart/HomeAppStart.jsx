@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   BookmarkSimpleIcon,
   CompassIcon,
+  GearIcon,
   HouseIcon,
   MapTrifoldIcon,
 } from "@phosphor-icons/react";
@@ -71,6 +72,18 @@ const BottomNav = ({ activeMenu, setActiveMenu }) => {
               />
             </button>
           </li> */}
+          <li>
+            <button
+              className={`bottom-navigation-menu__button ${activeMenu === "settings" ? "activeBtnMenu" : ""}`}
+              onClick={(e) => handleMenuClicked(e, "settings")}
+            >
+              <GearIcon
+                size={27}
+                weight="fill"
+                className={`navigation-menu__icon ${activeMenu === "settings" ? "activeIconMenu" : ""}`}
+              />
+            </button>
+          </li>
         </ul>
       </div>
     </>

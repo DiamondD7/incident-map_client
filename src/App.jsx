@@ -12,6 +12,7 @@ import DiscoverFeed from "./components/Home/HomeAppStart/discoverfeed/DiscoverFe
 
 import SavedItems from "./components/Home/HomeAppStart/saveditems/SavedItems";
 import "./App.css";
+import Settings from "./components/Home/HomeAppStart/settings/Settings";
 function App() {
   posthog.capture("app_open");
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="discoverFeed" element={<DiscoverFeed />} />
             <Route path="map" element={<HomeMapStart />} />
             <Route path="savedItems" element={<SavedItems />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         ) : (
           <>

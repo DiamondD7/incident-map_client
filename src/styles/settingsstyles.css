@@ -1,0 +1,31 @@
+.settings__ul{
+    margin-top: 20px;
+    list-style: none;
+}
+.sub-settings__ul{
+    list-style:none;
+    margin-left: 15px;
+}
+
+.sub-settings__ul li button{
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+}
+
+.settings__ul li {
+    margin-bottom: 10px;
+}
+
+.settings-ul-li__btn{
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+}
+
+.activeSetting{
+    font-weight: bold;
+    color: #FA6737;
+}
