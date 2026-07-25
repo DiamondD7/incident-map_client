@@ -9,9 +9,14 @@ import {
   HourglassHighIcon,
   MagnifyingGlassIcon,
   SparkleIcon,
+  TimerIcon,
 } from "@phosphor-icons/react";
 import HotspotsLogo from "../../../../assets/hotspots-logo-transparent.png";
-import { GetPromotions, API_URI } from "../../../../assets/js/api-auth";
+import {
+  GetPromotions,
+  API_URI,
+  GetAvailablePromotions,
+} from "../../../../assets/js/api-auth";
 import { TimeAgo } from "../../../../assets/js/timeAgo";
 import ModalContainer from "../../../ModalContainer/ModalContainer";
 
@@ -62,6 +67,7 @@ const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
 };
 
 const DisplayPage = ({
+  availblePromotionsNow,
   promotions,
   filterShopType,
   searchText,
@@ -72,6 +78,7 @@ const DisplayPage = ({
   const [modalData, setModalData] = useState({});
 
   const AllDisplay = ({
+    availblePromotionsNow,
     promotions,
     searchText,
     setClickedModal,
@@ -80,9 +87,6 @@ const DisplayPage = ({
     const [loading, setLoading] = useState(true);
     const [searchedItem, setSearchedItem] = useState(null);
 
-    const newAddedPromotions = promotions.filter((item) =>
-      TimeAgo(item.createdAt),
-    );
     const cafes = promotions.filter((item) => item.shopType === "Cafe");
     const restaurants = promotions.filter(
       (item) => item.shopType === "Restaurant",
@@ -116,66 +120,25 @@ const DisplayPage = ({
       setModalData(data);
     };
 
-    return (
-      <>
-        {searchedItem !== null ? (
-          <>
-            {searchedItem.length <= 0 ? (
-              <>
-                <p
-                  style={{
-                    textAlign: "center",
-                    fontSize: "12px",
-                    marginTop: "10px",
-                    color: "#bebebe",
-                  }}
-                >
-                  Cannot find anything that matches the keyword "{searchText}
-                  "{" "}
-                </p>
-              </>
-            ) : (
-              <>
-                {searchedItem.map((item) => (
-                  <div className="bakery-content__wrapper" key={item.id}>
-                    <div className="-display-flex">
-                      <h4 className="-display-flex-align-items-center">
-                        {item.shopType === "Restaurant" ? (
-                          <ForkKnifeIcon color="#FA6737" weight="fill" />
-                        ) : item.shopType === "Cafe" ? (
-                          <CoffeeIcon color="#FA6737" weight="fill" />
-                        ) : (
-                          <BreadIcon color="#FA6737" weight="fill" />
-                        )}
-                        {item.shopName}
-                      </h4>
-                      <button
-                        onClick={(e) => handleClickModal(e, item)}
-                        style={{ color: "#FA6737" }}
-                        className="-btn-transparent"
-                      >
-                        view
-                      </button>
-                    </div>
+    const NewlyAdded = ({ handleClickModal, promotions }) => {
+      const [loading, setLoading] = useState(true);
+      const newAddedPromotions = promotions.filter((item) =>
+        TimeAgo(item.createdAt),
+      );
 
-                    <p style={{ fontSize: "10px", color: "#bebebe" }}>
-                      {item.address}
-                    </p>
-                    <p style={{ fontSize: "12px", marginTop: "10px" }}>
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
-              </>
-            )}
-          </>
-        ) : (
-          <div>
-            <div>
-              <h3 className="-display-flex-align-items-center -gap-5">
+      useEffect(() => {
+        if (promotions.length > 0) {
+          setLoading(false);
+        }
+      }, [promotions]);
+      return (
+        <div>
+          {newAddedPromotions.length <= 0 ? null : (
+            <>
+              <h4 className="-display-flex-align-items-center -gap-5">
                 <SparkleIcon color="#FA6737" weight="fill" />
                 Newly Added
-              </h3>
+              </h4>
 
               <div className="display-newAdded-page-cards-container__wrapper">
                 {loading ? (
@@ -259,112 +222,199 @@ const DisplayPage = ({
                   </>
                 )}
               </div>
+            </>
+          )}
+        </div>
+      );
+    };
+
+    const DealsOnNow = ({ handleClickModal, availblePromotionsNow }) => {
+      return (
+        <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <TimerIcon color="#FA6737" weight="fill" />
+            Deals on Now
+          </h4>
+
+          {availblePromotionsNow.length <= 0 ? (
+            <div style={{ padding: "10px" }}>
+              <h6 style={{ color: "#8a8a8a" }}>
+                No deals running at the moment
+              </h6>
             </div>
-            <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
-              <h3 className="-display-flex-align-items-center -gap-5">
-                <FireIcon color="#FA6737" weight="fill" />
-                Hot Deals
-              </h3>
+          ) : (
+            <div className="display-page-cards-container__wrapper">
+              {availblePromotionsNow.map((item) => (
+                <div className="display-page-card__wrapper" key={item.id}>
+                  {item.images.length > 0 ? (
+                    <>
+                      {item.images.map(
+                        (image) =>
+                          image.imageTitle === "thumbnail" && (
+                            <img
+                              key={image.id}
+                              src={`${API_URI}${image.imageUrl}`}
+                              alt="pic-one"
+                              style={{
+                                width: "100px",
+                                height: "50px",
+                                objectFit: "cover",
+                                borderRadius: "5px",
+                              }}
+                            />
+                          ),
+                      )}
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "50px",
+                        backgroundColor: "#e2e1e1",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <div style={{ textAlign: "center" }}>
+                        <CameraIcon size={20} />
 
-              <div className="display-page-cards-container__wrapper">
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Mission Bay Cafe</h6>
-                  <p className="card-title__text">30% OFF all food</p>
-                  <p className="card-description__text">
-                    This promotion is on until December 20th when you dine after
-                    3:00pm you will get a 30% OFF excluded drinks
-                  </p>
+                        <p style={{ fontSize: "9px" }}>No Images Available</p>
+                      </div>
+                    </div>
+                  )}
+                  <h6
+                    className="link-card-shopName__text"
+                    onClick={(e) => handleClickModal(e, item)}
+                  >
+                    {item.shopName}
+                  </h6>
+                  {item.deals.map((deal) => (
+                    <div key={deal.id}>
+                      <p className="card-title__text">{deal.dealTitle}</p>
+                      <p className="card-description__text">
+                        {deal.dealDescription}
+                      </p>
+                    </div>
+                  ))}
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    };
 
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Howick Village Cafe</h6>
+    const HotDeals = () => {
+      return (
+        <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <FireIcon color="#FA6737" weight="fill" />
+            Hot Deals
+          </h4>
 
-                  <p className="card-title__text">$4.90 coffees. Mon-Fri</p>
-                  <p className="card-description__text">
-                    This promotion is only available on weekdays.
-                  </p>
-                </div>
-
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Ronnies Cafe</h6>
-
-                  <p className="card-title__text">
-                    Free 250ml Can Drink For Meal Over $20
-                  </p>
-                  <p className="card-description__text">
-                    This promotion is available Monday to Friday, you will get a
-                    free can drink for every meal $20 above.
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Uglyz Cafe & Bar</h6>
-
-                  <p className="card-title__text">Happy Hour, 50% drinks</p>
-                  <p className="card-description__text">
-                    Every weekday from 3pm to 5pm
-                  </p>
-                </div>
-              </div>
+          <div className="display-default-page-cards-container__wrapper">
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Mission Bay Cafe</h6>
+              <p className="card-title__text">30% OFF all food</p>
+              <p className="card-description__text">
+                This promotion is on until December 20th when you dine after
+                3:00pm you will get a 30% OFF excluded drinks
+              </p>
             </div>
 
-            <div style={{ marginTop: "30px", borderBottom: "1px solid #ccc" }}>
-              <h3 className="-display-flex-align-items-center -gap-5">
-                <CoffeeIcon color="#FA6737" weight="fill" />
-                Aesthetic Food Spots
-              </h3>
-              <div className="display-page-cards-container__wrapper">
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">&Black</h6>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Howick Village Cafe</h6>
 
-                  <p className="card-title__text">
-                    Aesthetic modern cafe in Newmarket
-                  </p>
-                  <p className="card-description__text">
-                    A modern cafe look but very cosy.
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Maru's House</h6>
+              <p className="card-title__text">$4.90 coffees. Mon-Fri</p>
+              <p className="card-description__text">
+                This promotion is only available on weekdays.
+              </p>
+            </div>
 
-                  <p className="card-title__text">Cute Aesthetic Cafe</p>
-                  <p className="card-description__text">
-                    This cafe is good for people that loves matcha and loves
-                    aesthetic environment
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Mixed 1981</h6>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Ronnies Cafe</h6>
 
-                  <p className="card-title__text">Cute & Spacious Cafe</p>
-                  <p className="card-description__text">
-                    This cute cafe is popular for its coffee, matcha and its
-                    aesthetic look.
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Ronnies Cafe</h6>
+              <p className="card-title__text">
+                Free 250ml Can Drink For Meal Over $20
+              </p>
+              <p className="card-description__text">
+                This promotion is available Monday to Friday, you will get a
+                free can drink for every meal $20 above.
+              </p>
+            </div>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Uglyz Cafe & Bar</h6>
 
-                  <p className="card-title__text">
-                    Free 250ml Can Drink For Meal Over $20
-                  </p>
-                  <p className="card-description__text">
-                    This promotion is available Monday to Friday, you will get a
-                    free can drink for every meal $20 above.
-                  </p>
-                </div>
+              <p className="card-title__text">Happy Hour, 50% drinks</p>
+              <p className="card-description__text">
+                Every weekday from 3pm to 5pm
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    };
 
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Atelier Shu</h6>
+    const AestheticFoodSpots = () => {
+      return (
+        <div style={{ marginTop: "30px", borderBottom: "1px solid #ccc" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <CoffeeIcon color="#FA6737" weight="fill" />
+            Aesthetic Food Spots
+          </h4>
+          <div className="display-default-page-cards-container__wrapper">
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">&Black</h6>
 
-                  <p className="card-title__text">
-                    Aesthetic Looking Bakery Shop
-                  </p>
-                  <p className="card-description__text">
-                    They serve mini gateau cakes and handcrafted pastries.
-                  </p>
-                </div>
+              <p className="card-title__text">
+                Aesthetic modern cafe in Newmarket
+              </p>
+              <p className="card-description__text">
+                A modern cafe look but very cosy.
+              </p>
+            </div>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Maru's House</h6>
 
-                {/* {cafes.map((item) => (
+              <p className="card-title__text">Cute Aesthetic Cafe</p>
+              <p className="card-description__text">
+                This cafe is good for people that loves matcha and loves
+                aesthetic environment
+              </p>
+            </div>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Mixed 1981</h6>
+
+              <p className="card-title__text">Cute & Spacious Cafe</p>
+              <p className="card-description__text">
+                This cute cafe is popular for its coffee, matcha and its
+                aesthetic look.
+              </p>
+            </div>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Ronnies Cafe</h6>
+
+              <p className="card-title__text">
+                Free 250ml Can Drink For Meal Over $20
+              </p>
+              <p className="card-description__text">
+                This promotion is available Monday to Friday, you will get a
+                free can drink for every meal $20 above.
+              </p>
+            </div>
+
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Atelier Shu</h6>
+
+              <p className="card-title__text">Aesthetic Looking Bakery Shop</p>
+              <p className="card-description__text">
+                They serve mini gateau cakes and handcrafted pastries.
+              </p>
+            </div>
+
+            {/* {cafes.map((item) => (
                   <div className="display-page-card__wrapper" key={item.id}>
                     <h6>
                       {item.shopName.length > 10
@@ -375,49 +425,52 @@ const DisplayPage = ({
                     <p>{item.address}</p>
                   </div>
                 ))} */}
-              </div>
+          </div>
+        </div>
+      );
+    };
+
+    const TrendingFoodSpots = () => {
+      return (
+        <div style={{ marginTop: "30px" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <ForkKnifeIcon color="#FA6737" weight="fill" />
+            Trending Food Spots
+          </h4>
+          <div className="display-default-page-cards-container__wrapper">
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Seoul Night</h6>
+
+              <p className="card-title__text">
+                Exclusive Insider Reward 10% Discount
+              </p>
+              <p className="card-description__text">
+                Book through the website below to get 10% OFF your next visit at
+                Seoul Night.
+              </p>
             </div>
-            <div style={{ marginTop: "30px" }}>
-              <h3 className="-display-flex-align-items-center -gap-5">
-                <ForkKnifeIcon color="#FA6737" weight="fill" />
-                Trending Food Spots
-              </h3>
-              <div className="display-page-cards-container__wrapper">
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Seoul Night</h6>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Mr. Hao</h6>
 
-                  <p className="card-title__text">
-                    Exclusive Insider Reward 10% Discount
-                  </p>
-                  <p className="card-description__text">
-                    Book through the website below to get 10% OFF your next
-                    visit at Seoul Night.
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Mr. Hao</h6>
+              <p className="card-title__text">Bottomless Dumplings - $28pp</p>
+              <p className="card-description__text">
+                $28 per person all you can eat dumplings. You can choose from 11
+                types of their own dumplings. Check their menu on their
+                instagram or website.
+              </p>
+            </div>
+            <div className="display-page-card__wrapper">
+              <h6 className="card-shopName__text">Botany Commons</h6>
 
-                  <p className="card-title__text">
-                    Bottomless Dumplings - $28pp
-                  </p>
-                  <p className="card-description__text">
-                    $28 per person all you can eat dumplings. You can choose
-                    from 11 types of their own dumplings. Check their menu on
-                    their instagram or website.
-                  </p>
-                </div>
-                <div className="display-page-card__wrapper">
-                  <h6 className="card-shopName__text">Botany Commons</h6>
+              <p className="card-title__text">Happy Hour</p>
+              <p className="card-description__text">
+                They are offering $10 on specific beers, wine and other spirits.
+                Free pool all day Thursday. Happy Hour 3-6pm Weekdays and 2-5pm
+                weekends
+              </p>
+            </div>
 
-                  <p className="card-title__text">Happy Hour</p>
-                  <p className="card-description__text">
-                    They are offering $10 on specific beers, wine and other
-                    spirits. Free pool all day Thursday. Happy Hour 3-6pm
-                    Weekdays and 2-5pm weekends
-                  </p>
-                </div>
-
-                {/* {restaurants.map((item) => (
+            {/* {restaurants.map((item) => (
                   <div className="display-page-card__wrapper" key={item.id}>
                     <h6>
                       {item.shopName.length > 10
@@ -428,27 +481,85 @@ const DisplayPage = ({
                     <p>{item.address}</p>
                   </div>
                 ))} */}
-              </div>
-            </div>
-            <div style={{ marginTop: "50px" }}>
-              {/* <h3 className="-display-flex-align-items-center -gap-5">
-                <BreadIcon color="#FA6737" weight="fill" />
-                All Bakery
-              </h3>
-              <div className="display-page-cards-container__wrapper">
-                {bakery.map((item) => (
-                  <div className="display-page-card__wrapper" key={item.id}>
-                    <h6>
-                      {item.shopName.length > 10
-                        ? item.shopName.substring(0, 16)
-                        : item.shopName}
-                    </h6>
+          </div>
+        </div>
+      );
+    };
 
-                    <p>{item.address}</p>
+    return (
+      <>
+        {searchedItem !== null ? (
+          <>
+            {searchedItem.length <= 0 ? (
+              <>
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontSize: "12px",
+                    marginTop: "10px",
+                    color: "#bebebe",
+                  }}
+                >
+                  Cannot find anything that matches the keyword "{searchText}
+                  "{" "}
+                </p>
+              </>
+            ) : (
+              <>
+                {searchedItem.map((item) => (
+                  <div className="bakery-content__wrapper" key={item.id}>
+                    <div className="-display-flex">
+                      <h4 className="-display-flex-align-items-center">
+                        {item.shopType === "Restaurant" ? (
+                          <ForkKnifeIcon color="#FA6737" weight="fill" />
+                        ) : item.shopType === "Cafe" ? (
+                          <CoffeeIcon color="#FA6737" weight="fill" />
+                        ) : (
+                          <BreadIcon color="#FA6737" weight="fill" />
+                        )}
+                        {item.shopName}
+                      </h4>
+                      <button
+                        onClick={(e) => handleClickModal(e, item)}
+                        style={{ color: "#FA6737" }}
+                        className="-btn-transparent"
+                      >
+                        view
+                      </button>
+                    </div>
+
+                    <p style={{ fontSize: "10px", color: "#bebebe" }}>
+                      {item.address}
+                    </p>
+                    <p style={{ fontSize: "12px", marginTop: "10px" }}>
+                      {item.description}
+                    </p>
                   </div>
                 ))}
-              </div> */}
-            </div>
+              </>
+            )}
+          </>
+        ) : (
+          <div>
+            <NewlyAdded
+              handleClickModal={handleClickModal}
+              promotions={promotions}
+            />
+
+            <DealsOnNow
+              handleClickModal={handleClickModal}
+              availblePromotionsNow={availblePromotionsNow}
+            />
+
+            <HotDeals />
+
+            <AestheticFoodSpots />
+
+            <TrendingFoodSpots />
+
+            <br />
+            <br />
+            <br />
           </div>
         )}
       </>
@@ -906,6 +1017,7 @@ const DisplayPage = ({
 
       {filterShopType === "all" && (
         <AllDisplay
+          availblePromotionsNow={availblePromotionsNow}
           promotions={promotions}
           searchText={searchText}
           setClickedModal={setClickedModal}
@@ -1047,6 +1159,8 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
 
   const [quickFilterData, setQuickFilterData] = useState([]);
   const [promotions, setPromotions] = useState([]);
+  const [availblePromotionsNow, setAvailablePromotionsNow] = useState([]);
+
   useEffect(() => {
     const GetAllPromotions = async () => {
       try {
@@ -1068,6 +1182,29 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
     };
 
     GetAllPromotions();
+  }, []);
+
+  useEffect(() => {
+    const GetHandleAvailablePromotions = async () => {
+      try {
+        const response = await fetch(GetAvailablePromotions, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("response was not successful");
+        }
+
+        const data = await response.json();
+
+        setAvailablePromotionsNow(data.data);
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    };
+
+    GetHandleAvailablePromotions();
   }, []);
 
   return (
@@ -1109,6 +1246,7 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setFilterShopType={setFilterShopType}
       />
       <DisplayPage
+        availblePromotionsNow={availblePromotionsNow}
         promotions={promotions}
         filterShopType={filterShopType}
         searchText={searchText}
