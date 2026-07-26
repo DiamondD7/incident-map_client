@@ -1220,16 +1220,6 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         overflow: "auto",
       }}
     >
-      <Helmet>
-        <title>
-          Hotspots NZ - Home Page For Cheap Food Places In Auckland New Zealand
-        </title>
-        <meta
-          name="description"
-          content="Hotspots NZ - Home page for cheap food places in Auckland New Zealand."
-        />
-      </Helmet>
-
       <img style={{ width: "40px" }} src={HotspotsLogo} alt="hotspots-logo" />
       <br />
       <br />

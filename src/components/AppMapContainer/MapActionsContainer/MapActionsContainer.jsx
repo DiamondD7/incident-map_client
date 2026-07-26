@@ -429,7 +429,6 @@ const MapActionsContainer = ({
   return (
     <div className="map-actions-container__wrapper">
       <Helmet>
-        <title>Hotspots New Zealand - Map Filters Cheap Food Places</title>
         <meta
           name="description"
           content="Map filters for cheap food places in New Zealand"

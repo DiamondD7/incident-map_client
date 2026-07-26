@@ -9,7 +9,6 @@ const HotDealsContainer = ({
   return (
     <div className="new-deals-container__wrapper">
       <Helmet>
-        <title>Hotspots NZ - Hot Food Places Deals</title>
         <meta
           name="description"
           content="Lists of food places that have deals. Check Hotspots."

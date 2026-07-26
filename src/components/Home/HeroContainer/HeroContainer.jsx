@@ -37,14 +37,6 @@ const HeroContainer = ({ scrollToComponent }) => {
   };
   return (
     <div className="hero-container__wrapper">
-      <Helmet>
-        <title>Hotspots NZ Auckland - Hero Page - Landing Page</title>
-        <meta
-          name="description"
-          content="Hotspots NZ Hero Page - Landing Page"
-        />
-      </Helmet>
-
       <div className="hotspots-img__wrapper">
         <img
           className="hotspots-logo__img"

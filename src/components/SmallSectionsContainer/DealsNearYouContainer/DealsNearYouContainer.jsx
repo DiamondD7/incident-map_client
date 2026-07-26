@@ -52,7 +52,6 @@ const DealsNearYouContainer = ({
   return (
     <>
       <Helmet>
-        <title>Hotspots NZ - Deals Near You</title>
         <meta
           name="description"
           content="Hotspots will provide you food places near you, using your device's location. Check it now."

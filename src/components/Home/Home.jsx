@@ -17,10 +17,10 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>Hotspots New Zealand - Home</title>
+        <title>Hotspots - Discover what's happening around you</title>
         <meta
           name="description"
-          content="Home page for Hotspots desktop - Food deals everywhere in Auckland."
+          content="Home page for Hotspots - Food deals everywhere in Auckland."
         />
       </Helmet>
       <div className="home__wrapper">

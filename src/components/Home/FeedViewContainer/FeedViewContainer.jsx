@@ -18,14 +18,6 @@ const FeedViewContainer = ({ myRef }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Hotspots NZ Feed View</title>
-        <meta
-          name="description"
-          content="Hotspots NZ Feed View for deals in Auckland"
-        />
-      </Helmet>
-
       <h1 style={{ textAlign: "center", marginTop: "200px" }}>Feed View</h1>
       <div className="feed-view-container__wrapper" ref={myRef}>
         {promotions.map((item) => (

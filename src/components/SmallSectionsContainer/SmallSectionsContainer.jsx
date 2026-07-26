@@ -18,7 +18,6 @@ const SmallSectionsContainer = ({
   return (
     <div className="small-sections-container__wrapper">
       <Helmet>
-        <title>Hotspots NZ Food Deals Near Me</title>
         <meta
           name="description"
           content="Hotspots NZ Cheap Food Deals Near Me"

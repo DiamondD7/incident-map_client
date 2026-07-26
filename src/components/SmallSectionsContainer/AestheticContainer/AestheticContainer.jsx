@@ -32,7 +32,6 @@ const AestheticContainer = ({
   return (
     <div className="aesthetic-container__wrapper">
       <Helmet>
-        <title>Hotspots NZ - Aesthetic Cafes in New Zealand</title>
         <meta
           name="description"
           content="Hotspots NZ provides you with list of aesthetic cafe in NZ"
