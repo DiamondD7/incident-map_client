@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import HeroContainer from "./HeroContainer/HeroContainer";
 import FeedViewContainer from "./FeedViewContainer/FeedViewContainer";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 import "../../styles/homestyles.css";
-import { Link } from "react-router-dom";
 const Home = () => {
   const myRef = useRef(null);
 
@@ -15,6 +16,13 @@ const Home = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Hotspots New Zealand - Home</title>
+        <meta
+          name="description"
+          content="Home page for Hotspots desktop - Food deals everywhere in Auckland."
+        />
+      </Helmet>
       <div className="home__wrapper">
         <HeroContainer scrollToComponent={scrollToComponent} />
 

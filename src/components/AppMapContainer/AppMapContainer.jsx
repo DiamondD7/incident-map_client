@@ -37,6 +37,7 @@ import RecenterMap from "./RecenterMap/RecenterMap";
 import { Link } from "react-router-dom";
 import MapActionsContainer from "./MapActionsContainer/MapActionsContainer";
 import MobileSearchContainer from "../MobileSearchContainer/MobileSearchContainer";
+import { Helmet } from "react-helmet-async";
 
 import "leaflet/dist/leaflet.css";
 import "../../styles/mapcontainerstyles.css";
@@ -663,6 +664,13 @@ const AppMapContainer = ({
 
   return (
     <>
+      <Helmet>
+        <title>Hotspots NZ - Hotspots' Map</title>
+        <meta
+          name="description"
+          content="Hotspots New Zealand's Map - see the list of food places to save money or to look for an aesthetic place in Auckland New Zealand."
+        />
+      </Helmet>
       <div className="map-container__wrapper">
         {error && <p className="map-error__message">{error}</p>}
         <>

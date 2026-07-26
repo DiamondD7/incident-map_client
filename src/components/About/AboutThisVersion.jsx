@@ -1,6 +1,16 @@
+import { Helmet } from "react-helmet-async";
+
 const AboutThisVersion = () => {
   return (
     <div style={{ marginTop: "20px", height: "90dvh", overflow: "auto" }}>
+      <Helmet>
+        <title>Hotspots NZ - About This Version</title>
+        <meta
+          name="description"
+          content="About this version of Hotspots New Zealand Auckland"
+        />
+      </Helmet>
+
       <h1>About This Version</h1>
       <div>
         <p>

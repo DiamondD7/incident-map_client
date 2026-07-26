@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import {
   BreadIcon,
   CaretLeftIcon,
@@ -14,6 +13,7 @@ import {
 import { MapTrifoldIcon } from "@phosphor-icons/react/dist/ssr";
 import { useNavigate } from "react-router-dom";
 import { API_URI } from "../../assets/js/api-auth";
+import { Helmet } from "react-helmet-async";
 
 import "../../styles/modalcontainerstyles.css";
 const ModalContainer = ({
@@ -58,6 +58,11 @@ const ModalContainer = ({
 
   return (
     <div>
+      <Helmet>
+        <title>Hotspots NZ - {modalData.shopName} </title>
+        <meta name="description" content="Hotspots NZ food places" />
+      </Helmet>
+
       <div className="overlay"></div>
       <div className="modal-container__wrapper">
         {modalData.images.length > 1 && (

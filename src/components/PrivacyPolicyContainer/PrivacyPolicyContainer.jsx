@@ -1,7 +1,14 @@
+import { Helmet } from "react-helmet-async";
+
 import "../../styles/privacystyles.css";
 const PrivacyPolicyContainer = () => {
   return (
     <div className="privacy-policy__wrapper">
+      <Helmet>
+        <title>Hotspots NZ - Privacy Policy</title>
+        <meta name="description" content="Hotspots' privacy policy" />
+      </Helmet>
+
       <h1>Privacy Policy - Hotspots</h1>
       <p>
         <strong>Effective Date: </strong>April 2026

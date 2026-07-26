@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import HomeMapStart from "../HomeMapStart/HomeMapStart";
 import { Outlet, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import "../../../styles/homeappstyles.css";
 const BottomNav = ({ activeMenu, setActiveMenu }) => {
@@ -93,6 +94,17 @@ const BottomNav = ({ activeMenu, setActiveMenu }) => {
 const HomeAppStart = ({ activeMenu, setActiveMenu }) => {
   return (
     <div>
+      <Helmet>
+        <title>
+          Hotspots NZ - Home Page - Affordable Food Places in Auckland New
+          Zealand
+        </title>
+        <meta
+          name="description"
+          content="Affordable food places in NZ Auckland. Check Hotspots now"
+        />
+      </Helmet>
+
       <Outlet />
       <BottomNav activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
     </div>

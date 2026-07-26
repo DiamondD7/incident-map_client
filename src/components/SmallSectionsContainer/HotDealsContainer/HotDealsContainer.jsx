@@ -1,3 +1,5 @@
+import { Helmet } from "react-helmet-async";
+
 import "../../../styles/hotdealscontainerstyles.css";
 const HotDealsContainer = ({
   setClearFilters,
@@ -6,6 +8,14 @@ const HotDealsContainer = ({
 }) => {
   return (
     <div className="new-deals-container__wrapper">
+      <Helmet>
+        <title>Hotspots NZ - Hot Food Places Deals</title>
+        <meta
+          name="description"
+          content="Lists of food places that have deals. Check Hotspots."
+        />
+      </Helmet>
+
       <h3 className="small-section__header">🔥Hot deals</h3>
       <ul className="new-deals__ul">
         <li>

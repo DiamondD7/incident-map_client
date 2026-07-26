@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GpsSlashIcon, SmileySadIcon } from "@phosphor-icons/react";
 import { GetPromotionsByLocation } from "../../../assets/js/api-auth";
+import { Helmet } from "react-helmet-async";
 
 import "../../../styles/dealsnearyoustyles.css";
 const DealsNearYouContainer = ({
@@ -50,6 +51,14 @@ const DealsNearYouContainer = ({
 
   return (
     <>
+      <Helmet>
+        <title>Hotspots NZ - Deals Near You</title>
+        <meta
+          name="description"
+          content="Hotspots will provide you food places near you, using your device's location. Check it now."
+        />
+      </Helmet>
+
       <div className="deals-near-you-container__wrapper">
         <h3 className="small-section__header">
           {isLocationEnabled === true && (

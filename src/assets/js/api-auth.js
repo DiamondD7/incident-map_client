@@ -4,5 +4,6 @@ const API_BASE_URL = 'https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.az
 export const API_URI = `https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.azurewebsites.net`
 
 export const GetPromotions = `${API_BASE_URL}/all-promotions`;
+export const GetAvailablePromotions = `${API_BASE_URL}/active-deals`;
 export const GetPromotionsByLocation = `${API_BASE_URL}/promotion-by-location`;
 //export const AddIncidentReport = `${API_BASE_URL}/new-incident`;s

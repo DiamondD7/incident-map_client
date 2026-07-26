@@ -3,10 +3,19 @@ import {
   InstagramLogoIcon,
   TiktokLogoIcon,
 } from "@phosphor-icons/react";
+import { Helmet } from "react-helmet-async";
 
 const ContactUs = () => {
   return (
     <div style={{ marginTop: "20px" }}>
+      <Helmet>
+        <title>Hotspots NZ - Contact Us</title>
+        <meta
+          name="description"
+          content="Hotspots NZ contact information. Contact us Hotspots."
+        />
+      </Helmet>
+
       <h1>Contact us</h1>
       <p>
         Feel free to message us on our socials if you have questions or feedback

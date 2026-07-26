@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { GetPromotionsByLocation } from "../../../assets/js/api-auth";
+import { Helmet } from "react-helmet-async";
 
 import "../../../styles/aestheticcontainerstyles.css";
 const AestheticContainer = ({
@@ -30,6 +31,14 @@ const AestheticContainer = ({
   }, []);
   return (
     <div className="aesthetic-container__wrapper">
+      <Helmet>
+        <title>Hotspots NZ - Aesthetic Cafes in New Zealand</title>
+        <meta
+          name="description"
+          content="Hotspots NZ provides you with list of aesthetic cafe in NZ"
+        />
+      </Helmet>
+
       <h3 className="small-section__header">Aesthetic Shops</h3>
       <ul className="aesthetic__ul">
         {promotions.map((promotion) => (

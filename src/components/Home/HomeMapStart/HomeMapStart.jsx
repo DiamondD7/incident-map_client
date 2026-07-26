@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import { Link, useSearchParams } from "react-router-dom";
 import MobileSearchContainer from "../../MobileSearchContainer/MobileSearchContainer";
+import { Helmet } from "react-helmet-async";
 
 const HomeMapStart = () => {
   const [searchParams] = useSearchParams();
@@ -44,6 +45,13 @@ const HomeMapStart = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Hotspots NZ - Map Page</title>
+        <meta
+          name="description"
+          content="Map with locations of each food places in Auckland NZ"
+        />
+      </Helmet>
       <div>
         {isMobile === false ? (
           <SmallSectionsContainer

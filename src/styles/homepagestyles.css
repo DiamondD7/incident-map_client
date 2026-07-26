@@ -53,16 +53,35 @@
     padding: 20px;
 }
 
-.display-page-cards-container__wrapper{
+.display-default-page-cards-container__wrapper{
     display: grid;
     grid-template-rows: repeat(2,100px);
     grid-auto-flow: column;
     grid-auto-columns: 150px;
     gap: 10px;
 
+    padding-top: 10px;
     overflow-x: auto;
     overflow-y: hidden;
 }
+
+
+.display-page-cards-container__wrapper{
+    display: grid;
+    grid-template-rows: repeat(1,100%);
+    grid-auto-flow: column;
+    grid-auto-columns: 150px;
+    gap: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    height:100%;
+    padding-top: 10px;
+    border-radius: 10px;
+}
+
+
 .display-newAdded-page-cards-container__wrapper{
     display: grid;
     grid-template-rows: repeat(1,100%);
@@ -111,6 +130,10 @@
 }
 .card-shopName__text{
     color: #FA6737;
+}
+.link-card-shopName__text{
+    color: #FA6737;
+    text-decoration: underline;
 }
 
 /* .display-page-card__wrapper p{
