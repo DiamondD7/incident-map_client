@@ -11,6 +11,7 @@ import {
   StorefrontIcon,
   BreadIcon,
 } from "@phosphor-icons/react";
+import { Helmet } from "react-helmet-async";
 
 const MapActionsContainer = ({
   filteredShopType,
@@ -427,6 +428,14 @@ const MapActionsContainer = ({
   };
   return (
     <div className="map-actions-container__wrapper">
+      <Helmet>
+        <title>Hotspots New Zealand - Map Filters Cheap Food Places</title>
+        <meta
+          name="description"
+          content="Map filters for cheap food places in New Zealand"
+        />
+      </Helmet>
+
       {filterOpen === "shop" ? (
         <ShopFilter
           setNoFilter={setNoFilter}

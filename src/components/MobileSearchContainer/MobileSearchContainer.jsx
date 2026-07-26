@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import SmallSectionsContainer from "../SmallSectionsContainer/SmallSectionsContainer";
 import MapActionsContainer from "../AppMapContainer/MapActionsContainer/MapActionsContainer";
+import { Helmet } from "react-helmet-async";
 
 import "../../styles/mobilesearchcontainerstyles.css";
 const SearchResultsContainer = ({
@@ -104,6 +105,17 @@ const MobileSearchContainer = ({
     <div
       className={`mobile-search-container__wrapper ${isSearchClicked ? "open" : ""}`}
     >
+      <Helmet>
+        <title>
+          Hotspots NZ - Mobile Version - Cheap Food Spots With Deals in Auckland
+          NZ
+        </title>
+        <meta
+          name="description"
+          content="Hotspots NZ Mobile Version - Cheap food spots in Auckland New Zealand"
+        />
+      </Helmet>
+
       <div className="hotspots-map-mobile-header__wrapper">
         <button
           onClick={() => setIsSearchClicked(false)}

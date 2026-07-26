@@ -11,8 +11,11 @@ import HomeAppStart from "./components/Home/HomeAppStart/HomeAppStart";
 import DiscoverFeed from "./components/Home/HomeAppStart/discoverfeed/DiscoverFeed";
 
 import SavedItems from "./components/Home/HomeAppStart/saveditems/SavedItems";
-import "./App.css";
 import Settings from "./components/Home/HomeAppStart/settings/Settings";
+
+import { Helmet } from "react-helmet-async";
+
+import "./App.css";
 function App() {
   posthog.capture("app_open");
 
@@ -33,6 +36,14 @@ function App() {
 
   return (
     <div className="app-container__wrapper">
+      <Helmet>
+        <title>Hotspots NZ - Deals - New Zealand Food Spots</title>
+        <meta
+          name="description"
+          content="Find food places that have cheap food and cheap coffee in Auckland New Zealand. Updated daily on Hotspots."
+        />
+      </Helmet>
+
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
 

@@ -9,6 +9,7 @@ import StepOneImage from "../../../assets/step1-graphic.png";
 import StepTwoImage from "../../../assets/step2-graphic.png";
 import StepThreeImage from "../../../assets/step3-graphic.png";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import "../../../styles/herocontainerstyles.css";
 const HeroContainer = ({ scrollToComponent }) => {
@@ -36,6 +37,14 @@ const HeroContainer = ({ scrollToComponent }) => {
   };
   return (
     <div className="hero-container__wrapper">
+      <Helmet>
+        <title>Hotspots NZ Auckland - Hero Page - Landing Page</title>
+        <meta
+          name="description"
+          content="Hotspots NZ Hero Page - Landing Page"
+        />
+      </Helmet>
+
       <div className="hotspots-img__wrapper">
         <img
           className="hotspots-logo__img"

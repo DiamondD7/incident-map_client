@@ -19,6 +19,7 @@ import {
 } from "../../../../assets/js/api-auth";
 import { TimeAgo } from "../../../../assets/js/timeAgo";
 import ModalContainer from "../../../ModalContainer/ModalContainer";
+import { Helmet } from "react-helmet-async";
 
 import "../../../../styles/homepagestyles.css";
 const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
@@ -293,8 +294,11 @@ const DisplayPage = ({
                   {item.deals.map((deal) => (
                     <div key={deal.id}>
                       <p className="card-title__text">{deal.dealTitle}</p>
+
                       <p className="card-description__text">
-                        {deal.dealDescription}
+                        {item.description.length > 30
+                          ? item.description.substring(0, 80) + "..."
+                          : item.description}
                       </p>
                     </div>
                   ))}
@@ -1216,6 +1220,16 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         overflow: "auto",
       }}
     >
+      <Helmet>
+        <title>
+          Hotspots NZ - Home Page For Cheap Food Places In Auckland New Zealand
+        </title>
+        <meta
+          name="description"
+          content="Hotspots NZ - Home page for cheap food places in Auckland New Zealand."
+        />
+      </Helmet>
+
       <img style={{ width: "40px" }} src={HotspotsLogo} alt="hotspots-logo" />
       <br />
       <br />

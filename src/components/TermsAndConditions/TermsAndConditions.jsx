@@ -1,7 +1,17 @@
+import { Helmet } from "react-helmet-async";
+
 import "../../styles/termsandconditionsstyles.css";
 const TermsAndConditions = () => {
   return (
     <div className="termsandconditions__wrapper">
+      <Helmet>
+        <title>Hotspots NZ - Terms and Conditions</title>
+        <meta
+          name="description"
+          content="Terms and Conditions for Hotspots NZ - Auckland"
+        />
+      </Helmet>
+
       <h1>Terms and Conditions - Hotspots</h1>
       <p>
         <strong>Effective Date: </strong>April 2026

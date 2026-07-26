@@ -1,6 +1,16 @@
+import { Helmet } from "react-helmet-async";
+
 const About = () => {
   return (
     <div style={{ marginTop: "20px" }}>
+      <Helmet>
+        <title>Hotspots New Zealand - About Us</title>
+        <meta
+          name="description"
+          content="Abous us Hotspots NZ - Find Food Places Deals In New Zealand."
+        />
+      </Helmet>
+
       <h1>About us</h1>
       <p style={{ marginTop: "10px" }}>
         <strong style={{ color: "#FA6737" }}>Hotspots</strong> is a discovery

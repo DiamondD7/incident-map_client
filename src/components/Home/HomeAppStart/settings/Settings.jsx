@@ -10,9 +10,10 @@ import TermsAndConditions from "../../../TermsAndConditions/TermsAndConditions";
 import PrivacyPolicyContainer from "../../../PrivacyPolicyContainer/PrivacyPolicyContainer";
 import AboutThisVersion from "../../../About/AboutThisVersion";
 import About from "../../../About/About";
+import ContactUs from "../../../ContactUs/ContactUs";
+import { Helmet } from "react-helmet-async";
 
 import "../../../../styles/settingsstyles.css";
-import ContactUs from "../../../ContactUs/ContactUs";
 const Settings = () => {
   const [selectedSubSetting, setSelectedSubSetting] = useState(null);
   const [settingsActive, setSettingsActive] = useState(null);
@@ -39,6 +40,11 @@ const Settings = () => {
         padding: "20px",
       }}
     >
+      <Helmet>
+        <title>Hotspots NZ - Settings</title>
+        <meta name="description" content="Hotspots NZ settings" />
+      </Helmet>
+
       {settingsActive === null ? (
         <h2 className="-display-flex-align-items-center -gap-5">
           <GearIcon weight="fill" color="#FA6737" /> Settings
