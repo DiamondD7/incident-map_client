@@ -105,6 +105,26 @@
     
 }
 
+
+.page-card-main-loading__wrapper{
+    background-color:#ccccccb4;
+    margin:0 0 10px 10px;
+    width: 88%;
+    height: 100px;
+    border-radius: 10px;
+
+    animation: loadingSkeletonAnimation 1s infinite;
+}
+.page-card-small-loading__wrapper{
+    background-color:#ccccccb4;
+    margin:0 0 10px 10px;
+    width: 88%;
+    height: 30px;
+    border-radius: 10px;
+
+    animation: loadingSkeletonAnimation 1s infinite;
+}
+
 .page-card-picture-loading__wrapper{
     background-color:#ccccccb4;
     width: 100px;

@@ -129,7 +129,9 @@ const DisplayPage = ({
 
       useEffect(() => {
         if (promotions.length > 0) {
-          setLoading(false);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
         }
       }, [promotions]);
       return (
@@ -176,6 +178,7 @@ const DisplayPage = ({
                                       objectFit: "cover",
                                       borderRadius: "5px",
                                     }}
+                                    loading="lazy"
                                   />
                                 ),
                             )}
@@ -230,6 +233,23 @@ const DisplayPage = ({
     };
 
     const DealsOnNow = ({ handleClickModal, availblePromotionsNow }) => {
+      const [loading, setLoading] = useState(true);
+      const [noDeals, setNoDeals] = useState(false);
+
+      useEffect(() => {
+        if (availblePromotionsNow.length > 0) {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(false);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(true);
+          }, 1000);
+        }
+      }, [availblePromotionsNow]);
+
       return (
         <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
           <h4 className="-display-flex-align-items-center -gap-5">
@@ -237,7 +257,24 @@ const DisplayPage = ({
             Deals on Now
           </h4>
 
-          {availblePromotionsNow.length <= 0 ? (
+          {loading ? (
+            <div style={{ padding: "10px" }}>
+              <div className="-display-flex">
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+              </div>
+            </div>
+          ) : noDeals ? (
             <div style={{ padding: "10px" }}>
               <h6 style={{ color: "#8a8a8a" }}>
                 No deals running at the moment
@@ -262,6 +299,7 @@ const DisplayPage = ({
                                 objectFit: "cover",
                                 borderRadius: "5px",
                               }}
+                              loading="lazy"
                             />
                           ),
                       )}
@@ -1158,6 +1196,7 @@ const QuickFilter = ({ promotions, setQuickFilterData, setFilterShopType }) => {
 };
 
 const HomePage = ({ activeMenu, setActiveMenu }) => {
+  const [loading, setLoading] = useState(true);
   const [filterShopType, setFilterShopType] = useState("all");
   const [searchText, setSearchText] = useState("");
 
@@ -1179,8 +1218,10 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         const data = await response.json();
 
         setPromotions(data.data);
+        setLoading(false);
       } catch (err) {
         console.log(err);
+        setLoading(false);
         throw err;
       }
     };
@@ -1220,11 +1261,15 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         overflow: "auto",
       }}
     >
-      <img style={{ width: "40px" }} src={HotspotsLogo} alt="hotspots-logo" />
+      <img
+        style={{ width: "50px", padding: "5px" }}
+        src={HotspotsLogo}
+        alt="hotspots-logo"
+      />
       <br />
       <br />
       <h1 style={{ fontSize: "24px", textAlign: "center" }}>
-        Welcome to Hotspots, craving something?
+        Welcome to Hotspots, want to spend less?
       </h1>
 
       <div className="homepage-search-bar__wrapper">
@@ -1249,14 +1294,37 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setQuickFilterData={setQuickFilterData}
         setFilterShopType={setFilterShopType}
       />
-      <DisplayPage
-        availblePromotionsNow={availblePromotionsNow}
-        promotions={promotions}
-        filterShopType={filterShopType}
-        searchText={searchText}
-        setActiveMenu={setActiveMenu}
-        quickFilterData={quickFilterData}
-      />
+
+      {loading ? (
+        <>
+          <div className="display-page-card-loading__wrapper">
+            <>
+              <div className="page-card-small-loading__wrapper"></div>
+            </>
+            <>
+              <div className="page-card-main-loading__wrapper"></div>
+            </>
+            <>
+              <div className="page-card-main-loading__wrapper"></div>
+            </>
+            <>
+              <div className="page-card-main-loading__wrapper"></div>
+            </>
+            <>
+              <div className="page-card-main-loading__wrapper"></div>
+            </>
+          </div>
+        </>
+      ) : (
+        <DisplayPage
+          availblePromotionsNow={availblePromotionsNow}
+          promotions={promotions}
+          filterShopType={filterShopType}
+          searchText={searchText}
+          setActiveMenu={setActiveMenu}
+          quickFilterData={quickFilterData}
+        />
+      )}
     </div>
   );
 };
