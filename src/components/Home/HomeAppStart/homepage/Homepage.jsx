@@ -1295,9 +1295,9 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setFilterShopType={setFilterShopType}
       />
 
-      {loading === false ? (
+      {loading ? (
         <>
-          <div className="display-page-card-loading__wrapper">
+          <div className="main-display-page-card-loading__wrapper">
             <>
               <div className="page-card-small-loading__wrapper"></div>
             </>
