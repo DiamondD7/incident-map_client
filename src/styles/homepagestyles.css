@@ -105,6 +105,12 @@
     
 }
 
+.display-page-card-loading__wrapper{
+    position:absolute;
+    left:10px;
+    width: 100%;
+}
+
 
 .page-card-main-loading__wrapper{
     background-color:#ccccccb4;
