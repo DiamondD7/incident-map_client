@@ -16,6 +16,64 @@ export function TimeAgo(date) {
 }
 
 
+export const getTimeRemaining = (endTime) => {
+  const now = new Date();
+
+  if(endTime === null) return null;
+
+  const [hours, minutes, seconds] = endTime.split(":").map(Number);
+
+  const dealEnd = new Date();
+  dealEnd.setHours(hours, minutes, seconds, 0);
+
+  const difference = dealEnd - now;
+
+  if (difference <= 0) return null;
+
+  const totalMinutes = Math.floor(difference / (1000 * 60));
+
+  const hoursRemaining = Math.floor(totalMinutes / 60);
+  const minutesRemaining = totalMinutes % 60;
+
+  if (hoursRemaining > 0) {
+    return `${hoursRemaining}h ${minutesRemaining}m left`;
+  }
+
+  return `${minutesRemaining}m left`;
+};
+
+
+export const getDealStatus = (startTime, endTime) => {
+  if (!startTime || !endTime) return "Active soon";
+
+  const now = new Date();
+
+  const [startHours, startMinutes, startSeconds] = startTime
+    .split(":")
+    .map(Number);
+
+  const [endHours, endMinutes, endSeconds] = endTime
+    .split(":")
+    .map(Number);
+
+  const start = new Date();
+  start.setHours(startHours, startMinutes, startSeconds || 0, 0);
+
+  const end = new Date();
+  end.setHours(endHours, endMinutes, endSeconds || 0, 0);
+
+  // Normal deal: e.g. 10:00 → 17:00
+  if (start <= end) {
+    return now >= start && now <= end
+      ? "Active"
+      : "Active soon";
+  }
+
+  // Overnight deal: e.g. 17:00 → 02:00
+  return now >= start || now <= end
+    ? "Active"
+    : "Active soon";
+};
 
 
 // export function TimeAgo(date) {

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import {
+  BowlFoodIcon,
   BreadIcon,
   CameraIcon,
   CircleNotchIcon,
   CoffeeIcon,
   FireIcon,
   ForkKnifeIcon,
+  HamburgerIcon,
   HourglassHighIcon,
   MagnifyingGlassIcon,
+  PizzaIcon,
   SparkleIcon,
   TimerIcon,
 } from "@phosphor-icons/react";
@@ -17,7 +20,11 @@ import {
   API_URI,
   GetAvailablePromotions,
 } from "../../../../assets/js/api-auth";
-import { TimeAgo } from "../../../../assets/js/timeAgo";
+import {
+  TimeAgo,
+  getTimeRemaining,
+  getDealStatus,
+} from "../../../../assets/js/timeAgo";
 import ModalContainer from "../../../ModalContainer/ModalContainer";
 import { Helmet } from "react-helmet-async";
 
@@ -331,6 +338,16 @@ const DisplayPage = ({
                   </h6>
                   {item.deals.map((deal) => (
                     <div key={deal.id}>
+                      <p
+                        style={{
+                          fontSize: "9px",
+                          color: "red",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {getTimeRemaining(deal.endTime) &&
+                          `${getTimeRemaining(deal.endTime)}`}
+                      </p>
                       <p className="card-title__text">{deal.dealTitle}</p>
 
                       <p className="card-description__text">
@@ -340,6 +357,262 @@ const DisplayPage = ({
                       </p>
                     </div>
                   ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    const LunchDeals = ({ handleClickModal, promotions }) => {
+      const [loading, setLoading] = useState(true);
+      const [noDeals, setNoDeals] = useState(false);
+      const lunchDeals = promotions.filter((item) =>
+        item.deals.some((deal) => deal.dealType === "Lunch"),
+      );
+
+      useEffect(() => {
+        if (promotions.length > 0) {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(false);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(true);
+          }, 1000);
+        }
+      }, [promotions]);
+
+      return (
+        <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <HamburgerIcon color="#FA6737" weight="fill" />
+            Cheap Lunch Deals
+          </h4>
+
+          {loading ? (
+            <div style={{ padding: "10px" }}>
+              <div className="-display-flex">
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+              </div>
+            </div>
+          ) : noDeals ? (
+            <div style={{ padding: "10px" }}>
+              <h6 style={{ color: "#8a8a8a" }}>
+                No deals running at the moment
+              </h6>
+            </div>
+          ) : (
+            <div className="display-page-cards-container__wrapper">
+              {lunchDeals.map((item) => (
+                <div className="display-page-card__wrapper" key={item.id}>
+                  {item.images.length > 0 ? (
+                    <>
+                      {item.images.map(
+                        (image) =>
+                          image.imageTitle === "thumbnail" && (
+                            <img
+                              key={image.id}
+                              src={`${API_URI}${image.imageUrl}`}
+                              alt="pic-one"
+                              style={{
+                                width: "100px",
+                                height: "50px",
+                                objectFit: "cover",
+                                borderRadius: "5px",
+                              }}
+                              loading="lazy"
+                            />
+                          ),
+                      )}
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "50px",
+                        backgroundColor: "#e2e1e1",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <div style={{ textAlign: "center" }}>
+                        <CameraIcon size={20} />
+
+                        <p style={{ fontSize: "9px" }}>No Images Available</p>
+                      </div>
+                    </div>
+                  )}
+                  <h6
+                    className="link-card-shopName__text"
+                    onClick={(e) => handleClickModal(e, item)}
+                  >
+                    {item.shopName}
+                  </h6>
+                  {item.deals.map(
+                    (deal) =>
+                      deal.dealType === "Lunch" && (
+                        <div key={deal.id}>
+                          <p
+                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
+                          >
+                            {getDealStatus(deal.startTime, deal.endTime) &&
+                              `${getDealStatus(deal.startTime, deal.endTime)}`}
+                          </p>
+                          <p className="card-title__text">{deal.dealTitle}</p>
+
+                          <p className="card-description__text">
+                            {item.description.length > 30
+                              ? item.description.substring(0, 80) + "..."
+                              : item.description}
+                          </p>
+                        </div>
+                      ),
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    };
+
+    const DinnerDeals = ({ handleClickModal, promotions }) => {
+      const [loading, setLoading] = useState(true);
+      const [noDeals, setNoDeals] = useState(false);
+      const dinnerDeals = promotions.filter((item) =>
+        item.deals.some((deal) => deal.dealType === "Dinner"),
+      );
+
+      useEffect(() => {
+        if (promotions.length > 0) {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(false);
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            setLoading(false);
+            setNoDeals(true);
+          }, 1000);
+        }
+      }, [promotions]);
+
+      return (
+        <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+          <h4 className="-display-flex-align-items-center -gap-5">
+            <BowlFoodIcon color="#FA6737" weight="fill" />
+            Dinner Specials
+          </h4>
+
+          {loading ? (
+            <div style={{ padding: "10px" }}>
+              <div className="-display-flex">
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+                <div className="display-page-card-loading__wrapper">
+                  <>
+                    <div className="page-card-picture-loading__wrapper"></div>
+                    <div className="page-card-description-loading__wrapper"></div>
+                  </>
+                </div>
+              </div>
+            </div>
+          ) : noDeals ? (
+            <div style={{ padding: "10px" }}>
+              <h6 style={{ color: "#8a8a8a" }}>
+                No deals running at the moment
+              </h6>
+            </div>
+          ) : (
+            <div className="display-page-cards-container__wrapper">
+              {dinnerDeals.map((item) => (
+                <div className="display-page-card__wrapper" key={item.id}>
+                  {item.images.length > 0 ? (
+                    <>
+                      {item.images.map(
+                        (image) =>
+                          image.imageTitle === "thumbnail" && (
+                            <img
+                              key={image.id}
+                              src={`${API_URI}${image.imageUrl}`}
+                              alt="pic-one"
+                              style={{
+                                width: "100px",
+                                height: "50px",
+                                objectFit: "cover",
+                                borderRadius: "5px",
+                              }}
+                              loading="lazy"
+                            />
+                          ),
+                      )}
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100px",
+                        height: "50px",
+                        backgroundColor: "#e2e1e1",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      <div style={{ textAlign: "center" }}>
+                        <CameraIcon size={20} />
+
+                        <p style={{ fontSize: "9px" }}>No Images Available</p>
+                      </div>
+                    </div>
+                  )}
+                  <h6
+                    className="link-card-shopName__text"
+                    onClick={(e) => handleClickModal(e, item)}
+                  >
+                    {item.shopName}
+                  </h6>
+                  {item.deals.map(
+                    (deal) =>
+                      deal.dealType === "Dinner" && (
+                        <div key={deal.id}>
+                          <p
+                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
+                          >
+                            {getDealStatus(deal.startTime, deal.endTime) &&
+                              `${getDealStatus(deal.startTime, deal.endTime)}`}
+                          </p>
+                          <p className="card-title__text">{deal.dealTitle}</p>
+
+                          <p className="card-description__text">
+                            {item.description.length > 30
+                              ? item.description.substring(0, 80) + "..."
+                              : item.description}
+                          </p>
+                        </div>
+                      ),
+                  )}
                 </div>
               ))}
             </div>
@@ -591,6 +864,14 @@ const DisplayPage = ({
             <DealsOnNow
               handleClickModal={handleClickModal}
               availblePromotionsNow={availblePromotionsNow}
+            />
+            <LunchDeals
+              handleClickModal={handleClickModal}
+              promotions={promotions}
+            />
+            <DinnerDeals
+              handleClickModal={handleClickModal}
+              promotions={promotions}
             />
 
             <HotDeals />
