@@ -296,3 +296,14 @@
     color: red;
     font-weight: bold;
 }
+
+.next-deals__btn{
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+
+    cursor: pointer;
+    font-size: 10px;
+    background-color: transparent;
+    border: none;
+}

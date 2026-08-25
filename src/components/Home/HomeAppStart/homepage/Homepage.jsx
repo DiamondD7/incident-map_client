@@ -3,6 +3,7 @@ import {
   BowlFoodIcon,
   BreadIcon,
   CameraIcon,
+  CaretRightIcon,
   CircleNotchIcon,
   CoffeeIcon,
   FireIcon,
@@ -368,9 +369,13 @@ const DisplayPage = ({
     const LunchDeals = ({ handleClickModal, promotions }) => {
       const [loading, setLoading] = useState(true);
       const [noDeals, setNoDeals] = useState(false);
-      const lunchDeals = promotions.filter((item) =>
-        item.deals.some((deal) => deal.dealType === "Lunch"),
-      );
+
+      const lunchDeals = promotions
+        .map((item) => ({
+          ...item,
+          deals: item.deals.filter((deal) => deal.dealType === "Lunch"),
+        }))
+        .filter((item) => item.deals.length > 0);
 
       useEffect(() => {
         if (promotions.length > 0) {
@@ -465,26 +470,64 @@ const DisplayPage = ({
                   >
                     {item.shopName}
                   </h6>
-                  {item.deals.map(
-                    (deal) =>
-                      deal.dealType === "Lunch" && (
-                        <div key={deal.id}>
-                          <p
-                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
-                          >
-                            {getDealStatus(deal.startTime, deal.endTime) &&
-                              `${getDealStatus(deal.startTime, deal.endTime)}`}
-                          </p>
-                          <p className="card-title__text">{deal.dealTitle}</p>
+                  {item.deals.map((deal) => (
+                    <>
+                      {item.deals.length > 1 ? (
+                        <>
+                          {(() => {
+                            const deal = item.deals[currentDealIndex];
 
-                          <p className="card-description__text">
-                            {item.description.length > 30
-                              ? item.description.substring(0, 80) + "..."
-                              : item.description}
-                          </p>
-                        </div>
-                      ),
-                  )}
+                            return (
+                              <div>
+                                <div>
+                                  <p className="card-title__text">
+                                    {deal.dealTitle}
+                                  </p>
+
+                                  <p className="card-description__text">
+                                    {item.description.length > 80
+                                      ? item.description.substring(0, 80) +
+                                        "..."
+                                      : item.description}
+                                  </p>
+                                </div>
+
+                                <button
+                                  className="next-deals__btn"
+                                  onClick={() =>
+                                    setCurrentDealIndex(
+                                      (currentDealIndex + 1) %
+                                        item.deals.length,
+                                    )
+                                  }
+                                >
+                                  Next deal
+                                </button>
+                              </div>
+                            );
+                          })()}
+                        </>
+                      ) : (
+                        <>
+                          <div key={deal.id}>
+                            {/* <p
+                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
+                            >
+                            {getDealStatus(deal.startTime, deal.endTime) &&
+                            `${getDealStatus(deal.startTime, deal.endTime)}`}
+                            </p> */}
+                            <p className="card-title__text">{deal.dealTitle}</p>
+
+                            <p className="card-description__text">
+                              {item.description.length > 30
+                                ? item.description.substring(0, 80) + "..."
+                                : item.description}
+                            </p>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  ))}
                 </div>
               ))}
             </div>
@@ -496,9 +539,14 @@ const DisplayPage = ({
     const DinnerDeals = ({ handleClickModal, promotions }) => {
       const [loading, setLoading] = useState(true);
       const [noDeals, setNoDeals] = useState(false);
-      const dinnerDeals = promotions.filter((item) =>
-        item.deals.some((deal) => deal.dealType === "Dinner"),
-      );
+      const [dealIndexes, setDealIndexes] = useState({});
+
+      const dinnerDeals = promotions
+        .map((item) => ({
+          ...item,
+          deals: item.deals.filter((deal) => deal.dealType === "Dinner"),
+        }))
+        .filter((item) => item.deals.length > 0);
 
       useEffect(() => {
         if (promotions.length > 0) {
@@ -593,25 +641,66 @@ const DisplayPage = ({
                   >
                     {item.shopName}
                   </h6>
-                  {item.deals.map(
-                    (deal) =>
-                      deal.dealType === "Dinner" && (
-                        <div key={deal.id}>
-                          <p
-                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
-                          >
-                            {getDealStatus(deal.startTime, deal.endTime) &&
-                              `${getDealStatus(deal.startTime, deal.endTime)}`}
-                          </p>
-                          <p className="card-title__text">{deal.dealTitle}</p>
 
-                          <p className="card-description__text">
-                            {item.description.length > 30
-                              ? item.description.substring(0, 80) + "..."
-                              : item.description}
-                          </p>
+                  {item.deals.length > 1 ? (
+                    <>
+                      {(() => {
+                        const currentDealIndex = dealIndexes[item.id] || 0;
+                        const deal = item.deals[currentDealIndex];
+
+                        return (
+                          <div className="promotion-card-if-more-than-one__wrapper">
+                            <div>
+                              <p className="card-title__text">
+                                {deal.dealTitle}
+                              </p>
+
+                              <p className="card-description__text">
+                                {item.description.length > 80
+                                  ? item.description.substring(0, 80) + "..."
+                                  : item.description}
+                              </p>
+                            </div>
+
+                            <button
+                              className="next-deals__btn"
+                              onClick={() =>
+                                setDealIndexes((prev) => ({
+                                  ...prev,
+                                  [item.id]:
+                                    (currentDealIndex + 1) % item.deals.length,
+                                }))
+                              }
+                            >
+                              click for next deals
+                              <CaretRightIcon weight="fill" color="#FA6737" />
+                            </button>
+                          </div>
+                        );
+                      })()}
+                    </>
+                  ) : (
+                    <>
+                      {item.deals.map((deal) => (
+                        <div key={deal.id}>
+                          <div>
+                            {/* <p
+                            className={`${getDealStatus(deal.startTime, deal.endTime) === "Active" ? "active-deal" : "not-active-deal"}`}
+                            >
+                            {getDealStatus(deal.startTime, deal.endTime) &&
+                            `${getDealStatus(deal.startTime, deal.endTime)}`}
+                            </p> */}
+                            <p className="card-title__text">{deal.dealTitle}</p>
+
+                            <p className="card-description__text">
+                              {item.description.length > 30
+                                ? item.description.substring(0, 80) + "..."
+                                : item.description}
+                            </p>
+                          </div>
                         </div>
-                      ),
+                      ))}
+                    </>
                   )}
                 </div>
               ))}
