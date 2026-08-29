@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import {
+  ArrowBendLeftDownIcon,
+  ArrowBendRightDownIcon,
   BowlFoodIcon,
   BreadIcon,
   CameraIcon,
@@ -1565,6 +1567,23 @@ const QuickFilter = ({ promotions, setQuickFilterData, setFilterShopType }) => {
   );
 };
 
+const DecisionButtonModal = () => {
+  return (
+    <>
+      <div style={{ marginTop: "10px", textAlign: "center" }}>
+        <p className="homepage-decision__text">
+          <ArrowBendLeftDownIcon color="#FA6737" weight="fill" />
+          not sure where to go?
+          <ArrowBendRightDownIcon color="#FA6737" weight="fill" />
+        </p>
+        <button className="homepage-decision__btn">
+          Let us help you decide
+        </button>
+      </div>
+    </>
+  );
+};
+
 const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [loading, setLoading] = useState(true);
   const [filterShopType, setFilterShopType] = useState("all");
@@ -1664,6 +1683,8 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setQuickFilterData={setQuickFilterData}
         setFilterShopType={setFilterShopType}
       />
+
+      <DecisionButtonModal />
 
       {loading ? (
         <>
