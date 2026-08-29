@@ -1568,6 +1568,16 @@ const QuickFilter = ({ promotions, setQuickFilterData, setFilterShopType }) => {
 };
 
 const DecisionButtonModal = () => {
+  const [loading, setLoading] = useState(false);
+
+  const openModalClicked = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
+
   return (
     <>
       <div style={{ marginTop: "10px", textAlign: "center" }}>
@@ -1576,8 +1586,15 @@ const DecisionButtonModal = () => {
           not sure where to go?
           <ArrowBendRightDownIcon color="#FA6737" weight="fill" />
         </p>
-        <button className="homepage-decision__btn">
-          Let us help you decide
+        <button
+          className="homepage-decision__btn"
+          onClick={(e) => openModalClicked(e)}
+        >
+          {loading ? (
+            <CircleNotchIcon className={"btn-loading__icon"} color="#fff" />
+          ) : (
+            "Let us help you decide"
+          )}
         </button>
       </div>
     </>
