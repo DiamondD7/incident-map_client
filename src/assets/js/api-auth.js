@@ -1,9 +1,11 @@
-//const API_BASE_URL = 'https://localhost:7207/api/promotion';
-//export const API_URI = `https://localhost:7207`
-const API_BASE_URL = 'https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.azurewebsites.net/api/promotion';
-export const API_URI = `https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.azurewebsites.net`
+const API_BASE_URL = 'https://localhost:7207/api/promotion';
+export const API_URI = `https://localhost:7207`
+//const API_BASE_URL = 'https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.azurewebsites.net/api/promotion';
+//export const API_URI = `https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.azurewebsites.net`
 
 export const GetPromotions = `${API_BASE_URL}/all-promotions`;
 export const GetAvailablePromotions = `${API_BASE_URL}/active-deals`;
 export const GetPromotionsByLocation = `${API_BASE_URL}/promotion-by-location`;
+export const GetDecideRequest = `${API_BASE_URL}/decide`;
+
 //export const AddIncidentReport = `${API_BASE_URL}/new-incident`;s

@@ -21,6 +21,10 @@
     transform: translate(-50%, -50%);
 }
 
+.-display-inlineblock{
+    display: inline-block;
+}
+
 .-display-flex{
     display: flex;
     gap: 5px;
