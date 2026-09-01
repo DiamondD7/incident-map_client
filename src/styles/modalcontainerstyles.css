@@ -1,3 +1,81 @@
+.modal-decision-result-container__wrapper{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    
+    width: 300px;
+    height: 500px;
+
+    overflow: auto;
+    z-index: 15;
+}
+
+.other-picks__btns{
+  display: grid;
+  gap: 10px;
+  grid-auto-flow: column;
+  grid-auto-columns: 100px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.modal-otherpicks-images-empty__wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    width:100px;
+    margin-bottom: 3px;
+
+    border-radius: 5px;
+    background-color: #ccc;
+}
+
+.modal-image-decisions-carets__wrapper{
+    position: absolute;
+    top:20px;
+    left:0;
+
+    display:flex;
+    justify-content: space-between;
+
+
+    padding: 10px;
+    height: 170px;
+    width: 100%;
+}
+
+.decision-ul-based__ul{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    list-style: none;
+
+    width: 100%;
+}
+
+.decision-ul-based__ul li{
+    font-size: 10px;
+    color: #FA6737;
+}
+
+
+
+
+
+
+
+
+
+
 .modal-container__wrapper{
     position: fixed;
     top: 45%;
@@ -14,9 +92,10 @@
     z-index: 15;
 }
 
+
 .modal-cta__btns{
     position: absolute;
-    bottom: 16%;
+    bottom: 10%;
     left: 50%;
     transform: translate(-50%, 50%);
 
