@@ -6,4 +6,6 @@ export const API_URI = `https://hotspots-bzdmetbeg3aee6hk.australiasoutheast-01.
 export const GetPromotions = `${API_BASE_URL}/all-promotions`;
 export const GetAvailablePromotions = `${API_BASE_URL}/active-deals`;
 export const GetPromotionsByLocation = `${API_BASE_URL}/promotion-by-location`;
+export const GetDecideRequest = `${API_BASE_URL}/decide`;
+
 //export const AddIncidentReport = `${API_BASE_URL}/new-incident`;s
