@@ -34,6 +34,7 @@ import {
   getDealStatus,
 } from "../../../../assets/js/timeAgo";
 import ModalContainer from "../../../ModalContainer/ModalContainer";
+import ModalDecisionContainer from "../../../ModalContainer/ModalDecisionContainer";
 import { Helmet } from "react-helmet-async";
 
 import "../../../../styles/homepagestyles.css";
@@ -1572,7 +1573,11 @@ const QuickFilter = ({ promotions, setQuickFilterData, setFilterShopType }) => {
   );
 };
 
-const DecisionButtonModal = ({ currentLocation }) => {
+const DecisionButtonModal = ({
+  promotions,
+  currentLocation,
+  setActiveMenu,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -1586,12 +1591,32 @@ const DecisionButtonModal = ({ currentLocation }) => {
   };
 
   // ---------------------------------------------------------
-  const DecisionContainerModal = ({ setIsModalOpen }) => {
+  const DecisionContainerModal = ({
+    promotions,
+    isModalOpen,
+    setIsModalOpen,
+    setActiveMenu,
+  }) => {
     const [shopType, setShopType] = useState("");
     const [mostImportant, setMostImportant] = useState("");
     const [stageNumber, setStageNumber] = useState(1);
-
+    const [isLoadingDecisionResult, setIsLoadingDecisionResult] =
+      useState(false);
     const [decisionResults, setDecisionResults] = useState([]);
+
+    const [openedAlternativeResult, setOpenedAlternativeResult] =
+      useState(false);
+
+    const [altResult, setAltResult] = useState([]);
+    const filteredResult = promotions.filter(
+      (item) => item.shopType === shopType,
+    );
+
+    const handleAlternativeResultOpen = (e, data) => {
+      e.preventDefault();
+      setAltResult(data);
+      setOpenedAlternativeResult(true);
+    };
 
     // -----------------------------------------------
     const StageOne = ({ shopType, setShopType }) => {
@@ -1670,6 +1695,8 @@ const DecisionButtonModal = ({ currentLocation }) => {
       setMostImportant,
       currentLocation,
       setDecisionResults,
+      isLoadingDecisionResult,
+      setIsLoadingDecisionResult,
     }) => {
       const [isDropDownMenuOpened, setIsDropDownMenuOpened] = useState(false);
 
@@ -1703,6 +1730,11 @@ const DecisionButtonModal = ({ currentLocation }) => {
 
           const res = await response.json();
           setDecisionResults(res);
+          setIsLoadingDecisionResult(true);
+          setTimeout(() => {
+            setIsLoadingDecisionResult(false);
+            setStageNumber(3);
+          }, 2000);
           //console.log(res);
         } catch (err) {
           console.error(err);
@@ -1712,58 +1744,69 @@ const DecisionButtonModal = ({ currentLocation }) => {
 
       return (
         <div>
-          <h2 style={{ textAlign: "center" }}>Mmm... good choice!</h2>
-          <br />
-          <button
-            className="decision-drop-down__btn"
-            onClick={() => setIsDropDownMenuOpened(!isDropDownMenuOpened)}
-          >
-            {mostImportant !== "" ? (
-              <>
-                {mostImportant}{" "}
-                {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
-              </>
-            ) : (
-              <>
-                What is most important?
-                {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
-              </>
-            )}
-          </button>
-
-          {isDropDownMenuOpened && (
-            <div className="decision-drop-down-menu__wrapper">
-              <button
-                value="Nearby"
-                className={`decision-drop-down-menu__btn ${mostImportant === "Nearby" ? "activedropdownmenu" : ""}`}
-                onClick={(e) => handleShopTypeChanged(e)}
-              >
-                Nearby
-              </button>
-              <button
-                value="Deals"
-                className={`decision-drop-down-menu__btn ${mostImportant === "Deals" ? "activedropdownmenu" : ""}`}
-                onClick={(e) => handleShopTypeChanged(e)}
-              >
-                Deals
-              </button>
-              <button
-                value="Aesthetic"
-                className={`decision-drop-down-menu__btn ${mostImportant === "Aesthetic" ? "activedropdownmenu" : ""}`}
-                onClick={(e) => handleShopTypeChanged(e)}
-              >
-                Aesthetic
-              </button>
+          {isLoadingDecisionResult ? (
+            <div className="-display-flex-justify-aligned-center">
+              <CircleNotchIcon
+                className={"btn-loading__icon"}
+                color="#FA6737"
+              />
             </div>
-          )}
+          ) : (
+            <>
+              <h2 style={{ textAlign: "center" }}>Mmm... good choice!</h2>
+              <br />
+              <button
+                className="decision-drop-down__btn"
+                onClick={() => setIsDropDownMenuOpened(!isDropDownMenuOpened)}
+              >
+                {mostImportant !== "" ? (
+                  <>
+                    {mostImportant}{" "}
+                    {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
+                  </>
+                ) : (
+                  <>
+                    What is most important?
+                    {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
+                  </>
+                )}
+              </button>
 
-          {mostImportant !== "" && (
-            <button
-              className="decision-next__btn"
-              onClick={(e) => handleGetResult(e)}
-            >
-              Submit <CaretRightIcon />
-            </button>
+              {isDropDownMenuOpened && (
+                <div className="decision-drop-down-menu__wrapper">
+                  <button
+                    value="Nearby"
+                    className={`decision-drop-down-menu__btn ${mostImportant === "Nearby" ? "activedropdownmenu" : ""}`}
+                    onClick={(e) => handleShopTypeChanged(e)}
+                  >
+                    Nearby
+                  </button>
+                  <button
+                    value="Deals"
+                    className={`decision-drop-down-menu__btn ${mostImportant === "Deals" ? "activedropdownmenu" : ""}`}
+                    onClick={(e) => handleShopTypeChanged(e)}
+                  >
+                    Deals
+                  </button>
+                  <button
+                    value="Aesthetic"
+                    className={`decision-drop-down-menu__btn ${mostImportant === "Aesthetic" ? "activedropdownmenu" : ""}`}
+                    onClick={(e) => handleShopTypeChanged(e)}
+                  >
+                    Aesthetic
+                  </button>
+                </div>
+              )}
+
+              {mostImportant !== "" && (
+                <button
+                  className="decision-next__btn"
+                  onClick={(e) => handleGetResult(e)}
+                >
+                  Submit <CaretRightIcon />
+                </button>
+              )}
+            </>
           )}
         </div>
       );
@@ -1771,28 +1814,88 @@ const DecisionButtonModal = ({ currentLocation }) => {
 
     return (
       <>
-        <div className="decision-modal-container__wrapper">
-          <button
-            className="-btn-transparent"
-            onClick={() => setIsModalOpen(false)}
-          >
-            <XIcon />
-          </button>
+        {stageNumber === 3 ? (
+          <div>
+            {decisionResults.length === 0 ? (
+              <>
+                {openedAlternativeResult === false ? (
+                  <div className="decision-result-empty-modal-container__wrapper">
+                    <button
+                      className="-btn-transparent"
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      <XIcon />
+                    </button>
+                    {isLoadingDecisionResult ? (
+                      <div style={{ textAlign: "center" }}>
+                        <CircleNotchIcon
+                          className={"btn-loading__icon"}
+                          color="#FA6737"
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <h2 style={{ textAlign: "center" }}>No results</h2>
+                        <p style={{ textAlign: "center", fontSize: "12px" }}>
+                          but we have found alternative {shopType}
+                        </p>
+                        {filteredResult.map((shop) => (
+                          <button
+                            className="decision-filtered-result__btn"
+                            onClick={(e) =>
+                              handleAlternativeResultOpen(e, shop)
+                            }
+                          >
+                            {shop.shopName}
+                          </button>
+                        ))}
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <ModalContainer
+                    modalData={altResult}
+                    isModalOpen={isModalOpen}
+                    setClickedModal={setIsModalOpen}
+                    setActiveMenu={setActiveMenu}
+                  />
+                )}
+              </>
+            ) : (
+              <ModalDecisionContainer
+                modalData={decisionResults}
+                isModalOpen={isModalOpen}
+                setClickedModal={setIsModalOpen}
+                setActiveMenu={setActiveMenu}
+              />
+            )}
+          </div>
+        ) : (
+          <div className="decision-modal-container__wrapper">
+            <button
+              className="-btn-transparent"
+              onClick={() => setIsModalOpen(false)}
+            >
+              <XIcon />
+            </button>
 
-          {stageNumber === 1 && (
-            <StageOne shopType={shopType} setShopType={setShopType} />
-          )}
+            {stageNumber === 1 && (
+              <StageOne shopType={shopType} setShopType={setShopType} />
+            )}
 
-          {stageNumber === 2 && (
-            <StageTwo
-              shopType={shopType}
-              mostImportant={mostImportant}
-              setMostImportant={setMostImportant}
-              currentLocation={currentLocation}
-              setDecisionResults={setDecisionResults}
-            />
-          )}
-        </div>
+            {stageNumber === 2 && (
+              <StageTwo
+                shopType={shopType}
+                mostImportant={mostImportant}
+                setMostImportant={setMostImportant}
+                currentLocation={currentLocation}
+                setDecisionResults={setDecisionResults}
+                isLoadingDecisionResult={isLoadingDecisionResult}
+                setIsLoadingDecisionResult={setIsLoadingDecisionResult}
+              />
+            )}
+          </div>
+        )}
       </>
     );
   };
@@ -1801,7 +1904,12 @@ const DecisionButtonModal = ({ currentLocation }) => {
     <>
       {isModalOpen && <div className="overlay"></div>}
       {isModalOpen ? (
-        <DecisionContainerModal setIsModalOpen={setIsModalOpen} />
+        <DecisionContainerModal
+          promotions={promotions}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          setActiveMenu={setActiveMenu}
+        />
       ) : (
         <div style={{ marginTop: "10px", textAlign: "center" }}>
           <p className="homepage-decision__text">
@@ -1977,7 +2085,11 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setFilterShopType={setFilterShopType}
       />
 
-      <DecisionButtonModal currentLocation={currentLocation} />
+      <DecisionButtonModal
+        promotions={promotions}
+        currentLocation={currentLocation}
+        setActiveMenu={setActiveMenu}
+      />
 
       {loading ? (
         <>

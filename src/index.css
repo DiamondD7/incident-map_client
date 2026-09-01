@@ -30,6 +30,12 @@
     gap: 5px;
 }
 
+.-display-flex-justify-aligned-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .-display-flex-justify-content-space-evenly {
     display: flex;
     justify-content: space-evenly;
