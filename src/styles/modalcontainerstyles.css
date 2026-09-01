@@ -1,6 +1,6 @@
 .modal-decision-result-container__wrapper{
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -10,7 +10,9 @@
     background-color: #fff;
     
     width: 300px;
+    height: 500px;
 
+    overflow: auto;
     z-index: 15;
 }
 
@@ -49,6 +51,27 @@
     height: 170px;
     width: 100%;
 }
+
+.decision-ul-based__ul{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    list-style: none;
+
+    width: 100%;
+}
+
+.decision-ul-based__ul li{
+    font-size: 10px;
+    color: #FA6737;
+}
+
+
+
+
+
+
 
 
 

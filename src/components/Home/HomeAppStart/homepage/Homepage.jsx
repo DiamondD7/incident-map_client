@@ -479,7 +479,7 @@ const DisplayPage = ({
                     {item.shopName}
                   </h6>
                   {item.deals.map((deal) => (
-                    <>
+                    <div key={deal.id}>
                       {item.deals.length > 1 ? (
                         <>
                           {(() => {
@@ -534,7 +534,7 @@ const DisplayPage = ({
                           </div>
                         </>
                       )}
-                    </>
+                    </div>
                   ))}
                 </div>
               ))}
@@ -1837,7 +1837,7 @@ const DecisionButtonModal = ({
                       <>
                         <h2 style={{ textAlign: "center" }}>No results</h2>
                         <p style={{ textAlign: "center", fontSize: "12px" }}>
-                          but we have found alternative {shopType}
+                          but here are some alternatives
                         </p>
                         {filteredResult.map((shop) => (
                           <button
@@ -1867,6 +1867,8 @@ const DecisionButtonModal = ({
                 isModalOpen={isModalOpen}
                 setClickedModal={setIsModalOpen}
                 setActiveMenu={setActiveMenu}
+                shopType={shopType}
+                mostImportant={mostImportant}
               />
             )}
           </div>
@@ -2085,12 +2087,6 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         setFilterShopType={setFilterShopType}
       />
 
-      <DecisionButtonModal
-        promotions={promotions}
-        currentLocation={currentLocation}
-        setActiveMenu={setActiveMenu}
-      />
-
       {loading ? (
         <>
           <div className="main-display-page-card-loading__wrapper">
@@ -2112,14 +2108,21 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
           </div>
         </>
       ) : (
-        <DisplayPage
-          availblePromotionsNow={availblePromotionsNow}
-          promotions={promotions}
-          filterShopType={filterShopType}
-          searchText={searchText}
-          setActiveMenu={setActiveMenu}
-          quickFilterData={quickFilterData}
-        />
+        <>
+          <DecisionButtonModal
+            promotions={promotions}
+            currentLocation={currentLocation}
+            setActiveMenu={setActiveMenu}
+          />
+          <DisplayPage
+            availblePromotionsNow={availblePromotionsNow}
+            promotions={promotions}
+            filterShopType={filterShopType}
+            searchText={searchText}
+            setActiveMenu={setActiveMenu}
+            quickFilterData={quickFilterData}
+          />
+        </>
       )}
     </div>
   );

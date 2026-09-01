@@ -23,6 +23,8 @@ const ModalDecisionContainer = ({
   clickedModal,
   setClickedModal,
   setActiveMenu,
+  shopType,
+  mostImportant,
 }) => {
   const navigate = useNavigate();
   //this is for the indexing so that i can keep changing the pics if there are more pic
@@ -75,7 +77,18 @@ const ModalDecisionContainer = ({
 
       <div className="overlay"></div>
       <div className="modal-decision-result-container__wrapper">
-        <h2 style={{ textAlign: "center" }}>Top Pick(s)</h2>
+        <h3 style={{ textAlign: "center" }}>Top Pick(s)</h3>
+
+        <div>
+          <ul className="decision-ul-based__ul">
+            <li>
+              Category: <strong>{shopType}</strong>
+            </li>
+            <li>
+              Preferred: <strong>{mostImportant}</strong>
+            </li>
+          </ul>
+        </div>
         {currentDeal.place.images.length > 1 && (
           <div className="modal-image-decisions-carets__wrapper">
             <button
