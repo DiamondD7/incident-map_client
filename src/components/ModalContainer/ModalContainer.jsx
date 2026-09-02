@@ -86,7 +86,7 @@ const ModalContainer = ({
         {modalData.images.length > 0 ? (
           <img
             className="modal__img"
-            src={`${API_URI}${modalData.images[currentImage].imageUrl}`}
+            src={modalData.images[currentImage].imageUrl}
             alt="Thumbnail"
           />
         ) : (

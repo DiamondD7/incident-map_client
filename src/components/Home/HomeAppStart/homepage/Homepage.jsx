@@ -186,7 +186,7 @@ const DisplayPage = ({
                                 image.imageTitle === "thumbnail" && (
                                   <img
                                     key={image.id}
-                                    src={`${API_URI}${image.imageUrl}`}
+                                    src={image.imageUrl}
                                     alt="pic-one"
                                     style={{
                                       width: "100px",
@@ -307,7 +307,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -440,7 +440,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -611,7 +611,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -1841,6 +1841,7 @@ const DecisionButtonModal = ({
                         </p>
                         {filteredResult.map((shop) => (
                           <button
+                            key={shop.id}
                             className="decision-filtered-result__btn"
                             onClick={(e) =>
                               handleAlternativeResultOpen(e, shop)
