@@ -186,7 +186,7 @@ const DisplayPage = ({
                                 image.imageTitle === "thumbnail" && (
                                   <img
                                     key={image.id}
-                                    src={`${API_URI}${image.imageUrl}`}
+                                    src={image.imageUrl}
                                     alt="pic-one"
                                     style={{
                                       width: "100px",
@@ -307,7 +307,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -440,7 +440,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -611,7 +611,7 @@ const DisplayPage = ({
                           image.imageTitle === "thumbnail" && (
                             <img
                               key={image.id}
-                              src={`${API_URI}${image.imageUrl}`}
+                              src={image.imageUrl}
                               alt="pic-one"
                               style={{
                                 width: "100px",
@@ -1709,6 +1709,7 @@ const DecisionButtonModal = ({
 
       const handleGetResult = async (e) => {
         e.preventDefault();
+        setIsLoadingDecisionResult(true);
         try {
           const response = await fetch(GetDecideRequest, {
             method: "POST",
@@ -1730,7 +1731,6 @@ const DecisionButtonModal = ({
 
           const res = await response.json();
           setDecisionResults(res);
-          setIsLoadingDecisionResult(true);
           setTimeout(() => {
             setIsLoadingDecisionResult(false);
             setStageNumber(3);
@@ -1744,70 +1744,70 @@ const DecisionButtonModal = ({
 
       return (
         <div>
-          {isLoadingDecisionResult ? (
-            <div className="-display-flex-justify-aligned-center">
-              <CircleNotchIcon
-                className={"btn-loading__icon"}
-                color="#FA6737"
-              />
-            </div>
-          ) : (
-            <>
-              <h2 style={{ textAlign: "center" }}>Mmm... good choice!</h2>
-              <br />
+          <>
+            <h2 style={{ textAlign: "center" }}>Mmm... good choice!</h2>
+            <br />
+            <button
+              className="decision-drop-down__btn"
+              onClick={() => setIsDropDownMenuOpened(!isDropDownMenuOpened)}
+            >
+              {mostImportant !== "" ? (
+                <>
+                  {mostImportant}{" "}
+                  {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
+                </>
+              ) : (
+                <>
+                  What is most important?
+                  {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
+                </>
+              )}
+            </button>
+
+            {isDropDownMenuOpened && (
+              <div className="decision-drop-down-menu__wrapper">
+                <button
+                  value="Nearby"
+                  className={`decision-drop-down-menu__btn ${mostImportant === "Nearby" ? "activedropdownmenu" : ""}`}
+                  onClick={(e) => handleShopTypeChanged(e)}
+                >
+                  Nearby
+                </button>
+                <button
+                  value="Deals"
+                  className={`decision-drop-down-menu__btn ${mostImportant === "Deals" ? "activedropdownmenu" : ""}`}
+                  onClick={(e) => handleShopTypeChanged(e)}
+                >
+                  Deals
+                </button>
+                <button
+                  value="Aesthetic"
+                  className={`decision-drop-down-menu__btn ${mostImportant === "Aesthetic" ? "activedropdownmenu" : ""}`}
+                  onClick={(e) => handleShopTypeChanged(e)}
+                >
+                  Aesthetic
+                </button>
+              </div>
+            )}
+
+            {mostImportant !== "" && (
               <button
-                className="decision-drop-down__btn"
-                onClick={() => setIsDropDownMenuOpened(!isDropDownMenuOpened)}
+                className="decision-next__btn"
+                onClick={(e) => handleGetResult(e)}
               >
-                {mostImportant !== "" ? (
-                  <>
-                    {mostImportant}{" "}
-                    {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
-                  </>
+                {isLoadingDecisionResult ? (
+                  <CircleNotchIcon
+                    className={"btn-loading__icon"}
+                    color="#FA6737"
+                  />
                 ) : (
                   <>
-                    What is most important?
-                    {isDropDownMenuOpened ? <CaretUpIcon /> : <CaretDownIcon />}
+                    Submit <CaretRightIcon />
                   </>
                 )}
               </button>
-
-              {isDropDownMenuOpened && (
-                <div className="decision-drop-down-menu__wrapper">
-                  <button
-                    value="Nearby"
-                    className={`decision-drop-down-menu__btn ${mostImportant === "Nearby" ? "activedropdownmenu" : ""}`}
-                    onClick={(e) => handleShopTypeChanged(e)}
-                  >
-                    Nearby
-                  </button>
-                  <button
-                    value="Deals"
-                    className={`decision-drop-down-menu__btn ${mostImportant === "Deals" ? "activedropdownmenu" : ""}`}
-                    onClick={(e) => handleShopTypeChanged(e)}
-                  >
-                    Deals
-                  </button>
-                  <button
-                    value="Aesthetic"
-                    className={`decision-drop-down-menu__btn ${mostImportant === "Aesthetic" ? "activedropdownmenu" : ""}`}
-                    onClick={(e) => handleShopTypeChanged(e)}
-                  >
-                    Aesthetic
-                  </button>
-                </div>
-              )}
-
-              {mostImportant !== "" && (
-                <button
-                  className="decision-next__btn"
-                  onClick={(e) => handleGetResult(e)}
-                >
-                  Submit <CaretRightIcon />
-                </button>
-              )}
-            </>
-          )}
+            )}
+          </>
         </div>
       );
     };
@@ -1841,6 +1841,7 @@ const DecisionButtonModal = ({
                         </p>
                         {filteredResult.map((shop) => (
                           <button
+                            key={shop.id}
                             className="decision-filtered-result__btn"
                             onClick={(e) =>
                               handleAlternativeResultOpen(e, shop)

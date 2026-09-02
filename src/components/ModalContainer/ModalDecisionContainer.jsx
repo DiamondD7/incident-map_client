@@ -110,7 +110,7 @@ const ModalDecisionContainer = ({
         {currentDeal.place.images.length > 0 ? (
           <img
             className="modal__img"
-            src={`${API_URI}${currentDeal.place.images[currentImage].imageUrl}`}
+            src={currentDeal.place.images[currentImage].imageUrl}
             alt="Thumbnail"
           />
         ) : (
@@ -202,7 +202,7 @@ const ModalDecisionContainer = ({
                         width: "100px",
                         objectFit: "cover",
                       }}
-                      src={`${API_URI}${topPick.place.images[0].imageUrl}`}
+                      src={topPick.place.images[0].imageUrl}
                       alt="shopImage"
                     />
                   ) : (
@@ -239,7 +239,7 @@ const ModalDecisionContainer = ({
                           width: "100px",
                           objectFit: "cover",
                         }}
-                        src={`${API_URI}${shop.place.images[0].imageUrl}`}
+                        src={shop.place.images[0].imageUrl}
                         alt="shopImage"
                       />
                     ) : (
