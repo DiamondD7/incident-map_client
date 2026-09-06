@@ -5,6 +5,8 @@ import {
   BowlFoodIcon,
   BreadIcon,
   CameraIcon,
+  CaretDoubleDownIcon,
+  CaretDoubleUpIcon,
   CaretDownIcon,
   CaretLeftIcon,
   CaretRightIcon,
@@ -13,9 +15,11 @@ import {
   CoffeeIcon,
   FireIcon,
   ForkKnifeIcon,
+  GpsSlashIcon,
   HamburgerIcon,
   HourglassHighIcon,
   MagnifyingGlassIcon,
+  MapPinIcon,
   PizzaIcon,
   SparkleIcon,
   TimerIcon,
@@ -1577,6 +1581,7 @@ const DecisionButtonModal = ({
   promotions,
   currentLocation,
   setActiveMenu,
+  isLocationEnabled,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -1596,6 +1601,7 @@ const DecisionButtonModal = ({
     isModalOpen,
     setIsModalOpen,
     setActiveMenu,
+    isLocationEnabled,
   }) => {
     const [shopType, setShopType] = useState("");
     const [mostImportant, setMostImportant] = useState("");
@@ -1697,14 +1703,26 @@ const DecisionButtonModal = ({
       setDecisionResults,
       isLoadingDecisionResult,
       setIsLoadingDecisionResult,
+      isLocationEnabled,
     }) => {
       const [isDropDownMenuOpened, setIsDropDownMenuOpened] = useState(false);
+      const [showLocationErrorMsg, setShowLocationErrorMsg] = useState(false);
 
       const handleShopTypeChanged = (e) => {
         e.preventDefault();
         const { value } = e.target;
 
+        if (
+          value === "Nearby" &&
+          (isLocationEnabled === null || isLocationEnabled === false)
+        ) {
+          setShowLocationErrorMsg(true);
+          setMostImportant("");
+          return;
+        }
+
         setMostImportant(value);
+        setShowLocationErrorMsg(false);
       };
 
       const handleGetResult = async (e) => {
@@ -1726,7 +1744,13 @@ const DecisionButtonModal = ({
           });
 
           if (!response.ok) {
-            throw new Error("error in the response");
+            console.log(
+              shopType,
+              mostImportant,
+              currentLocation.lat,
+              currentLocation.lng,
+            );
+            throw new Error(`error in the response: ${response.statusText}`);
           }
 
           const res = await response.json();
@@ -1746,6 +1770,22 @@ const DecisionButtonModal = ({
         <div>
           <>
             <h2 style={{ textAlign: "center" }}>Mmm... good choice!</h2>
+            {showLocationErrorMsg && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "5px",
+                  backgroundColor: "red",
+                  padding: "2px 5px",
+                  borderRadius: "5px",
+                }}
+              >
+                <GpsSlashIcon color="#fff" />
+                <p style={{ fontSize: "12px", color: "#fff" }}>
+                  Allow location first
+                </p>
+              </div>
+            )}
             <br />
             <button
               className="decision-drop-down__btn"
@@ -1790,7 +1830,7 @@ const DecisionButtonModal = ({
               </div>
             )}
 
-            {mostImportant !== "" && (
+            {mostImportant !== "" && showLocationErrorMsg === false ? (
               <button
                 className="decision-next__btn"
                 onClick={(e) => handleGetResult(e)}
@@ -1806,7 +1846,7 @@ const DecisionButtonModal = ({
                   </>
                 )}
               </button>
-            )}
+            ) : null}
           </>
         </div>
       );
@@ -1895,6 +1935,7 @@ const DecisionButtonModal = ({
                 setDecisionResults={setDecisionResults}
                 isLoadingDecisionResult={isLoadingDecisionResult}
                 setIsLoadingDecisionResult={setIsLoadingDecisionResult}
+                isLocationEnabled={isLocationEnabled}
               />
             )}
           </div>
@@ -1912,6 +1953,7 @@ const DecisionButtonModal = ({
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           setActiveMenu={setActiveMenu}
+          isLocationEnabled={isLocationEnabled}
         />
       ) : (
         <div style={{ marginTop: "10px", textAlign: "center" }}>
@@ -1936,12 +1978,120 @@ const DecisionButtonModal = ({
   );
 };
 
+const GeolocationRequestModal = ({
+  handleRequestLocation,
+  isLocationEnabled,
+  setIsLocationEnabled,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGeoLocationModalOpened, setIsGeoLocationModalOpened] =
+    useState(true);
+
+  const handleAllowClicked = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    setTimeout(() => {
+      handleRequestLocation();
+      setIsLoading(false);
+    }, 1500);
+  };
+  return (
+    <div
+      className={`${isGeoLocationModalOpened === true ? "geolocation-modal__wrapper" : "geolocation-closed__wrapper"}`}
+    >
+      <MapPinIcon
+        className={"geolocation-modal__mappinicon"}
+        color="#fff"
+        weight="fill"
+      />
+
+      {isLocationEnabled === null ? (
+        <>
+          <h5 className="geolocation-header__text">Allow Location?</h5>
+          <p
+            style={{
+              fontSize: "9px",
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#fff",
+              marginBottom: "10px",
+            }}
+          >
+            default location: Auckland CBD
+          </p>
+          <p className="geolocation-p__text">
+            We need your device's location in order for us to show you nearby
+            food places
+          </p>
+
+          <div className="geolcoation-modal-btns__wrapper">
+            <button
+              className="geolocation-enable__btn"
+              onClick={(e) => handleAllowClicked(e)}
+            >
+              {isLoading ? (
+                <>
+                  <CircleNotchIcon
+                    className={"btn-loading__icon"}
+                    color="#FA6737"
+                  />
+                </>
+              ) : (
+                "Allow"
+              )}
+            </button>
+          </div>
+        </>
+      ) : isLocationEnabled === false ? (
+        <>
+          <h5 className="geolocation-header__text">Location Blocked</h5>
+          <p
+            style={{
+              fontSize: "9px",
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#fff",
+              marginBottom: "10px",
+            }}
+          >
+            default location: Auckland CBD
+          </p>
+          <p className="geolocation-p__text">
+            Hotspots cant access your location. Enable location in your browser
+            settings to find food places near you
+          </p>
+          <div className="geolcoation-modal-btns__wrapper">
+            <button className="geolocation-enable__btn">Blocked</button>
+          </div>
+        </>
+      ) : null}
+      <button
+        className="geolocation-show__btn"
+        onClick={() => setIsGeoLocationModalOpened(!isGeoLocationModalOpened)}
+      >
+        {isGeoLocationModalOpened ? (
+          <>
+            show less <CaretDoubleUpIcon color="#fff" />
+          </>
+        ) : (
+          <>
+            allow location?
+            <CaretDoubleDownIcon color="#fff" />
+          </>
+        )}
+      </button>
+    </div>
+  );
+};
+
 const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [currentLocation, setCurrentLocation] = useState({
     lat: null,
     lng: null,
   });
-  const [isLocationEnabled, setIsLocationEnabled] = useState(false);
+  const [isAllowLocationClicked, setIsAllowLocationClicked] = useState(false);
+  const [isLocationEnabled, setIsLocationEnabled] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [filterShopType, setFilterShopType] = useState("all");
@@ -1952,10 +2102,98 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
   const [availblePromotionsNow, setAvailablePromotionsNow] = useState([]);
 
   //GEOLOCATION LOGIC
+  // useEffect(() => {
+  //   if (!navigator.geolocation) {
+  //     console.log("Geolocation is not supported by your browser");
+  //     // setError("Geolocation is not supported by your browser");
+  //     return;
+  //   }
+
+  //   const successHandler = (position) => {
+  //     posthog.capture("location_permission", {
+  //       status: "granted",
+  //     });
+  //     setIsLocationEnabled(true);
+  //     setCurrentLocation({
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude,
+  //     });
+  //   };
+
+  //   const errorHandler = (err) => {
+  //     setIsLocationEnabled(false);
+  //     setCurrentLocation({
+  //       lat: -36.8485,
+  //       lng: 174.7633,
+  //     });
+  //     posthog.capture("location_permission", {
+  //       status: "denied",
+  //     });
+  //     // setError(
+  //     //   `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
+  //     // );
+  //   };
+
+  //   const options = {
+  //     enableHighAccuracy: true,
+  //     timeout: 5000,
+  //     maximumAge: 0,
+  //   };
+
+  //   navigator.geolocation.getCurrentPosition(
+  //     successHandler,
+  //     errorHandler,
+  //     options,
+  //   );
+  // }, []);
+
   useEffect(() => {
+    const checkLocationPermission = async () => {
+      try {
+        const permission = await navigator.permissions.query({
+          name: "geolocation",
+        });
+
+        if (permission.state === "granted") {
+          setIsLocationEnabled(true);
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setCurrentLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            (error) => {
+              console.log("Could not get location:", error);
+            },
+          );
+        }
+
+        if (permission.state === "prompt") {
+          setCurrentLocation({
+            lat: -36.8485,
+            lng: 174.7633,
+          });
+        }
+
+        if (permission.state === "denied") {
+          setIsLocationEnabled(false);
+          setCurrentLocation({
+            lat: -36.8485,
+            lng: 174.7633,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkLocationPermission();
+  }, []);
+
+  const handleRequestLocation = () => {
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by your browser");
-      // setError("Geolocation is not supported by your browser");
       return;
     }
 
@@ -1963,7 +2201,9 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
       posthog.capture("location_permission", {
         status: "granted",
       });
+
       setIsLocationEnabled(true);
+
       setCurrentLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -1971,17 +2211,18 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
     };
 
     const errorHandler = (err) => {
+      console.log("Location error:", err);
+
       setIsLocationEnabled(false);
+
       setCurrentLocation({
         lat: -36.8485,
         lng: 174.7633,
       });
+
       posthog.capture("location_permission", {
         status: "denied",
       });
-      // setError(
-      //   `Unable to retrieve your location: ${err.message}. Using default location (Auckland CBD).`,
-      // );
     };
 
     const options = {
@@ -1995,7 +2236,7 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
       errorHandler,
       options,
     );
-  }, []);
+  };
 
   useEffect(() => {
     const GetAllPromotions = async () => {
@@ -2110,10 +2351,19 @@ const HomePage = ({ activeMenu, setActiveMenu }) => {
         </>
       ) : (
         <>
+          {isLocationEnabled === false || isLocationEnabled === null ? (
+            <GeolocationRequestModal
+              handleRequestLocation={handleRequestLocation}
+              isLocationEnabled={isLocationEnabled}
+              setIsLocationEnabled={setIsLocationEnabled}
+            />
+          ) : null}
+
           <DecisionButtonModal
             promotions={promotions}
             currentLocation={currentLocation}
             setActiveMenu={setActiveMenu}
+            isLocationEnabled={isLocationEnabled}
           />
           <DisplayPage
             availblePromotionsNow={availblePromotionsNow}
