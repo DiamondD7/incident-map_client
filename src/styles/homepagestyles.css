@@ -437,3 +437,115 @@
 
     cursor: pointer;
 }
+
+
+.geolocation-modal__wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: #FA6737;
+    padding: 10px 10px 0 10px;
+
+    animation: geolocationModalAnimateOpen 1s ease-in forwards;
+
+    z-index: 16;
+}
+
+.geolocation-closed__wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: #FA6737;
+    padding: 10px 10px 0 10px;
+
+    animation: geolocationModalAnimateClose 1s ease-in forwards;
+
+    z-index: 16;
+}
+
+@keyframes geolocationModalAnimateOpen {
+    0%{
+        transform: translateY(-145px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+@keyframes geolocationModalAnimateClose {
+    0%{
+        
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(-145px);
+    }
+}
+
+
+.geolocation-header__text{
+    color: #fff;
+    text-align: center;
+}
+
+.geolocation-p__text{
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+
+}
+
+.geolocation-modal__mappinicon{
+    width: 100%;
+    text-align: center;
+}
+
+.geolcoation-modal-btns__wrapper{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+.geolocation-close__btn{
+    border: none;
+    color: #fff;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.geolocation-enable__btn{
+    padding: 5px 20px;
+    background-color: #fff;
+    color: #FA6737;
+    
+    border: 1px solid #fff;
+    border-radius: 10px;
+    width: 100px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+    
+}
+
+.geolocation-show__btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    
+    margin-top: 10px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+}
