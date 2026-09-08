@@ -447,6 +447,8 @@
     background-color: #FA6737;
     padding: 10px 10px 0 10px;
 
+    width: 100%;
+
     animation: geolocationModalAnimateOpen 1s ease-in forwards;
 
     z-index: 16;
@@ -460,6 +462,8 @@
     background-color: #FA6737;
     padding: 10px 10px 0 10px;
 
+    width: 100%;
+
     animation: geolocationModalAnimateClose 1s ease-in forwards;
 
     z-index: 16;
@@ -467,7 +471,7 @@
 
 @keyframes geolocationModalAnimateOpen {
     0%{
-        transform: translateY(-145px);
+        transform: translateY(-135px);
     }
     100%{
         transform: translateY(0);
@@ -480,7 +484,7 @@
         transform: translateY(0);
     }
     100%{
-        transform: translateY(-145px);
+        transform: translateY(-135px);
     }
 }
 
@@ -544,7 +548,6 @@
     color: #fff;
     
     margin-top: 10px;
-    padding: 5px;
     width: 100%;
     background-color: transparent;
     border: none;
