@@ -42,6 +42,7 @@ import ModalDecisionContainer from "../../../ModalContainer/ModalDecisionContain
 import { Helmet } from "react-helmet-async";
 
 import "../../../../styles/homepagestyles.css";
+import posthog from "posthog-js";
 const HomePageFilter = ({ filterShopType, setFilterShopType }) => {
   const handleFilterClicked = (e, type) => {
     e.preventDefault();
@@ -1588,6 +1589,9 @@ const DecisionButtonModal = ({
 
   const openModalClicked = (e) => {
     e.preventDefault();
+
+    posthog.capture("decision_btn_clicked");
+
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -1620,6 +1624,11 @@ const DecisionButtonModal = ({
 
     const handleAlternativeResultOpen = (e, data) => {
       e.preventDefault();
+      posthog.capture("alternatives_results", {
+        category: shopType,
+        preference: mostImportant,
+      });
+
       setAltResult(data);
       setOpenedAlternativeResult(true);
     };
@@ -1755,6 +1764,11 @@ const DecisionButtonModal = ({
 
           const res = await response.json();
           setDecisionResults(res);
+          posthog.capture("decision_results", {
+            category: shopType,
+            preference: mostImportant,
+          });
+
           setTimeout(() => {
             setIsLoadingDecisionResult(false);
             setStageNumber(3);
@@ -1917,7 +1931,10 @@ const DecisionButtonModal = ({
           <div className="decision-modal-container__wrapper">
             <button
               className="-btn-transparent"
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => {
+                posthog.capture("decision_modal_close");
+                setIsModalOpen(false);
+              }}
             >
               <XIcon />
             </button>
