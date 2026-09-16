@@ -18,6 +18,7 @@ import { API_URI } from "../../assets/js/api-auth";
 import { Helmet } from "react-helmet-async";
 
 import "../../styles/modalcontainerstyles.css";
+import posthog from "posthog-js";
 const ModalDecisionContainer = ({
   modalData,
   clickedModal,
@@ -32,6 +33,8 @@ const ModalDecisionContainer = ({
   const [currentDeal, setCurrentDeal] = useState(modalData[0]);
 
   const [topPick, setTopPick] = useState(modalData[0]);
+
+  posthog.capture("decision_results_modal_open");
 
   const handleImagesClicked = (e, current) => {
     e.preventDefault();
@@ -62,6 +65,9 @@ const ModalDecisionContainer = ({
   //handles the location change when user clicks the show on map button
   const handleOpenMap = (e) => {
     e.preventDefault();
+    posthog.capture("decision_results_shownmap_clicked", {
+      chosenPlace: currentDeal.place,
+    });
     setActiveMenu("map"); //this just shows the user the active menu on the nav bar
     navigate(
       `/map?lonParams=${currentDeal.place.longitude}&latParams=${currentDeal.place.latitude}`,
