@@ -15,9 +15,11 @@ import {
   CoffeeIcon,
   FireIcon,
   ForkKnifeIcon,
+  GiftIcon,
   GpsSlashIcon,
   HamburgerIcon,
   HourglassHighIcon,
+  ImagesIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
   PizzaIcon,
@@ -256,6 +258,7 @@ const DisplayPage = ({
     const DealsOnNow = ({ handleClickModal, availblePromotionsNow }) => {
       const [loading, setLoading] = useState(true);
       const [noDeals, setNoDeals] = useState(false);
+      const [dealIndexes, setDealIndexes] = useState({});
 
       useEffect(() => {
         if (availblePromotionsNow.length > 0) {
@@ -350,27 +353,69 @@ const DisplayPage = ({
                   >
                     {item.shopName}
                   </h6>
-                  {item.deals.map((deal) => (
-                    <div key={deal.id}>
-                      <p
-                        style={{
-                          fontSize: "9px",
-                          color: "red",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {getTimeRemaining(deal.endTime) &&
-                          `${getTimeRemaining(deal.endTime)}`}
-                      </p>
-                      <p className="card-title__text">{deal.dealTitle}</p>
 
-                      <p className="card-description__text">
-                        {item.description.length > 30
-                          ? item.description.substring(0, 80) + "..."
-                          : item.description}
-                      </p>
-                    </div>
-                  ))}
+                  {item.deals.length > 1 ? (
+                    <>
+                      {(() => {
+                        const currentDealIndex = dealIndexes[item.id] || 0;
+                        const deal = item.deals[currentDealIndex];
+
+                        return (
+                          <div className="promotion-card-if-more-than-one__wrapper">
+                            <div>
+                              <p className="card-title__text">
+                                {deal.dealTitle}
+                              </p>
+
+                              <p className="card-description__text">
+                                {item.description.length > 80
+                                  ? item.description.substring(0, 80) + "..."
+                                  : item.description}
+                              </p>
+                            </div>
+
+                            <button
+                              className="next-deals__btn"
+                              onClick={() =>
+                                setDealIndexes((prev) => ({
+                                  ...prev,
+                                  [item.id]:
+                                    (currentDealIndex + 1) % item.deals.length,
+                                }))
+                              }
+                            >
+                              click for next deals
+                              <CaretRightIcon weight="fill" color="#FA6737" />
+                            </button>
+                          </div>
+                        );
+                      })()}
+                    </>
+                  ) : (
+                    <>
+                      {item.deals.map((deal) => (
+                        <div key={deal.id}>
+                          <p
+                            style={{
+                              fontSize: "9px",
+                              color: "red",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {getTimeRemaining(deal.endTime) &&
+                              `${getTimeRemaining(deal.endTime)}`}
+                          </p>
+                          <p className="card-title__text">{deal.dealTitle}</p>
+
+                          <p className="card-description__text">
+                            {item.description.length > 30
+                              ? item.description.substring(0, 80) + "..."
+                              : item.description}
+                          </p>
+                        </div>
+                      ))}
+                    </>
+                  )}
                 </div>
               ))}
             </div>
@@ -408,7 +453,7 @@ const DisplayPage = ({
         <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
           <h4 className="-display-flex-align-items-center -gap-5">
             <HamburgerIcon color="#FA6737" weight="fill" />
-            Cheap Lunch Deals
+            Lunch Deals
           </h4>
 
           {loading ? (
@@ -723,52 +768,142 @@ const DisplayPage = ({
       );
     };
 
-    const HotDeals = () => {
+    const BdayDeals = () => {
+      const [clickedModal, setClickedModal] = useState(false);
+      const [deals, setDeals] = useState([]);
+      const [modalData, setModalData] = useState([]);
+      useEffect(() => {
+        fetchDeals();
+      }, []);
+
+      const fetchDeals = async () => {
+        try {
+          const response = await fetch(`${API_URI}/api/bdaypromotion`, {
+            method: "GET",
+          });
+
+          if (response.status === 404) {
+            setDeals([]);
+          }
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch birthday promotions");
+          }
+
+          const data = await response.json();
+          setDeals(data);
+        } catch (err) {
+          console.error(err);
+          throw err;
+        }
+      };
+
+      const handleClickModal = (e, data) => {
+        e.preventDefault();
+        setClickedModal(true);
+        setModalData(data);
+      };
+
+      const BdayModalContainer = ({ modalData, setClickedModal }) => {
+        return (
+          <div>
+            <div className="overlay"></div>
+            <div className="modal-container__wrapper">
+              <div
+                className="modal-images-empty__wrapper"
+                style={{ backgroundColor: "#FA6737" }}
+              >
+                <div style={{ textAlign: "center" }}>
+                  <GiftIcon size={30} color="#fff" weight="fill" />
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "#fff",
+                    }}
+                  >
+                    Its your birthday? Get your birthday deal now!
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div className="-display-flex-align-items-center -gap-5 -margin-top-10">
+                  <h4 className="modal-shopname__h4">{modalData.shopName}</h4>
+                </div>
+                <p className="modal-description__p">{modalData.description}</p>
+                <p className="modal-description__p">
+                  Terms and conditions apply. <br />
+                  Visit their{" "}
+                  <a
+                    href={modalData.shopUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "underline" }}
+                  >
+                    website
+                  </a>{" "}
+                  for more information.
+                </p>
+              </div>
+            </div>
+
+            <div className="modal-cta__btns">
+              <button
+                className="modal-close__btn"
+                onClick={() => setClickedModal(false)}
+              >
+                <XIcon color="#fff" />
+                Close
+              </button>
+            </div>
+          </div>
+        );
+      };
+
       return (
         <div style={{ borderBottom: "1px solid #ccc", marginTop: "20px" }}>
+          {clickedModal && (
+            <BdayModalContainer
+              modalData={modalData}
+              setClickedModal={setClickedModal}
+            />
+          )}
           <h4 className="-display-flex-align-items-center -gap-5">
-            <FireIcon color="#FA6737" weight="fill" />
-            Hot Deals
+            <GiftIcon color="#FA6737" weight="fill" />
+            Birthday Deals
           </h4>
 
           <div className="display-default-page-cards-container__wrapper">
-            <div className="display-page-card__wrapper">
-              <h6 className="card-shopName__text">Mission Bay Cafe</h6>
-              <p className="card-title__text">30% OFF all food</p>
-              <p className="card-description__text">
-                This promotion is on until December 20th when you dine after
-                3:00pm you will get a 30% OFF excluded drinks
-              </p>
-            </div>
-
-            <div className="display-page-card__wrapper">
-              <h6 className="card-shopName__text">Howick Village Cafe</h6>
-
-              <p className="card-title__text">$4.90 coffees. Mon-Fri</p>
-              <p className="card-description__text">
-                This promotion is only available on weekdays.
-              </p>
-            </div>
-
-            <div className="display-page-card__wrapper">
-              <h6 className="card-shopName__text">Ronnies Cafe</h6>
-
-              <p className="card-title__text">
-                Free 250ml Can Drink For Meal Over $20
-              </p>
-              <p className="card-description__text">
-                This promotion is available Monday to Friday, you will get a
-                free can drink for every meal $20 above.
-              </p>
-            </div>
-            <div className="display-page-card__wrapper">
-              <h6 className="card-shopName__text">Uglyz Cafe & Bar</h6>
-
-              <p className="card-title__text">Happy Hour, 50% drinks</p>
-              <p className="card-description__text">
-                Every weekday from 3pm to 5pm
-              </p>
-            </div>
+            {deals.map((deal) => (
+              <div className="display-page-card__wrapper" key={deal.id}>
+                <div
+                  style={{
+                    width: "100px",
+                    height: "30px",
+                    backgroundColor: "#FA6737",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>
+                    <GiftIcon size={15} color="#fff" weight="fill" />
+                  </div>
+                </div>
+                <h6
+                  className="card-shopName__text"
+                  onClick={(e) => handleClickModal(e, deal)}
+                >
+                  {deal.shopName}
+                </h6>
+                <p className="card-title__text">{deal.title}</p>
+                <p className="card-description__text">
+                  {deal.description.length > 30
+                    ? `${deal.description.substring(0, 50)}...`
+                    : deal.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       );
@@ -967,6 +1102,8 @@ const DisplayPage = ({
               handleClickModal={handleClickModal}
               availblePromotionsNow={availblePromotionsNow}
             />
+
+            <BdayDeals />
             <LunchDeals
               handleClickModal={handleClickModal}
               promotions={promotions}
@@ -975,8 +1112,6 @@ const DisplayPage = ({
               handleClickModal={handleClickModal}
               promotions={promotions}
             />
-
-            <HotDeals />
 
             <AestheticFoodSpots />
 
