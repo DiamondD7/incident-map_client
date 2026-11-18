@@ -23,6 +23,7 @@ import {
   MagnifyingGlassIcon,
   MapPinIcon,
   PizzaIcon,
+  QuestionIcon,
   SparkleIcon,
   TimerIcon,
   XIcon,
@@ -875,7 +876,7 @@ const DisplayPage = ({
           <div className="display-default-page-cards-container__wrapper">
             {deals.map((deal) => (
               <div className="display-page-card__wrapper" key={deal.id}>
-                <div
+                {/* <div
                   style={{
                     width: "100px",
                     height: "30px",
@@ -889,19 +890,22 @@ const DisplayPage = ({
                   <div style={{ textAlign: "center" }}>
                     <GiftIcon size={15} color="#fff" weight="fill" />
                   </div>
-                </div>
-                <h6
-                  className="card-shopName__text"
-                  onClick={(e) => handleClickModal(e, deal)}
-                >
-                  {deal.shopName}
-                </h6>
+                </div> */}
+                <h6 className="card-shopName__text">{deal.shopName}</h6>
                 <p className="card-title__text">{deal.title}</p>
                 <p className="card-description__text">
                   {deal.description.length > 30
-                    ? `${deal.description.substring(0, 50)}...`
+                    ? `${deal.description.substring(0, 40)}...`
                     : deal.description}
                 </p>
+
+                <button
+                  className="-btn-learn-more"
+                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                  onClick={(e) => handleClickModal(e, deal)}
+                >
+                  Learn more <QuestionIcon weight="fill" />
+                </button>
               </div>
             ))}
           </div>
