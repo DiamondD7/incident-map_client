@@ -69,6 +69,18 @@
   animation: loadingAnimation 1s infinite;
 }
 
+.-btn-learn-more{
+    font-size: 10px;    
+    font-weight: bold;
+
+    background-color: #FA6737;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 .-aesthetic-label{
     padding: 1px 5px;
